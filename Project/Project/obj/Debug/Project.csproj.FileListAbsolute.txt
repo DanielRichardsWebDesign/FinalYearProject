@@ -114,7 +114,6 @@ C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Projec
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\bin\Microsoft.AI.Web.xml
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\obj\Debug\Project.csprojAssemblyReference.cache
-C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\obj\Debug\Project.csproj.CoreCompileInputs.cache
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\obj\Debug\Project.csproj.CopyComplete
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\obj\Debug\Project.dll
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\obj\Debug\Project.pdb
