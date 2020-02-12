@@ -25,6 +25,9 @@ namespace Project.Models
         {
         }
 
+        //Virtual DbSet to interact with the generated code created by Identity
+        public virtual DbSet<Projects> Projects { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
