@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using Project.Models;
 
 namespace Project.Controllers
@@ -17,7 +18,10 @@ namespace Project.Controllers
         // GET: Projects
         public ActionResult Index()
         {
-            return View(db.Projects.ToList());
+            //Get current user id
+            var strCurrentUserId = User.Identity.GetUserId();
+
+            return View(db.Projects.ToList().Where(u => u.ApplicationUser.Id == strCurrentUserId));
         }
 
         // GET: Projects/Details/5
