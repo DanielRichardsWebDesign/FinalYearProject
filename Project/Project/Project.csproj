@@ -204,6 +204,10 @@
     <Compile Include="Migrations\202002122116289_Create-Projects-Table-And-User-Relationship.Designer.cs">
       <DependentUpon>202002122116289_Create-Projects-Table-And-User-Relationship.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002130855189_Modifying-Project-Attributes.cs" />
+    <Compile Include="Migrations\202002130855189_Modifying-Project-Attributes.Designer.cs">
+      <DependentUpon>202002130855189_Modifying-Project-Attributes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -291,6 +295,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202002122116289_Create-Projects-Table-And-User-Relationship.resx">
       <DependentUpon>202002122116289_Create-Projects-Table-And-User-Relationship.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002130855189_Modifying-Project-Attributes.resx">
+      <DependentUpon>202002130855189_Modifying-Project-Attributes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
