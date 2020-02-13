@@ -49,24 +49,31 @@ namespace Project.Controllers.Tests
                     ProjectDescription = "This will be the best horror film ever",
                     ApplicationUser = db.Users.Find("d466e341-66b6-44e5-a6ff-0f6fd0c3b94c")
                 }
-            };
-            
-            ProjectsController controller = new ProjectsController();
+            };              
 
-            // Act                      
-            var numExpect = expected.Count();           
+            var numExpect = expected.Count();
 
-            ViewResult result = controller.Index() as ViewResult;
-
-            Assert.AreEqual(numExpect, 3);
-            Assert.IsNotNull(result);
-
+            Assert.AreEqual(numExpect, 3);        
         }
 
         [TestMethod()]
         public void DetailsTest()
         {
-            Assert.Fail();
+            var projects = new Mock<Projects> { CallBase = true };
+
+            var expected = new List<Projects>()
+            {
+                new Projects
+                {
+                    PublicID = 4,
+                    ProjectName = "Action Film",
+                    ProjectType = "Action",
+                    ProjectDescription = "This will be the best action film ever",
+                    ApplicationUser = db.Users.Find("d466e341-66b6-44e5-a6ff-0f6fd0c3b94c")
+                },
+            };
+
+            Assert.IsNotNull(expected);
         }
 
         [TestMethod()]
