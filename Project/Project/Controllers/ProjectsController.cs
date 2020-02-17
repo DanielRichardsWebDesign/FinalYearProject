@@ -73,7 +73,7 @@ namespace Project.Controllers
             if (projects == null)
             {
                 return HttpNotFound();
-            }
+            }            
             return View(projects);
         }
 
