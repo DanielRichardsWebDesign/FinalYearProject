@@ -199,17 +199,12 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202002122116289_Create-Projects-Table-And-User-Relationship.cs" />
-    <Compile Include="Migrations\202002122116289_Create-Projects-Table-And-User-Relationship.Designer.cs">
-      <DependentUpon>202002122116289_Create-Projects-Table-And-User-Relationship.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202002130855189_Modifying-Project-Attributes.cs" />
-    <Compile Include="Migrations\202002130855189_Modifying-Project-Attributes.Designer.cs">
-      <DependentUpon>202002130855189_Modifying-Project-Attributes.cs</DependentUpon>
+    <Compile Include="Migrations\202002190928060_InitialCreate.cs" />
+    <Compile Include="Migrations\202002190928060_InitialCreate.Designer.cs">
+      <DependentUpon>202002190928060_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -396,18 +391,15 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202002122116289_Create-Projects-Table-And-User-Relationship.resx">
-      <DependentUpon>202002122116289_Create-Projects-Table-And-User-Relationship.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202002130855189_Modifying-Project-Attributes.resx">
-      <DependentUpon>202002130855189_Modifying-Project-Attributes.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202002190928060_InitialCreate.resx">
+      <DependentUpon>202002190928060_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

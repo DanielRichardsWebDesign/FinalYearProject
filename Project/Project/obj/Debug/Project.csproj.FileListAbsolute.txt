@@ -238,6 +238,5 @@ F:\University Work\Third Year\FinalYearProject\Project\Project\obj\Debug\Project
 F:\University Work\Third Year\FinalYearProject\Project\Project\obj\Debug\Project.pdb
 F:\University Work\Third Year\FinalYearProject\Project\Project\obj\Debug\Project.Migrations.CreateProjectsTableAndUserRelationship.resources
 F:\University Work\Third Year\FinalYearProject\Project\Project\obj\Debug\Project.csproj.GenerateResource.Cache
-C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\obj\Debug\Project.Migrations.CreateProjectsTableAndUserRelationship.resources
+C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\obj\Debug\Project.Migrations.InitialCreate.resources
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\obj\Debug\Project.csproj.GenerateResource.cache
-C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\obj\Debug\Project.Migrations.ModifyingProjectAttributes.resources

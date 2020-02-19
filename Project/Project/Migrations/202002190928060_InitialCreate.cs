@@ -3,7 +3,7 @@ namespace Project.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class CreateProjectsTableAndUserRelationship : DbMigration
+    public partial class InitialCreate : DbMigration
     {
         public override void Up()
         {
@@ -12,13 +12,13 @@ namespace Project.Migrations
                 c => new
                     {
                         PublicID = c.Int(nullable: false, identity: true),
-                        ProjectName = c.String(maxLength: 25),
-                        ProjectType = c.String(maxLength: 50),
-                        ProjectDescription = c.String(maxLength: 250),
-                        ApplicationUser_Id = c.String(maxLength: 128),
+                        ProjectName = c.String(nullable: false, maxLength: 25),
+                        ProjectType = c.String(nullable: false, maxLength: 50),
+                        ProjectDescription = c.String(nullable: false, maxLength: 250),
+                        ApplicationUser_Id = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => t.PublicID)
-                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id, cascadeDelete: true)
                 .Index(t => t.ApplicationUser_Id);
             
             CreateTable(
