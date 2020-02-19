@@ -26,7 +26,7 @@ namespace Project.Models
         [Required]        
         public string ProjectDescription { get; set; }
         //True for private. False for public
-        //public bool ProjectPrivacy { get; set; }         
+        //public bool ProjectPrivacy { get; set; } 
 
         //Reference ApplicationUser_Id from Identity framework
         [Required]

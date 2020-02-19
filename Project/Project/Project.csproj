@@ -202,9 +202,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202002190928060_InitialCreate.cs" />
-    <Compile Include="Migrations\202002190928060_InitialCreate.Designer.cs">
-      <DependentUpon>202002190928060_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\202002190952368_InitialCreate.cs" />
+    <Compile Include="Migrations\202002190952368_InitialCreate.Designer.cs">
+      <DependentUpon>202002190952368_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -366,11 +366,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Projects\Create.cshtml" />
-    <Content Include="Views\Projects\Delete.cshtml" />
-    <Content Include="Views\Projects\Details.cshtml" />
-    <Content Include="Views\Projects\Edit.cshtml" />
-    <Content Include="Views\Projects\Index.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper.js.flow" />
@@ -397,8 +392,8 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202002190928060_InitialCreate.resx">
-      <DependentUpon>202002190928060_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202002190952368_InitialCreate.resx">
+      <DependentUpon>202002190952368_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
