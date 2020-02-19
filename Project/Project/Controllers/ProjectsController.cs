@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Project.Models;
+using Microsoft.AspNet.Identity;
 
 namespace Project.Controllers
 {
@@ -40,7 +41,8 @@ namespace Project.Controllers
         // GET: Projects/Create
         public ActionResult Create()
         {
-            ViewBag.ApplicationUserID = new SelectList(db.Users, "Id", "Email");
+            ViewBag.UserID = User.Identity.GetUserId().ToString();
+            ViewBag.CurrentDate = DateTime.Today;
             return View();
         }
 
@@ -58,7 +60,8 @@ namespace Project.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ApplicationUserID = new SelectList(db.Users, "Id", "Email", projects.ApplicationUserID);
+            ViewBag.UserID = User.Identity.GetUserId().ToString();
+            ViewBag.CurrentDate = DateTime.Now.ToString();
             return View(projects);
         }
 
