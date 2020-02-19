@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Project.Models
 {
@@ -27,6 +28,9 @@ namespace Project.Models
         public string ProjectDescription { get; set; }
         //True for private. False for public
         //public bool ProjectPrivacy { get; set; } 
+
+        [DataType(DataType.Date), Column(TypeName = "Date"), Required, DisplayFormat(DataFormatString ="{0:dd/MM/yyyy}", ApplyFormatInEditMode =true)]
+        public DateTime DateCreated { get; set; }
 
         //Reference ApplicationUser_Id from Identity framework
         [Required]
