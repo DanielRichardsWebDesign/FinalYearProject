@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 
 namespace Project.Models
 {
@@ -16,24 +17,30 @@ namespace Project.Models
         [Display(Name = "Project Name")]
         [Required]
         public string ProjectName { get; set; }
-        
-        [MaxLength(50)]        
+
+        [MaxLength(50)]
         [Required]
         public string ProjectType { get; set; }
-        
+
         [MaxLength(250)]
         [StringLength(250, ErrorMessage = "The {0} must be at least {2} characters long", MinimumLength = 10)]
         [Display(Name = "Project Description")]
-        [Required]        
+        [Required]
         public string ProjectDescription { get; set; }
         //True for private. False for public
         //public bool ProjectPrivacy { get; set; } 
 
-        [DataType(DataType.Date), Column(TypeName = "Date"), Required, DisplayFormat(DataFormatString ="{0:dd/MM/yyyy}", ApplyFormatInEditMode =true)]
+        [DataType(DataType.Date), Column(TypeName = "Date"), Required, DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DateCreated { get; set; }
 
         //Reference ApplicationUser_Id from Identity framework
-        [Required]
+        public string ApplicationUserID { get; set; }
+        
         public virtual ApplicationUser ApplicationUser { get; set; }
+    }
+
+    public class ProjectDBContext : DbContext
+    {
+        public virtual DbSet<Projects> Projects { get; set; }        
     }
 }

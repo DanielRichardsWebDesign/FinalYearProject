@@ -41,7 +41,6 @@ C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Projec
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project.Tests\bin\Debug\Microsoft.AspNet.Identity.Core.xml
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project.Tests\bin\Debug\Microsoft.AspNet.Identity.Owin.xml
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project.Tests\bin\Debug\Microsoft.Owin.Security.xml
-C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project.Tests\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project.Tests\bin\Debug\EntityFramework.xml
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project.Tests\bin\Debug\Microsoft.Owin.Security.Cookies.xml
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project.Tests\bin\Debug\Microsoft.Owin.Host.SystemWeb.xml
