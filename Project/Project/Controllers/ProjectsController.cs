@@ -19,8 +19,9 @@ namespace Project.Controllers
         // GET: Projects
         public async Task<ActionResult> Index()
         {
+            var currentUserID = User.Identity.GetUserId();
             var projects = db.Projects.Include(p => p.ApplicationUser);
-            return View(await projects.ToListAsync());
+            return View(await projects.Where(p => p.ApplicationUserID.Equals(currentUserID)).ToListAsync());
         }
 
         // GET: Projects/Details/5
