@@ -12,9 +12,10 @@
     </div>
 </div>
 
-<p>
-    @Html.ActionLink("Create New", "Create", null, htmlAttributes: new { @class = "btn btn-success" })
-</p>
+<a href="@Url.Action("Create", "Projects")" class="btn btn-success">
+    Create New
+    <span class="fa fa-plus" aria-hidden="true"></span>
+</a>
 <hr />
 @*<table class="table">
     <tr>
@@ -43,14 +44,17 @@
         <div class="card-body">
             <h1>Oh no! No projects! :(</h1>
             <p>Create projects by clicking below!</p>
-            @Html.ActionLink("Create New", "Create", null, htmlAttributes: new { @class = "btn btn-success" })
+            <a href="@Url.Action("Create", "Projects")" class="btn btn-success">
+                Create New
+                <span class="fa fa-plus" aria-hidden="true"></span>
+            </a>
         </div>
     </div>
 }
 
-    <div class="row">
-        @foreach (var item in Model)
-        {
+<div class="row">
+    @foreach (var item in Model)
+    {
         @*<tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.ApplicationUser.Email)
@@ -90,8 +94,8 @@
                 </div>
             </div>
         </div>
-        }       
+    }
 
-    </div>
+</div>
 
-    @*</table>*@
+@*</table>*@

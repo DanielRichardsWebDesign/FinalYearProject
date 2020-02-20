@@ -242,3 +242,4 @@ C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Projec
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\obj\Debug\Project.csproj.GenerateResource.cache
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\obj\Debug\Project.Migrations.AddProjects.resources
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\obj\Debug\Project.Migrations.RemoveRequireApplicationUserVirtual.resources
+C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\bin\WebActivatorEx.dll
