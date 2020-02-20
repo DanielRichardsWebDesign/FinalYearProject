@@ -42,7 +42,7 @@ namespace Project.Controllers
         public ActionResult Create()
         {
             ViewBag.UserID = User.Identity.GetUserId().ToString();
-            ViewBag.CurrentDate = DateTime.Today;
+            ViewBag.CurrentDate = DateTime.Today.ToString();
             return View();
         }
 
