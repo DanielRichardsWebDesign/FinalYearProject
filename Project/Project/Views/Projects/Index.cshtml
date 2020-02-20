@@ -42,8 +42,8 @@
 {
     <div class="card text-center">
         <div class="card-body">
-            <h1>Oh no! No projects! :(</h1>
-            <p>Create projects by clicking below!</p>
+            <h1>Oh no! No projects! <span class="fas fa-surprise"></span></h1>
+            <p>Create projects by clicking below! <span class="fas fa-smile-beam"></span></p>
             <a href="@Url.Action("Create", "Projects")" class="btn btn-success">
                 Create New
                 <span class="fa fa-plus" aria-hidden="true"></span>
@@ -92,7 +92,7 @@
                     </a>
                     <a href="@Url.Action("Delete", "Projects", new { id = item.PublicID })" class="btn btn-danger">
                         Delete
-                        <span class="fa fa-trash-o"></span>
+                        <span class="fa fa-trash"></span>
                     </a>
                 </div>
                 <div class="card-footer">
