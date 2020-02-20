@@ -12,12 +12,11 @@
     </div>
 </div>
 
-<h2>Index</h2>
-
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null, htmlAttributes: new { @class = "btn btn-success" })
 </p>
-<table class="table">
+<hr />
+@*<table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.ApplicationUser.Email)
@@ -35,31 +34,64 @@
             @Html.DisplayNameFor(model => model.DateCreated)
         </th>
         <th></th>
-    </tr>
+    </tr>*@
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ApplicationUser.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProjectName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProjectType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProjectDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateCreated)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.PublicID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.PublicID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.PublicID })
-        </td>
-    </tr>
+
+@if (Model.Count() == 0)
+{
+    <div class="card text-center">
+        <div class="card-body">
+            <h1>Oh no! No projects! :(</h1>
+            <p>Create projects by clicking below!</p>
+            @Html.ActionLink("Create New", "Create", null, htmlAttributes: new { @class = "btn btn-success" })
+        </div>
+    </div>
 }
 
-</table>
+    <div class="row">
+        @foreach (var item in Model)
+        {
+        @*<tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApplicationUser.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProjectName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProjectType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProjectDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateCreated)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.PublicID }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.PublicID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.PublicID })
+                </td>
+            </tr>*@
+
+        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 mt-2 mb-2">
+            <div class="card">
+                <div class="card-header">
+                    @Html.DisplayFor(modelItem => item.ProjectType)
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.ProjectName)</h5>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.ProjectDescription)</p>
+                    @Html.ActionLink("View Details", "Details", new { id = item.PublicID }, htmlAttributes: new { @class = "btn btn-primary d-flex mb-2" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.PublicID }, htmlAttributes: new { @class = "btn btn-danger d-flex" })
+                </div>
+                <div class="card-footer">
+                    @Html.DisplayFor(modelItem => item.DateCreated)
+                </div>
+            </div>
+        </div>
+        }       
+
+    </div>
+
+    @*</table>*@
