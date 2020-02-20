@@ -1,8 +1,16 @@
-﻿@model IEnumerable<Project.Models.Projects>
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<Project.Models.Projects>
 
 @{
     ViewBag.Title = "Index";
 }
+
+<div class="jumbotron jumbotron-fluid bg-primary text-white">
+    <div class="container">
+        <h1 class="display-4">@User.Identity.GetUserName()'s Projects"</h1>
+        <p class="lead">View your created projects here, as well as create new ones!</p>
+    </div>
+</div>
 
 <h2>Index</h2>
 
