@@ -43,7 +43,7 @@ namespace Project.Controllers
         public ActionResult Create()
         {
             ViewBag.UserID = User.Identity.GetUserId().ToString();
-            ViewBag.CurrentDate = DateTime.Today.ToString();
+            ViewBag.CurrentDate = DateTime.Today.ToString("dd/MM/yyyy");
             return View();
         }
 
