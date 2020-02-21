@@ -79,6 +79,7 @@ namespace Project.Controllers
                 return HttpNotFound();
             }
             ViewBag.ApplicationUserID = new SelectList(db.Users, "Id", "Email", projects.ApplicationUserID);
+            ViewBag.DateCreated = db.Projects.Find(id).DateCreated.ToString("dd/MM/yyyy");
             return View(projects);
         }
 
