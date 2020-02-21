@@ -74,7 +74,10 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    <a href="@Url.Action("Index", "Projects")">
+        Back to List
+        <span class="fas fa-undo"></span>
+    </a>
 </div>
 
 @section Scripts {
