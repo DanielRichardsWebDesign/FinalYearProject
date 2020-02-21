@@ -134,5 +134,12 @@ namespace Project.Controllers
             }
             base.Dispose(disposing);
         }
+
+        // Projects WorkStation Controller
+        public async Task<ActionResult> WorkStation(int? id)
+        {
+            Projects project = await db.Projects.FindAsync(id);
+            return View(project);
+        }
     }
 }
