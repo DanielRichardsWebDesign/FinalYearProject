@@ -247,6 +247,10 @@
     <Compile Include="Migrations\202002191537137_RemoveRequireApplicationUserVirtual.designer.cs">
       <DependentUpon>202002191537137_RemoveRequireApplicationUserVirtual.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002251700436_AddFiles.cs" />
+    <Compile Include="Migrations\202002251700436_AddFiles.designer.cs">
+      <DependentUpon>202002251700436_AddFiles.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Files.cs" />
@@ -538,6 +542,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002191537137_RemoveRequireApplicationUserVirtual.resx">
       <DependentUpon>202002191537137_RemoveRequireApplicationUserVirtual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002251700436_AddFiles.resx">
+      <DependentUpon>202002251700436_AddFiles.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
