@@ -1,0 +1,69 @@
+﻿@model Project.Models.Projects
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Projects</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUser.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUser.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProjectName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProjectName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProjectType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProjectType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProjectDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProjectDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <a href="@Url.Action("Edit", "Projects", new { id = Model.PublicID })">
+        Edit
+        <span class="fas fa-wrench"></span>
+    </a> |
+    <a href="@Url.Action("WorkStation", "Projects", new { id = Model.PublicID })" class="btn btn-primary">
+        View Workstation
+        <span class="fa fa-eye"></span>
+    </a> |
+    <a href="@Url.Action("Index", "Projects")">
+        Back to List
+        <span class="fas fa-undo"></span>
+    </a> |
+
+</p>

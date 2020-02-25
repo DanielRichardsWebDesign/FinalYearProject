@@ -1,0 +1,80 @@
+﻿@model Project.Models.Projects
+
+@{
+    ViewBag.Title = "WorkStation";
+}
+
+<div class="jumbotron bg-primary text-white">
+    <div class="container">
+        <h1 class="display-4">@Model.ProjectName: Workstation</h1>
+        <p class="lead">Review, upload & download your project's files, & monitor user activity.</p>
+    </div>
+</div>
+
+<h2>Workstation</h2>
+
+<div class="card text-center">
+    <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Files <span class="fas fa-file"></span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Users <span class="fas fa-user"></span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Activity</a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">File Name</th>
+                    <th scope="col">File Type</th>
+                    <th scope="col">File Size</th>
+                    <th scope="col">Date Uploaded</th>
+                    <th scope="col">Uploaded by</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">IMG_001</th>
+                    <td>.png</td>
+                    <td>5MB</td>
+                    <td>22/02/2020</td>
+                    <td>DanFilmsLtd</td>
+                    <td>
+                        <a class="btn btn-primary" href="#"><span class="fas fa-download"></span></a>
+                        <a class="btn btn-danger" href="#"><span class="fas fa-trash"></span></a>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">VID_002</th>
+                    <td>.mp4</td>
+                    <td>15MB</td>
+                    <td>22/02/2020</td>
+                    <td>DanFilmsLtd</td>
+                    <td>
+                        <a class="btn btn-primary" href="#"><span class="fas fa-download"></span></a>
+                        <a class="btn btn-danger" href="#"><span class="fas fa-trash"></span></a>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">AUD_003</th>
+                    <td>.mp3</td>
+                    <td>10MB</td>
+                    <td>22/02/2020</td>
+                    <td>DanFilmsLtd</td>
+                    <td>
+                        <a class="btn btn-primary" href="#"><span class="fas fa-download"></span></a>
+                        <a class="btn btn-danger" href="#"><span class="fas fa-trash"></span></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
