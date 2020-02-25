@@ -30,6 +30,7 @@ namespace Project.Models
         //True for private. False for public
         //public bool ProjectPrivacy { get; set; } 
 
+        //Define the certain date/time format to use 
         [DataType(DataType.Date), Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DateCreated { get; set; }
 
