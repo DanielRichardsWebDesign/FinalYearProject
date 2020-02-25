@@ -38,6 +38,9 @@ namespace Project.Models
         public string ApplicationUserID { get; set; }
         
         public virtual ApplicationUser ApplicationUser { get; set; }
+
+        //Collection of files on Project
+        public virtual ICollection<Files> Files { get; set; }
     }
 
     public class ProjectDBContext : DbContext
