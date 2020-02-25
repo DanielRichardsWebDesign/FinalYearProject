@@ -29,10 +29,10 @@ namespace Project.Models
         public string FilePath { get; set; }
 
         //Gets the specific date and time a file has been uploaded
-        [DataType(DataType.DateTime), Column(TypeName = "DateUploaded"), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.DateTime), Display(Name = "Date Uploaded"), Column(TypeName = "DateUploaded"), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime DateUploaded { get; set; }
 
-        [DataType(DataType.DateTime), Column(TypeName = "DateModified"), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.DateTime), Display(Name = "Date Modified"), Column(TypeName = "DateModified"), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime DateModified { get; set; }
 
         //Get specific Project by ID
