@@ -14,6 +14,25 @@ namespace Project.Services.Tests
     public class AzureBlobServiceTests
     {
         [TestMethod()]
+        public void CreateBlobContainerTest()
+        {
+            var testContainerName = "test";
+
+            //Create connection to client
+            var connectionStringConfiguration = ConfigurationManager.ConnectionStrings["StorageClient"].ConnectionString;
+            var cloudStorageConnection = CloudStorageAccount.Parse(connectionStringConfiguration);
+            var blobClient = cloudStorageConnection.CreateCloudBlobClient();
+
+            //Check if a blob container of that name exists
+            var blobContainer = blobClient.GetContainerReference(testContainerName);
+
+            //Create new Container if it does not exist
+            blobContainer.CreateIfNotExists();
+
+            Assert.IsTrue(blobContainer.Exists());
+        }
+
+        [TestMethod()]
         public void GetBlobContainerTest()
         {
             //Test container
@@ -27,6 +46,7 @@ namespace Project.Services.Tests
             //Get Blob container
             var blobContainer = blobClient.GetContainerReference(testContainerName);
 
+            //Assert that container exists
             Assert.IsTrue(blobContainer.Exists());
         }
 

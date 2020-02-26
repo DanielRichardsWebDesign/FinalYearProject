@@ -17,6 +17,11 @@ namespace Project.Services
     {
         private string storageConnectionString = ConfigurationManager.ConnectionStrings["StorageClient"].ConnectionString;
 
+        public async Task CreateBlobContainer(string containerName)
+        {
+
+        }
+
         public async Task GetBlobContainer()
         {
 
