@@ -16,16 +16,29 @@ namespace Project.Services.Tests
         [TestMethod()]
         public void GetBlobContainerTest()
         {
-            Assert.Fail();
+            //Test container
+            var testContainerName = "test";
+
+            //Create connection to client
+            var connectionStringConfiguration = ConfigurationManager.ConnectionStrings["StorageClient"].ConnectionString;
+            var cloudStorageConnection = CloudStorageAccount.Parse(connectionStringConfiguration);
+            var blobClient = cloudStorageConnection.CreateCloudBlobClient();
+
+            //Get Blob container
+            var blobContainer = blobClient.GetContainerReference(testContainerName);
+
+            Assert.IsTrue(blobContainer.Exists());
         }
 
         [TestMethod()]
         public void GetClient()
         {
+            //Create connection to client
             var connectionStringConfiguration = ConfigurationManager.ConnectionStrings["StorageClient"].ConnectionString;
             var cloudStorageConnection = CloudStorageAccount.Parse(connectionStringConfiguration);
             var blobClient = cloudStorageConnection.CreateCloudBlobClient();
 
+            //Asert that the blob client exists
             Assert.IsNotNull(blobClient);
         }
 
