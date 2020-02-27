@@ -122,7 +122,31 @@ namespace Project.Services.Tests
         [TestMethod()]
         public void DeleteAllAsyncTest()
         {
-            Assert.Fail();
+            //Test container
+            var testContainerName = "test";
+
+            //Create connection to client
+            var connectionStringConfiguration = ConfigurationManager.ConnectionStrings["StorageClient"].ConnectionString;
+            var cloudStorageConnection = CloudStorageAccount.Parse(connectionStringConfiguration);
+            var blobClient = cloudStorageConnection.CreateCloudBlobClient();
+
+            //Blob continuation token
+            BlobContinuationToken blobContinuationToken = null;
+
+            //Get Blob container
+            var blobContainer = blobClient.GetContainerReference(testContainerName);
+            var response = blobContainer.ListBlobsSegmentedAsync(blobContinuationToken);
+
+            //Iterate through blobs on container
+            foreach(IListBlobItem blob in blobContainer.ListBlobs())
+            {
+                if(blob.GetType() == typeof(CloudBlockBlob))
+                {
+                    ((CloudBlockBlob)blob).DeleteIfExistsAsync();
+                }                    
+            }
+
+            Assert.AreEqual(blobContainer.ListBlobs().Count(), 0);
         }
     }
 }

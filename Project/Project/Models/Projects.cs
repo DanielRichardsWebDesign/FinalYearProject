@@ -28,7 +28,14 @@ namespace Project.Models
         [Required]
         public string ProjectDescription { get; set; }
         //True for private. False for public
-        //public bool ProjectPrivacy { get; set; } 
+        //public bool ProjectPrivacy { get; set; }
+        
+        //Name to set for Blob storage container for this Project
+        [MaxLength(63)]
+        [StringLength(63, ErrorMessage = "The {0} must be at least {2} characters long", MinimumLength = 3)]
+        [Display(Name = "Project Container Name")]
+        [Required]
+        public string ProjectContainerName { get; set; }
 
         //Define the certain date/time format to use 
         [DataType(DataType.Date), Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
