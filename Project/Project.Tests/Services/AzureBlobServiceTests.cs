@@ -96,7 +96,27 @@ namespace Project.Services.Tests
         [TestMethod()]
         public void DeleteAsyncTest()
         {
-            Assert.Fail();
+            //Test container
+            var testContainerName = "test";
+
+            //Sample blob name
+            var blob = "test-image.png";
+
+            //Create connection to client
+            var connectionStringConfiguration = ConfigurationManager.ConnectionStrings["StorageClient"].ConnectionString;
+            var cloudStorageConnection = CloudStorageAccount.Parse(connectionStringConfiguration);
+            var blobClient = cloudStorageConnection.CreateCloudBlobClient();
+
+            //Get Blob container
+            var blobContainer = blobClient.GetContainerReference(testContainerName);
+
+            //Get blob on container
+            var blobOnContainer = blobContainer.GetBlockBlobReference(blob);
+
+            //Delete blob on container
+            blobOnContainer.DeleteIfExists();
+
+            Assert.IsTrue(!blobOnContainer.Exists());
         }
 
         [TestMethod()]
