@@ -247,7 +247,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\FilesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
@@ -269,6 +268,10 @@
     <Compile Include="Migrations\202002251700436_AddFiles.cs" />
     <Compile Include="Migrations\202002251700436_AddFiles.designer.cs">
       <DependentUpon>202002251700436_AddFiles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003011240130_AddContainerNameToProjects.cs" />
+    <Compile Include="Migrations\202003011240130_AddContainerNameToProjects.designer.cs">
+      <DependentUpon>202003011240130_AddContainerNameToProjects.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -538,11 +541,6 @@
     <Content Include="webfonts\fa-brands-400.ttf" />
     <Content Include="webfonts\fa-brands-400.eot" />
     <Content Include="Views\Projects\WorkStation.cshtml" />
-    <Content Include="Views\Files\Create.cshtml" />
-    <Content Include="Views\Files\Delete.cshtml" />
-    <Content Include="Views\Files\Details.cshtml" />
-    <Content Include="Views\Files\Edit.cshtml" />
-    <Content Include="Views\Files\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -570,6 +568,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002251700436_AddFiles.resx">
       <DependentUpon>202002251700436_AddFiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003011240130_AddContainerNameToProjects.resx">
+      <DependentUpon>202003011240130_AddContainerNameToProjects.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
