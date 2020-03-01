@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Project.Models;
+using Project.Services;
 using Microsoft.AspNet.Identity;
 
 namespace Project.Controllers
@@ -15,10 +16,23 @@ namespace Project.Controllers
     public class ProjectsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private IAzureBlobService azureBlobService;
 
+        //Create an instance of AzureBlobService class, to access the interface methods
+        public ProjectsController() :this(new AzureBlobService())
+        {
+
+        }
+
+        public ProjectsController(IAzureBlobService azureBlobService)
+        {
+            this.azureBlobService = azureBlobService;
+        }
+                
         // GET: Projects
         public async Task<ActionResult> Index()
         {
+
             var currentUserID = User.Identity.GetUserId();
             var projects = db.Projects.Include(p => p.ApplicationUser);
             return View(await projects.Where(p => p.ApplicationUserID.Equals(currentUserID)).ToListAsync());
@@ -58,6 +72,13 @@ namespace Project.Controllers
             {
                 db.Projects.Add(projects);
                 await db.SaveChangesAsync();
+
+                //Create Azure Blob Container with ProjectContainerName
+                string containerName = projects.ProjectContainerName;                
+
+                //Create Container with ProjectContainerName
+                await azureBlobService.CreateBlobContainer(containerName);
+
                 return RedirectToAction("Index");
             }
 
