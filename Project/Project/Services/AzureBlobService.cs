@@ -29,7 +29,7 @@ namespace Project.Services
             var blobContainer = blobClient.GetContainerReference(containerName);
 
             //Create new container if it does not exist
-            blobContainer.CreateIfNotExists();
+            await blobContainer.CreateIfNotExistsAsync();
 
             return blobContainer;
         }
