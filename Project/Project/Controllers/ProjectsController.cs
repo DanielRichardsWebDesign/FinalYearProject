@@ -159,6 +159,10 @@ namespace Project.Controllers
         // Projects WorkStation Controller
         public async Task<ActionResult> WorkStation(int? id)
         {
+            ViewBag.PublicID = id;
+            ViewBag.UserID = User.Identity.GetUserId().ToString();
+            ViewBag.CurrentDate = DateTime.Today.ToString("dd/MM/yyyy HH:mm");
+
             Projects project = await db.Projects.FindAsync(id);
             return View(project);
         }
