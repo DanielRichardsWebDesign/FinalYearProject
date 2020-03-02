@@ -503,3 +503,4 @@ F:\University Work\Third Year\FinalYearProject\Project\Project\obj\Debug\Project
 F:\University Work\Third Year\FinalYearProject\Project\Project\obj\Debug\Project.Migrations.RemoveRequireApplicationUserVirtual.resources
 F:\University Work\Third Year\FinalYearProject\Project\Project\obj\Debug\Project.Migrations.AddFiles.resources
 F:\University Work\Third Year\FinalYearProject\Project\Project\obj\Debug\Project.Migrations.AddContainerNameToProjects.resources
+C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\obj\Debug\Project.Migrations.AddContainerNameToProjects.resources
