@@ -160,8 +160,8 @@ namespace Project.Controllers
         // Projects WorkStation Controller
         public async Task<ActionResult> WorkStation(int? id)
         {
-            ViewBag.PublicID = id;           
-            ViewBag.UserID = User.Identity.GetUserId().ToString();
+            ViewBag.PublicID = id.ToString();           
+            ViewBag.UserID = User.Identity.GetUserId();
             ViewBag.CurrentDate = DateTime.Today.ToString("dd/MM/yyyy HH:mm");
 
             Projects project = await db.Projects.FindAsync(id);
@@ -170,29 +170,46 @@ namespace Project.Controllers
 
         // POST: FileUploadAsync
         [HttpPost]
-        public async Task<ActionResult> UploadFileAsync(List<HttpPostedFileBase> formFiles, string containerName, Files files)
-        {            
-           
-            
-                //var projectContainerName = files.Projects.ProjectContainerName;
-
-                try
+        public async Task<ActionResult> UploadFileAsync(List<HttpPostedFileBase> formFiles, string containerName, string publicID, string userID, DateTime currentDate)
+        {                                         
+            try
+            {
+                if (formFiles == null)
                 {
-                    if (formFiles == null)
-                    {
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                    }
-
-                    //Upload to Azure Blob Container
-                    await azureBlobService.UploadAsync(formFiles, containerName);
-
-                    return RedirectToAction("Index", "Home");
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                catch
+
+                //Upload to Azure Blob Container
+                await azureBlobService.UploadAsync(formFiles, containerName);
+
+                //Create a new file entity for each form file in formFiles list
+                foreach (var formFile in formFiles)
                 {
-                    return View("Error");
-                }            
+                    string blobUri = await azureBlobService.GetBlobUri(formFile.FileName, containerName);
+
+                    //Create new file entity
+                    var file = new Files()
+                    {
+                        FileName = formFile.FileName,
+                        FileType = formFile.ContentType,
+                        FileSize = formFile.ContentLength.ToString(),
+                        FilePath = blobUri,
+                        DateUploaded = currentDate,
+                        DateModified = currentDate,
+                        PublicID = Int32.Parse(publicID),
+                        ApplicationUserID = userID
+                    };
+                    db.Files.Add(file);
+                    await db.SaveChangesAsync();
+                }
+
+                return RedirectToAction("Index", "Home");
+            }
+            catch
+            {
+                return View("Error");
+            }            
             
-        }
+        }        
     }
 }

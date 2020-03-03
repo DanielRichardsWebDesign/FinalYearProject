@@ -166,9 +166,6 @@ C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Projec
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project.Tests\bin\Debug\System.Numerics.Vectors.dll
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project.Tests\bin\Debug\WebActivatorEx.dll
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project.Tests\bin\Debug\WebGrease.dll
-C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project.Tests\bin\Debug\Microsoft.AspNetCore.Http.Features.dll
-C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project.Tests\bin\Debug\Microsoft.Extensions.Primitives.dll
-C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project.Tests\bin\Debug\System.IO.Pipelines.dll
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project.Tests\bin\Debug\Azure.Core.xml
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project.Tests\bin\Debug\Azure.Storage.Blobs.xml
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project.Tests\bin\Debug\Azure.Storage.Common.xml
@@ -180,9 +177,6 @@ C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Projec
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project.Tests\bin\Debug\System.Diagnostics.DiagnosticSource.xml
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project.Tests\bin\Debug\System.Memory.xml
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project.Tests\bin\Debug\System.Numerics.Vectors.xml
-C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project.Tests\bin\Debug\Microsoft.AspNetCore.Http.Features.xml
-C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project.Tests\bin\Debug\Microsoft.Extensions.Primitives.xml
-C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project.Tests\bin\Debug\System.IO.Pipelines.xml
 F:\University Work\Third Year\FinalYearProject\Project\Project.Tests\bin\Debug\ApplicationInsights.config
 F:\University Work\Third Year\FinalYearProject\Project\Project.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
 F:\University Work\Third Year\FinalYearProject\Project\Project.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll

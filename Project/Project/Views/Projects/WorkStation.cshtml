@@ -17,7 +17,13 @@
 {
     <input type="file" class="btn btn-success" id="formFiles" name="formFiles" value="Select A File" multiple="multiple" />
 
-    <input type="hidden" name="containerName" value="@Model.ProjectContainerName" />    
+    <input type="hidden" name="containerName" value="@Model.ProjectContainerName" />
+
+    <input type="hidden" name="publicID" value="@Model.PublicID" />
+
+    <input type="hidden" name="userID" value="@ViewBag.UserID" />
+
+    <input type="hidden" name="currentDate" value="@ViewBag.CurrentDate" />
 
     <input type="submit" value="Upload" class="btn btn-default" />
 }

@@ -14,6 +14,7 @@ namespace Project.Services
     {
         Task<CloudBlobContainer> CreateBlobContainer(string containerName);
         Task UploadAsync(List<HttpPostedFileBase> files, string containerName);
+        Task<string> GetBlobUri(string fileName, string containerName);
     }
 
     public class AzureBlobService : IAzureBlobService
@@ -39,6 +40,25 @@ namespace Project.Services
         public async Task GetBlobContainer()
         {
 
+        }
+
+        public async Task<string> GetBlobUri(string fileName, string containerName)
+        {
+            //Create connection to client
+            var connectionStringConfiguration = ConfigurationManager.ConnectionStrings["StorageClient"].ConnectionString;
+            var cloudStorageConnection = CloudStorageAccount.Parse(connectionStringConfiguration);
+            var blobClient = cloudStorageConnection.CreateCloudBlobClient();
+
+            //Get container
+            var blobContainer = blobClient.GetContainerReference(containerName);
+
+            //Get blob
+            CloudBlockBlob blob = blobContainer.GetBlockBlobReference(fileName);
+
+            //Get blob Uri
+            var blobUri = blob.Uri.ToString();
+
+            return blobUri;            
         }
 
         public async Task UploadAsync(List<HttpPostedFileBase> files, string containerName)

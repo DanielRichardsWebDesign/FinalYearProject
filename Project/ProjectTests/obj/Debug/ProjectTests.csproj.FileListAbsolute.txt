@@ -18,7 +18,6 @@ C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Projec
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\Microsoft.AspNet.Identity.Owin.dll
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\Microsoft.Owin.Security.dll
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\Owin.dll
-C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\Microsoft.AspNetCore.Http.Features.dll
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\EntityFramework.dll
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\Microsoft.Owin.Security.Cookies.dll
@@ -27,15 +26,7 @@ C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Projec
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\System.Web.WebPages.dll
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\System.Web.WebPages.Razor.dll
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\System.Web.Razor.dll
-C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\netstandard.dll
-C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\Microsoft.Extensions.Primitives.dll
-C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\System.IO.Pipelines.dll
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\System.Web.WebPages.Deployment.dll
-C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\System.Memory.dll
-C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
-C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\System.Threading.Tasks.Extensions.dll
-C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\System.Buffers.dll
-C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\System.Numerics.Vectors.dll
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\Project.pdb
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\Project.dll.config
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\Microsoft.Azure.KeyVault.Core.xml
@@ -50,7 +41,6 @@ C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Projec
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\Microsoft.AspNet.Identity.Core.xml
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\Microsoft.AspNet.Identity.Owin.xml
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\Microsoft.Owin.Security.xml
-C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\Microsoft.AspNetCore.Http.Features.xml
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\EntityFramework.xml
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\Microsoft.Owin.Security.Cookies.xml
@@ -58,12 +48,7 @@ C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Projec
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\System.Web.WebPages.xml
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\System.Web.WebPages.Razor.xml
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\System.Web.Razor.xml
-C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\Microsoft.Extensions.Primitives.xml
-C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\System.IO.Pipelines.xml
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\System.Web.WebPages.Deployment.xml
-C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\System.Memory.xml
-C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
-C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\obj\Debug\ProjectTests.csprojAssemblyReference.cache
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\obj\Debug\ProjectTests.csproj.CopyComplete
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\obj\Debug\ProjectTests.dll
