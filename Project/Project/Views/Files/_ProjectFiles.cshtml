@@ -7,7 +7,7 @@
                 <th scope="col">File Type</th>
                 <th scope="col">File Size</th>
                 <th scope="col">Date Uploaded</th>
-                <th scope="col">Uploaded by</th>
+                <th scope="col">Uploaded by</th>                
                 <th scope="col">Actions</th>
             </tr>
         </thead>
@@ -29,13 +29,7 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FilePath)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateUploaded)
-                </td>                
+                </td>                                        
                 <td>
                     <a class="btn btn-primary" href="#"><span class="fas fa-eye"></span></a>
                     <a class="btn btn-primary" href="#"><span class="fas fa-download"></span></a>
