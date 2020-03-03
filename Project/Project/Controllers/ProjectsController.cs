@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using Project.Models;
 using Project.Services;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Http;
 
 namespace Project.Controllers
 {
@@ -159,12 +160,39 @@ namespace Project.Controllers
         // Projects WorkStation Controller
         public async Task<ActionResult> WorkStation(int? id)
         {
-            ViewBag.PublicID = id;
+            ViewBag.PublicID = id;           
             ViewBag.UserID = User.Identity.GetUserId().ToString();
             ViewBag.CurrentDate = DateTime.Today.ToString("dd/MM/yyyy HH:mm");
 
             Projects project = await db.Projects.FindAsync(id);
             return View(project);
+        }
+
+        // POST: FileUploadAsync
+        [HttpPost]
+        public async Task<ActionResult> UploadFileAsync(List<HttpPostedFileBase> formFiles, string containerName, Files files)
+        {            
+           
+            
+                //var projectContainerName = files.Projects.ProjectContainerName;
+
+                try
+                {
+                    if (formFiles == null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
+
+                    //Upload to Azure Blob Container
+                    await azureBlobService.UploadAsync(formFiles, containerName);
+
+                    return RedirectToAction("Index", "Home");
+                }
+                catch
+                {
+                    return View("Error");
+                }            
+            
         }
     }
 }

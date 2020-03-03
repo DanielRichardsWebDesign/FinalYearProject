@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Data.Entity;
 using System.Threading.Tasks;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using Project.Models;
 using Project.Services;
-using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Http;
+using System.Net;
 
 namespace Project.Controllers
 {
@@ -33,7 +28,7 @@ namespace Project.Controllers
         {
             var files = db.Files.Include(f => f.ApplicationUser).Include(f => f.Projects);
             return View(await files.ToListAsync());
-        }
+        }    
         
         
 
