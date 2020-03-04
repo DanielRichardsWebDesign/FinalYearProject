@@ -15,6 +15,7 @@ namespace Project.Services
         Task<CloudBlobContainer> CreateBlobContainer(string containerName);
         Task UploadAsync(List<HttpPostedFileBase> files, string containerName);
         Task<string> GetBlobUri(string fileName, string containerName);
+        Task DeleteAsync(string containerName, string fileUri);
     }
 
     public class AzureBlobService : IAzureBlobService
@@ -80,9 +81,27 @@ namespace Project.Services
             });
         }
 
-        public async Task DeleteAsync(string fileUri)
+        public async Task DeleteAsync(string containerName, string fileUri)
         {
+            //Create connection to client
+            var connectionStringConfiguration = ConfigurationManager.ConnectionStrings["StorageClient"].ConnectionString;
+            var cloudStorageConnection = CloudStorageAccount.Parse(connectionStringConfiguration);
+            var blobClient = cloudStorageConnection.CreateCloudBlobClient();
 
+            //Get container
+            var blobContainer = blobClient.GetContainerReference(containerName);
+
+            //Convert the string uri from the database into a uri to locate the file
+            Uri uri = new Uri(fileUri);
+
+            //Get file name of blob from the Uri path
+            string fileName = Path.GetFileName(uri.LocalPath);
+
+            //Get the blob which matches the file name
+            var blob = blobContainer.GetBlockBlobReference(fileName);
+
+            //Delete blob if it exists on container
+            await blob.DeleteIfExistsAsync();
         }
 
         public async Task DeleteAllAsync()
