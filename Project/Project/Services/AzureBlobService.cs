@@ -76,6 +76,8 @@ namespace Project.Services
             Parallel.ForEach(files, file =>
             {
                 CloudBlockBlob blob = blobContainer.GetBlockBlobReference(file.FileName);
+                //Set content type to match uploaded file
+                blob.Properties.ContentType = file.ContentType;
                 blob.UploadFromStream(file.InputStream);
                 file.InputStream.Close();
             });
