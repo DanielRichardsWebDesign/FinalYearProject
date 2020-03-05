@@ -31,7 +31,7 @@
                     @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
                 </td>                                        
                 <td>
-                    <a class="btn btn-primary" href="#"><span class="fas fa-eye"></span></a>
+                    <a class="btn btn-primary" href="@Url.Action("Details", "Files", new { id = item.FileID })"><span class="fas fa-eye"></span></a>
                     <a class="btn btn-primary" href="#"><span class="fas fa-download"></span></a>
                     <a class="btn btn-danger" href="@Url.Action("Delete", "Files", new { id = item.FileID })"><span class="fas fa-trash"></span></a>
                 </td>

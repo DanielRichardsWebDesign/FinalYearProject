@@ -30,6 +30,21 @@ namespace Project.Controllers
             return View(await files.ToListAsync());
         }
 
+        // GET: Files/Details/5
+        public async Task<ActionResult> Details(int? id)
+        {
+            if(id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Files files = await db.Files.FindAsync(id);
+            if(files == null)
+            {
+                return HttpNotFound();
+            }
+            return View(files);
+        }
+
         // GET: Files/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {

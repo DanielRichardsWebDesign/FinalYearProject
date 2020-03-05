@@ -35,6 +35,11 @@ namespace Project.Services
             //Create new container if it does not exist
             await blobContainer.CreateIfNotExistsAsync();
 
+            //Set blob container to public
+            BlobContainerPermissions containerPermission = new BlobContainerPermissions();
+            containerPermission.PublicAccess = BlobContainerPublicAccessType.Blob; //Set blobs to public
+            await blobContainer.SetPermissionsAsync(containerPermission);
+
             return blobContainer;
         }
 

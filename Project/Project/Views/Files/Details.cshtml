@@ -1,0 +1,76 @@
+﻿@model Project.Models.Files
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+  
+
+<h4>Files</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6 col-sm-12">
+        <dl class="dl-horizontal">
+            <dt>
+                Uploaded By:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ApplicationUser.UserName)
+            </dd>
+
+            <dt>
+                Project:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Projects.ProjectName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.FileName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FileName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.FileType)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FileType)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.FileSize)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FileSize)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DateUploaded)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DateUploaded)
+            </dd>
+
+        </dl>
+    </div>
+</div>
+<div class="col-md-6 col-sm-12">
+    @if(Model.FileType.Contains("image"))
+    {
+        <img src="@Model.FilePath" class="rounded mx-auto d-block" alt="@Model.FileName" height="200" width="200" />
+    }
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.FileID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
