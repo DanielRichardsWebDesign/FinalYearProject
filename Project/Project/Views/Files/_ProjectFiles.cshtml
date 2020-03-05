@@ -3,10 +3,22 @@
 <!--Create popover so that a preview of the Azure blob file can be seen on hovering.-->
 <script>
     $(function () {
-        $('#popover').popover({
-            trigger: "hover focus",            
+        //$('#popover').each.function();{
+        //    popover("toggle", {
+        //        trigger: "hover focus",
+        //    });                        
+        //};
+
+        //$('#popover').popover({
+        //    trigger: 'hover focus'
+        //});
+
+        $('.pop-over').each(function (i) {
+            $(this).popover({
+                trigger: "hover focus"
+            });
         });
-    })
+    });
 </script>
 
 <table class="table table-hover">
@@ -25,7 +37,7 @@
     {
         <tr>
             <td>
-                <a href="@Url.Action("Details", "Files", new { id = item.FileID })" id="popover" data-trigger="hover focus" title="@item.FileName" data-html="true" data-content="'<img src='@item.FilePath' width='200' class='img-thumbnail' />'" data-placement="top">@Html.DisplayFor(modelItem => item.FileName)</a>
+                <a href="@Url.Action("Details", "Files", new { id = item.FileID })" tabindex="0" class="pop-over" data-trigger="hover focus" title="@item.FileName" data-html="true" data-content="'<img src='@item.FilePath' alt='@item.FileName' width='200' class='img-thumbnail' />'" data-placement="top">@Html.DisplayFor(modelItem => item.FileName)</a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FileType)
