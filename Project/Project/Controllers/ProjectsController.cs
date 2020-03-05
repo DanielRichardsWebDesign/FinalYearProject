@@ -177,7 +177,7 @@ namespace Project.Controllers
                 if (formFiles == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
+                }                
 
                 //Upload to Azure Blob Container
                 await azureBlobService.UploadAsync(formFiles, containerName);
@@ -203,7 +203,7 @@ namespace Project.Controllers
                     await db.SaveChangesAsync();
                 }
 
-                return RedirectToAction("Index", "Home");
+                return Redirect(Request.UrlReferrer.ToString());
             }
             catch
             {
