@@ -74,5 +74,5 @@
 </div>
 
 <p>    
-    @Html.ActionLink("Back to Workstation", "WorkStation", "Projects", new { id = Model.PublicID })
+    <a href="@Url.Action("WorkStation", "Projects", new { id = Model.PublicID })">Back to Workstation</a>
 </p>
