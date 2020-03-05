@@ -66,7 +66,7 @@ namespace Project.Controllers
                 db.Files.Remove(files);
                 await db.SaveChangesAsync();
 
-                return RedirectToAction("Index", "Projects");
+                return RedirectToAction("WorkStation", "Projects", new { id = files.PublicID });
             }
             catch
             {
