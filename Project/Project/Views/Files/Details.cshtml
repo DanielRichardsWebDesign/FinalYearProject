@@ -79,9 +79,9 @@
             <div class="controls">
                 <button class="btn btn-primary" onclick="wavesurfer.playPause()">
                     <i class="fas fa-play"></i>
-                    Play / 
+                    Play /
                     <i class="fas fa-pause"></i>
-                    Pause 
+                    Pause
                 </button>
             </div>
             <br />
@@ -90,6 +90,7 @@
 
             <script src="https://unpkg.com/wavesurfer.js"></script>
 
+            <!--Generate Waveform from Audio File-->
             <script>
                 var wavesurfer = WaveSurfer.create({
                     container: '#waveform',
@@ -103,8 +104,27 @@
                 wavesurfer.load(song);
                 wavesurfer.on('ready', function () { wavesurfer.play(); });
             </script>
+            <!--Generate Waveform from Audio File-->
+        }
 
-
+        @if (Model.FileType.Contains("video"))
+        {
+        <video id="video-preview"
+               class="video-js"
+               controls
+               preload="auto"
+               width="640"
+               height="264"
+               data-setup="{}">
+                <source src="@Model.FilePath" type="@Model.FileType" />
+                <p class="vjs-no-js">
+                    To view this video please enable JavaScript, and consider upgrading to a
+                    web browser that
+                    <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+                </p>
+        </video>
+        <br />
+        <a href="#" class="btn btn-primary"><span class="fas fa-download"></span>Download</a>
 
         }
     </div>
