@@ -7,6 +7,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNetCore.Http;
+using Microsoft.WindowsAzure.Storage.Shared.Protocol;
 
 namespace Project.Services
 {
@@ -28,6 +29,23 @@ namespace Project.Services
             var connectionStringConfiguration = ConfigurationManager.ConnectionStrings["StorageClient"].ConnectionString;
             var cloudStorageConnection = CloudStorageAccount.Parse(connectionStringConfiguration);
             var blobClient = cloudStorageConnection.CreateCloudBlobClient();
+
+            //Setting up  CORS - Will allow for streaming of files contained on Azure Blobs
+            //Getting client service properties
+            var serviceProperties = blobClient.GetServiceProperties();
+
+            serviceProperties.Cors.CorsRules.Clear();
+
+            serviceProperties.Cors.CorsRules.Add(new CorsRule()
+            {
+                AllowedHeaders = { "*" },
+                AllowedMethods = CorsHttpMethods.Get | CorsHttpMethods.Head | CorsHttpMethods.Post,
+                AllowedOrigins = { "*" },
+                ExposedHeaders = { "*" },
+                MaxAgeInSeconds = 600
+            });
+
+            blobClient.SetServiceProperties(serviceProperties);
 
             //Check if a blob container of that name exists
             var blobContainer = blobClient.GetContainerReference(containerName);

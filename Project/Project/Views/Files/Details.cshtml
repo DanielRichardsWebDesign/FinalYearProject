@@ -70,6 +70,40 @@
             <br />
             <a href="#" class="btn btn-primary"><span class="fas fa-download"></span>Download</a>
         }
+        @if (Model.FileType.Contains("audio"))
+        {
+            <!--Div container for waveform.js audio player.-->
+            <div id="waveform"></div>
+            <!--Control buttons for audio-->
+            <div class="controls">
+                <button class="btn btn-primary" onclick="wavesurfer.playPause()">
+                    <i class="fas fa-play"></i>
+                    Play / 
+                    <i class="fas fa-pause"></i>
+                    Pause 
+                </button>
+            </div>            
+
+            <a href="#" class="btn btn-primary"><span class="fas fa-download"></span>Download</a>
+
+            <script src="https://unpkg.com/wavesurfer.js"></script>
+
+            <script>
+                var wavesurfer = WaveSurfer.create({
+                    container: '#waveform',
+                    barWidth: 2,
+                    barHeight: 1, // the height of the wave
+                    barGap: null // the optional spacing between bars of the wave, if not provided will be calculated in legacy format
+                });
+
+                var song = '@Model.FilePath';
+                wavesurfer.load(song);
+                wavesurfer.on('ready', function () { wavesurfer.play(); });
+            </script>
+
+
+
+        }
     </div>
 </div>
 

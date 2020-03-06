@@ -5,6 +5,7 @@ using Project.Models;
 using Project.Services;
 using Microsoft.AspNetCore.Http;
 using System.Net;
+using Microsoft.AspNetCore.Cors;
 
 namespace Project.Controllers
 {
@@ -30,7 +31,7 @@ namespace Project.Controllers
             return View(await files.ToListAsync());
         }
 
-        // GET: Files/Details/5
+        // GET: Files/Details/5        
         public async Task<ActionResult> Details(int? id)
         {
             if(id == null)
