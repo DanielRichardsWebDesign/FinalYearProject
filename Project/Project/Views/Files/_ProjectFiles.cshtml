@@ -16,7 +16,7 @@
         $('.pop-over').each(function (i) {
             $(this).popover({
                 trigger: "hover focus"
-            });
+            });            
         });
     });
 </script>
@@ -37,7 +37,15 @@
     {
         <tr>
             <td>
-                <a href="@Url.Action("Details", "Files", new { id = item.FileID })" tabindex="0" class="pop-over" data-trigger="hover focus" title="@item.FileName" data-html="true" data-content="'<img src='@item.FilePath' alt='@item.FileName' width='200' class='img-thumbnail' />'" data-placement="top">@Html.DisplayFor(modelItem => item.FileName)</a>
+                @if (item.FileType.Contains("image"))
+                {
+                    <a href="@Url.Action("Details", "Files", new { id = item.FileID })" tabindex="0" class="pop-over" data-trigger="hover focus" title="@item.FileName" data-html="true" data-content="'<img src='@item.FilePath' alt='@item.FileName' width='200' class='img-thumbnail' />'" data-placement="top">@Html.DisplayFor(modelItem => item.FileName)</a>
+                }
+                @if(item.FileType.Contains("audio"))
+                {
+                    <a href="@Url.Action("Details", "Files", new { id = item.FileID })" tabindex="0" class="pop-over" data-trigger="hover focus" title="@item.FileName" data-html="true" data-content="<span class='fas fa-file-audio fa-10x'></span>" data-placement="top">@Html.DisplayFor(modelItem => item.FileName)</a>                   
+                    
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FileType)

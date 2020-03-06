@@ -74,6 +74,7 @@
         {
             <!--Div container for waveform.js audio player.-->
             <div id="waveform"></div>
+            <br />
             <!--Control buttons for audio-->
             <div class="controls">
                 <button class="btn btn-primary" onclick="wavesurfer.playPause()">
@@ -82,7 +83,8 @@
                     <i class="fas fa-pause"></i>
                     Pause 
                 </button>
-            </div>            
+            </div>
+            <br />
 
             <a href="#" class="btn btn-primary"><span class="fas fa-download"></span>Download</a>
 
@@ -93,7 +95,8 @@
                     container: '#waveform',
                     barWidth: 2,
                     barHeight: 1, // the height of the wave
-                    barGap: null // the optional spacing between bars of the wave, if not provided will be calculated in legacy format
+                    barGap: null, // the optional spacing between bars of the wave, if not provided will be calculated in legacy format
+                    responsive: true
                 });
 
                 var song = '@Model.FilePath';
