@@ -304,6 +304,10 @@
     <Compile Include="Migrations\202003011240130_AddContainerNameToProjects.designer.cs">
       <DependentUpon>202003011240130_AddContainerNameToProjects.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003091714330_ChangeDateToDateTime.cs" />
+    <Compile Include="Migrations\202003091714330_ChangeDateToDateTime.designer.cs">
+      <DependentUpon>202003091714330_ChangeDateToDateTime.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Files.cs" />
@@ -608,6 +612,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003011240130_AddContainerNameToProjects.resx">
       <DependentUpon>202003011240130_AddContainerNameToProjects.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003091714330_ChangeDateToDateTime.resx">
+      <DependentUpon>202003091714330_ChangeDateToDateTime.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -162,7 +162,7 @@ namespace Project.Controllers
         {
             ViewBag.PublicID = id.ToString();           
             ViewBag.UserID = User.Identity.GetUserId();
-            ViewBag.CurrentDate = DateTime.Today.ToString("dd/MM/yyyy HH:mm");
+            ViewBag.CurrentDate = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
 
             Projects project = await db.Projects.FindAsync(id);
             return View(project);
