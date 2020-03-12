@@ -148,5 +148,33 @@ namespace Project.Services.Tests
 
             Assert.AreEqual(blobContainer.ListBlobs().Count(), 0);
         }
+
+        [TestMethod()]
+        public void DownloadAsyncTest()
+        {
+            //Test container
+            var testContainerName = "test";
+
+            //Sample blob name
+            var blob = "test-image.png";
+
+            //Create connection to client
+            var connectionStringConfiguration = ConfigurationManager.ConnectionStrings["StorageClient"].ConnectionString;
+            var cloudStorageConnection = CloudStorageAccount.Parse(connectionStringConfiguration);
+            var blobClient = cloudStorageConnection.CreateCloudBlobClient();
+
+            //Get Blob container
+            var blobContainer = blobClient.GetContainerReference(testContainerName);
+
+            //Get blob on container
+            var blobOnContainer = blobContainer.GetBlockBlobReference(blob);
+
+            //Download blob to a local directory
+            Stream file = File.OpenWrite(@"C:\Users\Daniel Richards\Documents\University" + blob);
+            blobOnContainer.DownloadToStream(file);
+
+            //Assert not empty
+            Assert.IsNotNull(file);
+        }
     }
 }
