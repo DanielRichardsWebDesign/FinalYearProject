@@ -1,13 +1,12 @@
-﻿using Microsoft.WindowsAzure.Storage.Blob;
-using Microsoft.WindowsAzure.Storage;
+﻿using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
+using Microsoft.WindowsAzure.Storage.Shared.Protocol;
 using System;
-using System.Configuration;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Threading.Tasks;
 using System.Web;
-using Microsoft.AspNetCore.Http;
-using Microsoft.WindowsAzure.Storage.Shared.Protocol;
 
 namespace Project.Services
 {
@@ -17,6 +16,7 @@ namespace Project.Services
         Task UploadAsync(List<HttpPostedFileBase> files, string containerName);
         Task<string> GetBlobUri(string fileName, string containerName);
         Task DeleteAsync(string containerName, string fileUri);
+        Task<Stream> DownloadAsync(string fileName, string containerName);
     }
 
     public class AzureBlobService : IAzureBlobService
@@ -24,7 +24,7 @@ namespace Project.Services
         private string storageConnectionString = ConfigurationManager.ConnectionStrings["StorageClient"].ConnectionString;
 
         public async Task<CloudBlobContainer> CreateBlobContainer(string containerName)
-        {        
+        {
             //Create connection to client
             var connectionStringConfiguration = ConfigurationManager.ConnectionStrings["StorageClient"].ConnectionString;
             var cloudStorageConnection = CloudStorageAccount.Parse(connectionStringConfiguration);
@@ -82,7 +82,7 @@ namespace Project.Services
             //Get blob Uri
             var blobUri = blob.Uri.ToString();
 
-            return blobUri;            
+            return blobUri;
         }
 
         public async Task UploadAsync(List<HttpPostedFileBase> files, string containerName)
@@ -104,6 +104,30 @@ namespace Project.Services
                 blob.UploadFromStream(file.InputStream);
                 file.InputStream.Close();
             });
+        }
+
+        public async Task<Stream> DownloadAsync(string fileName, string containerName)
+        {
+            MemoryStream stream = new MemoryStream();
+
+            //Create connection to client
+            var connectionStringConfiguration = ConfigurationManager.ConnectionStrings["StorageClient"].ConnectionString;
+            var cloudStorageConnection = CloudStorageAccount.Parse(connectionStringConfiguration);
+            var blobClient = cloudStorageConnection.CreateCloudBlobClient();
+
+            //Get container
+            var blobContainer = blobClient.GetContainerReference(containerName);
+
+            //Get blob through uri
+            CloudBlockBlob blob = blobContainer.GetBlockBlobReference(fileName);
+
+            await blob.DownloadToStreamAsync(stream);            
+            stream.Position = 0;
+
+            Stream blobStream = blob.OpenReadAsync().Result;
+
+            //return Blob
+            return blobStream;
         }
 
         public async Task DeleteAsync(string containerName, string fileUri)

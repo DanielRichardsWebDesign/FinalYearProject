@@ -6,6 +6,7 @@ using Project.Services;
 using Microsoft.AspNetCore.Http;
 using System.Net;
 using Microsoft.AspNetCore.Cors;
+using System.IO;
 
 namespace Project.Controllers
 {
@@ -89,6 +90,19 @@ namespace Project.Controllers
                 return View("Error");
             }           
             
+        }
+
+        // DOWNLOAD        
+        public async Task<ActionResult> DownloadFile(int id)
+        {
+            //Get file object
+            Files file = db.Files.Find(id);           
+
+            //Get file from blob container
+            var blobStream = await azureBlobService.DownloadAsync(file.FileName, file.Projects.ProjectContainerName);            
+
+            //Return file to browser - Will appear as download.
+            return File(blobStream, file.FileType, file.FileName);
         }
 
         protected override void Dispose(bool disposing)

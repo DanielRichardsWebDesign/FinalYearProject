@@ -68,7 +68,7 @@
         {
             <img src="@Model.FilePath" class="rounded img-thumbnail" alt="@Model.FileName" height="400" width="400" />
             <br />
-            <a href="#" class="btn btn-primary"><span class="fas fa-download"></span>Download</a>
+            <a href="@Url.Action("DownloadFile", "Files", new { id = Model.FileID })" class="btn btn-primary"><span class="fas fa-download"></span>Download</a>
         }
         @if (Model.FileType.Contains("audio"))
         {
@@ -86,7 +86,7 @@
             </div>
             <br />
 
-            <a href="#" class="btn btn-primary"><span class="fas fa-download"></span>Download</a>
+            <a href="@Url.Action("DownloadFile", "Files", new { id = Model.FileID })" class="btn btn-primary"><span class="fas fa-download"></span>Download</a>
 
             <script src="https://unpkg.com/wavesurfer.js"></script>
 
@@ -124,7 +124,7 @@
                 </p>
         </video>
         <br />
-        <a href="#" class="btn btn-primary"><span class="fas fa-download"></span>Download</a>
+        <a href="@Url.Action("DownloadFile", "Files", new { id = Model.FileID })" class="btn btn-primary"><span class="fas fa-download"></span>Download</a>
 
         }
     </div>
