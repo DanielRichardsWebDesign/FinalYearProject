@@ -170,7 +170,7 @@ namespace Project.Controllers
 
         // POST: FileUploadAsync
         [HttpPost]
-        public async Task<ActionResult> UploadFileAsync(List<HttpPostedFileBase> formFiles, string containerName, string publicID, string userID, DateTime currentDate)
+        public async Task<ActionResult> UploadFileAsync(IEnumerable<HttpPostedFileBase> formFiles, string containerName, string publicID, string userID, DateTime currentDate)
         {                                         
             try
             {
