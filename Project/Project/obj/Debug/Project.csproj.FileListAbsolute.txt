@@ -800,3 +800,6 @@ F:\University Work\FinalYearProject\Project\Project\obj\Debug\Project.pdb
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\bin\ICSharpCode.SharpZipLib.dll
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\bin\ICSharpCode.SharpZipLib.pdb
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\bin\ICSharpCode.SharpZipLib.xml
+F:\University Work\FinalYearProject\Project\Project\bin\ICSharpCode.SharpZipLib.dll
+F:\University Work\FinalYearProject\Project\Project\bin\ICSharpCode.SharpZipLib.pdb
+F:\University Work\FinalYearProject\Project\Project\bin\ICSharpCode.SharpZipLib.xml
