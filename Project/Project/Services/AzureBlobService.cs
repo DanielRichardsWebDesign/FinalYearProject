@@ -1,4 +1,6 @@
-﻿using Microsoft.WindowsAzure.Storage;
+﻿using Azure;
+using ICSharpCode.SharpZipLib.Zip;
+using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Shared.Protocol;
 using System;
@@ -17,6 +19,7 @@ namespace Project.Services
         Task<string> GetBlobUri(string fileName, string containerName);
         Task DeleteAsync(string containerName, string fileUri);
         Task<Stream> DownloadAsync(string fileName, string containerName);
+        Task<List<CloudBlockBlob>> DownloadRepositoryAsync(string containerName);
     }
 
     public class AzureBlobService : IAzureBlobService
@@ -128,6 +131,63 @@ namespace Project.Services
 
             //return Blob
             return blobStream;
+        }
+
+        public async Task<List<CloudBlockBlob>> DownloadRepositoryAsync(string containerName)
+        {
+            //Create connection to client
+            var connectionStringConfiguration = ConfigurationManager.ConnectionStrings["StorageClient"].ConnectionString;
+            var cloudStorageConnection = CloudStorageAccount.Parse(connectionStringConfiguration);
+            var blobClient = cloudStorageConnection.CreateCloudBlobClient();
+
+            //Get container
+            var blobContainer = blobClient.GetContainerReference(containerName);          
+
+            //Get list of blobs
+            var listOfBlobs = blobContainer.ListBlobs();
+
+            List<CloudBlockBlob> blobList = new List<CloudBlockBlob>();
+            
+            foreach(var item in listOfBlobs)
+            {
+                MemoryStream memStream = new MemoryStream();
+
+                CloudBlockBlob blob = (CloudBlockBlob)item;
+                blob.FetchAttributes();
+
+                //await blob.DownloadToStreamAsync(memStream);
+                //memStream.Position = 0;
+
+                blobList.Add(blob);                
+            }
+            return blobList;
+
+
+            //using (ZipOutputStream zipOutputStream = new ZipOutputStream(response.OutputStream))
+            //{
+            //    zipOutputStream.SetLevel(0);
+            //    response.BufferOutput = false;
+            //    response.AddHeader("Content-Disposition", "attachment; filename=" + blobContainer.Name);
+            //    response.ContentType = "application/octet-stream";                
+
+            //    //Add blobs to list
+            //    foreach (var item in listOfBlobs)
+            //    {
+
+            //        CloudBlockBlob blob = (CloudBlockBlob)item;
+            //        blob.FetchAttributes();                    
+            //        zipOutputStream.PutNextEntry(new ZipEntry(blob.Name));
+            //        await blob.DownloadToStreamAsync(zipOutputStream);
+            //        response.Flush();                    
+            //    }
+            //    //var entry = new ZipEntry(blob.Name);
+            //    //zipOutputStream.PutNextEntry(entry);
+            //    //blob.DownloadToStream(zipOutputStream);
+
+            //    zipOutputStream.Finish();
+
+            //    return zipOutputStream;
+            //}            
         }
 
         public async Task DeleteAsync(string containerName, string fileUri)

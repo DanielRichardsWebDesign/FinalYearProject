@@ -797,3 +797,6 @@ F:\University Work\FinalYearProject\Project\Project\obj\Debug\Project.csproj.Gen
 F:\University Work\FinalYearProject\Project\Project\obj\Debug\Project.csproj.CoreCompileInputs.cache
 F:\University Work\FinalYearProject\Project\Project\obj\Debug\Project.dll
 F:\University Work\FinalYearProject\Project\Project\obj\Debug\Project.pdb
+C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\bin\ICSharpCode.SharpZipLib.dll
+C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\bin\ICSharpCode.SharpZipLib.pdb
+C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\bin\ICSharpCode.SharpZipLib.xml

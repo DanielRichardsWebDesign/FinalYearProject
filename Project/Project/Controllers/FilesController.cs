@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using System.Net;
 using Microsoft.AspNetCore.Cors;
 using System.IO;
+using ICSharpCode.SharpZipLib.Zip;
 
 namespace Project.Controllers
 {
@@ -103,6 +104,50 @@ namespace Project.Controllers
 
             //Return file to browser - Will appear as download.
             return File(blobStream, file.FileType, file.FileName);
+        }
+
+        // DOWNLOAD REPOSITORY
+        public async Task<ActionResult> DownloadRepository(int? id)
+        {
+            if(id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            //Get repository container
+            Projects project = db.Projects.Find(id);            
+            if(project == null)
+            {
+                return HttpNotFound();
+            }
+
+            var containerName = project.ProjectContainerName;
+
+            //Download repository Azure method
+            var blobList = await azureBlobService.DownloadRepositoryAsync(containerName);
+
+            using(var zipOutputStream = new ZipOutputStream(Response.OutputStream))
+            {
+                foreach(var blob in blobList)
+                {
+                    zipOutputStream.SetLevel(0);
+                    var entry = new ZipEntry(blob.Name);
+                    zipOutputStream.PutNextEntry(entry);
+                    blob.DownloadToStream(zipOutputStream);
+                }
+                zipOutputStream.Finish();
+                zipOutputStream.Close();
+            }
+            Response.BufferOutput = false;
+            Response.AddHeader("Content-Disposition", "attatchment; filename= " + project.ProjectName + ".zip");
+            Response.Flush();
+            Response.End();
+
+            return null;
+
+
+
+            //return File(zipStream, "application/zip", project.ProjectName);
         }
 
         protected override void Dispose(bool disposing)
