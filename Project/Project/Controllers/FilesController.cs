@@ -126,6 +126,7 @@ namespace Project.Controllers
             //Download repository Azure method
             var blobList = await azureBlobService.DownloadRepositoryAsync(containerName);
 
+            //Create zip file for all the blobs in the repository
             using(var zipOutputStream = new ZipOutputStream(Response.OutputStream))
             {
                 foreach(var blob in blobList)

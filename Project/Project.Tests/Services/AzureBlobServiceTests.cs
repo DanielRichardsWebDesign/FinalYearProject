@@ -178,6 +178,77 @@ namespace Project.Services.Tests
         }
 
         [TestMethod()]
-        public void 
+        public void DownloadRepositoryAsyncTest()
+        {
+            //Test container
+            var testContainerName = "test";
+
+            //Create connection to client
+            var connectionStringConfiguration = ConfigurationManager.ConnectionStrings["StorageClient"].ConnectionString;
+            var cloudStorageConnection = CloudStorageAccount.Parse(connectionStringConfiguration);
+            var blobClient = cloudStorageConnection.CreateCloudBlobClient();
+
+            //Get Blob container
+            var blobContainer = blobClient.GetContainerReference(testContainerName);
+
+            //List blobs in container
+            var listOfBlobs = blobContainer.ListBlobs();
+
+            //Iterate and add to new list
+            List<CloudBlockBlob> blobsList = new List<CloudBlockBlob>();
+
+            foreach(var item in listOfBlobs)
+            {
+                CloudBlockBlob blob = (CloudBlockBlob)item;
+                blob.FetchAttributes();
+
+                blobsList.Add(blob);
+            }
+
+            //Assert list isn't empty - Meaning that these items can be downloaded
+            Assert.IsNotNull(blobsList);
+        }
+
+        [TestMethod()]
+        public void DownloadSpecifiedFilesTest()
+        {
+            //Test container
+            var testContainerName = "test";
+
+            //Create connection to client
+            var connectionStringConfiguration = ConfigurationManager.ConnectionStrings["StorageClient"].ConnectionString;
+            var cloudStorageConnection = CloudStorageAccount.Parse(connectionStringConfiguration);
+            var blobClient = cloudStorageConnection.CreateCloudBlobClient();
+
+            //Get Blob container
+            var blobContainer = blobClient.GetContainerReference(testContainerName);
+
+            //File list
+            List<string> selectedFiles = new List<string>();
+            string[] files = { "test1.jpg", "test2.mp4", "test3.mp3" };
+
+            foreach(var file in files)
+            {
+                selectedFiles.Add(file);
+            }
+
+            //List blobs in container
+            //var listOfBlobs = blobContainer.ListBlobs();
+            //List<CloudBlockBlob> blobsList = new List<CloudBlockBlob>();
+
+            List<CloudBlockBlob> blobsList = new List<CloudBlockBlob>();
+
+            //Iterate through and select files from container
+            foreach(var item in selectedFiles)
+            {
+                CloudBlockBlob blob = blobContainer.GetBlockBlobReference(item);
+                blob.FetchAttributes();
+
+                blobsList.Add(blob);
+            }
+
+            //Assert that the blobs list is not null - SO that they can then be downloaded
+            Assert.IsNotNull(blobsList);
+        }
     }
 }
