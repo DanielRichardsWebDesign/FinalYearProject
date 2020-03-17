@@ -39,7 +39,7 @@ namespace Project.Models
         public int PublicID { get; set; }
 
         //Get specific User by ID
-        public string ApplicationUserID { get; set; }
+        public string ApplicationUserID { get; set; }        
 
         //Virtual Objects to access User and Project properties
         public virtual Projects Projects { get; set; }

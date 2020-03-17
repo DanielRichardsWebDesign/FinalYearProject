@@ -20,6 +20,40 @@
         });
     });
 </script>
+
+<script>
+    //Enable Download Selected Files Button if a checkbox is selected
+    $(document).ready(function () {
+        $('#selectedFilesButton').addClass('disabled');
+        //console.log("selectedFiles: " + selectedFiles);
+
+
+        var filesTally = 0;
+        console.log(filesTally);
+        
+        $('.selectedFiles').click(function () {
+            if ($(this).prop('checked') == true) {
+            alert("File has been selected.")
+            $('#selectedFilesButton').removeClass('disabled');
+                filesTally += 1;
+                console.log(filesTally);
+
+        } else if ($(this).prop('checked') == false) {
+            alert('File has not been selected.');
+                filesTally -= 1;
+                console.log(filesTally);
+
+            if (filesTally == 0) {
+                $('#selectedFilesButton').addClass('disabled');
+            }                
+        }
+    });
+                
+    });
+</script>
+
+<a class="btn btn-primary" id="selectedFilesButton">Download Selected Files</a>
+
 <table class="table table-hover">
     <thead>
         <tr>
@@ -37,7 +71,7 @@
     {
         <tr>
             <td>
-                <input type="checkbox" id="selectedFiles" name="selectedFiles" value="@item.FileName" />
+                <input type="checkbox" class="selectedFiles" name="selectedFiles" />
             </td>
             <td>
                 @if (item.FileType.Contains("image"))
