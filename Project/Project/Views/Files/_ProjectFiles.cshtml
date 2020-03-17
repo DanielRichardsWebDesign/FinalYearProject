@@ -6,7 +6,7 @@
         //$('#popover').each.function();{
         //    popover("toggle", {
         //        trigger: "hover focus",
-        //    });                        
+        //    });
         //};
 
         //$('#popover').popover({
@@ -16,7 +16,7 @@
         $('.pop-over').each(function (i) {
             $(this).popover({
                 trigger: "hover focus"
-            });            
+            });
         });
     });
 </script>
@@ -24,35 +24,77 @@
 <script>
     //Enable Download Selected Files Button if a checkbox is selected
     $(document).ready(function () {
-        $('#selectedFilesButton').addClass('disabled');
-        //console.log("selectedFiles: " + selectedFiles);
+        //Set submit button to disabled on page load - no files will be selected at this time
+        $('#selectedFilesButton').prop('disabled', true); 
+
+        //Disable checkboxes on startup
+        //$('.selectedFiles').prop('checked', false);
+
+        //Store selected files in an array
+        var selectedFiles = [];
+        console.log("Selected Files: " + selectedFiles);
+
+        //Loop through each checkbox and add to array
+        $(".selectedFiles").change(function () {
+            var checked = $(this).val();
+            if ($(this).is(':checked')) {
+                selectedFiles.push(checked);
+                console.log(selectedFiles);
+            } else {
+                var index = $.inArray($(this).val(), selectedFiles);
+                selectedFiles.splice(index, 1);
+                console.log(selectedFiles);
+            }            
+
+            //Enable button if a file is selected
+            if (selectedFiles.length > 0) {
+                $('#selectedFilesButton').prop('disabled', true);
+            }
+        });
 
 
-        var filesTally = 0;
-        console.log(filesTally);
-        
-        $('.selectedFiles').click(function () {
-            if ($(this).prop('checked') == true) {
-            alert("File has been selected.")
-            $('#selectedFilesButton').removeClass('disabled');
-                filesTally += 1;
-                console.log(filesTally);
+        //console.log(filesTally);
 
-        } else if ($(this).prop('checked') == false) {
-            alert('File has not been selected.');
-                filesTally -= 1;
-                console.log(filesTally);
 
-            if (filesTally == 0) {
-                $('#selectedFilesButton').addClass('disabled');
-            }                
-        }
-    });
-                
+
+        //$('.selectedFiles').click(function () {
+        //    $('.selectedFiles').each(function() {
+
+        //        if($(this).prop('checked') == true) {
+        //        alert("File has been selected.")
+        //        $('#selectedFilesButton').prop('disabled', false);
+        //        filesTally += 1;
+        //        console.log(filesTally);
+
+        //        var fileName = $('.selectedFiles').val();
+        //        console.log('fileName: ' + fileName);
+
+        //        //Append a new hidden attribute to selectedFilesForm
+        //        $('<input>').attr({
+        //            type: 'text',
+        //            name: 'selectedFilesFromForm',
+        //            value: fileName
+        //        }).appendTo('#selectedFilesForm');
+
+        //    } else if ($(this).prop('checked') == false) {
+        //        alert('File has not been selected.');
+        //        filesTally -= 1;
+        //        console.log(filesTally);
+
+        //        if (filesTally == 0) {
+        //            $('#selectedFilesButton').prop('disabled', true);
+        //        }
+        //    }
+        //});
+        //});
+
     });
 </script>
 
-<a class="btn btn-primary" id="selectedFilesButton">Download Selected Files</a>
+@using (Html.BeginForm("GetSelectedFiles", "Files", FormMethod.Post, new { enctype = "multipart/form-data", id = "selectedFilesForm" }))
+{
+    <input type="submit" id="selectedFilesButton" value="Download Selected Files" class="btn btn-primary" />
+}
 
 <table class="table table-hover">
     <thead>
@@ -71,7 +113,7 @@
     {
         <tr>
             <td>
-                <input type="checkbox" class="selectedFiles" name="selectedFiles" />
+                <input type="checkbox" class="selectedFiles" name="fileName" value="@item.FileName" />
             </td>
             <td>
                 @if (item.FileType.Contains("image"))
