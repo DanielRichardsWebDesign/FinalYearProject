@@ -48,6 +48,10 @@
 
             //Enable button if a file is selected
             if (selectedFiles.length > 0) {
+                $('#selectedFilesButton').prop('disabled', false);
+            }
+            //Disable if file array is empty
+            else if (selectedFiles.length == 0) {
                 $('#selectedFilesButton').prop('disabled', true);
             }
         });
