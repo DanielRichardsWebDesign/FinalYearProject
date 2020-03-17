@@ -39,22 +39,55 @@
             var checked = $(this).val();
             if ($(this).is(':checked')) {
                 selectedFiles.push(checked);
-                console.log(selectedFiles);
+                console.log(selectedFiles);                
+
             } else {
                 var index = $.inArray($(this).val(), selectedFiles);
                 selectedFiles.splice(index, 1);
                 console.log(selectedFiles);
-            }            
-
-            //Enable button if a file is selected
+            }
             if (selectedFiles.length > 0) {
                 $('#selectedFilesButton').prop('disabled', false);
+                console.log("Enable Button");
             }
             //Disable if file array is empty
             else if (selectedFiles.length == 0) {
                 $('#selectedFilesButton').prop('disabled', true);
-            }
+                console.log("Disable Button");
+            }            
         });
+
+        //Select all
+        $('#selectAllFiles').change(function () {
+            if ($(this).is(':checked')) {
+                $('.selectedFiles').each(function () {
+                    
+                    if (this.checked = true) {
+                        if (selectedFiles > 0) {
+                            selectedFiles = [];
+                            console.log(selectedFiles);
+                        } else {
+                            selectedFiles.push($(this).val());
+                        $('#selectedFilesButton').prop('disabled', false);
+                        console.log(selectedFiles);
+                        }                        
+                    }             
+                    
+                });
+            } else if ($('.selectedFiles').not(':checked')) {
+                $('.selectedFiles').each(function () {
+                    this.checked = false;
+                    selectedFiles = [];
+
+                    $('#selectAllFiles').prop('checked', false);
+                    $('#selectedFilesButton').prop('disabled', true);
+                    console.log(selectedFiles);
+                });                
+            }
+        })
+
+        
+        
 
 
         //console.log(filesTally);
@@ -103,7 +136,7 @@
 <table class="table table-hover">
     <thead>
         <tr>
-            <th scope="col">#</th>
+            <th scope="col"><input type="checkbox" id="selectAllFiles" name="selectAllFiles" /></th>
             <th scope="col">File Name</th>
             <th scope="col">File Type</th>
             <th scope="col">File Size</th>
