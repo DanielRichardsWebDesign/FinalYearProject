@@ -23,6 +23,7 @@
 <table class="table table-hover">
     <thead>
         <tr>
+            <th scope="col">#</th>
             <th scope="col">File Name</th>
             <th scope="col">File Type</th>
             <th scope="col">File Size</th>
@@ -35,6 +36,9 @@
     @foreach (var item in Model)
     {
         <tr>
+            <td>
+                <input type="checkbox" id="selectedFiles" name="selectedFiles" value="@item.FileName" />
+            </td>
             <td>
                 @if (item.FileType.Contains("image"))
                 {
