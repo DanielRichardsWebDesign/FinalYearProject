@@ -60,18 +60,26 @@
         //Select all
         $('#selectAllFiles').change(function () {
             if ($(this).is(':checked')) {
-                $('.selectedFiles').each(function () {
-                    
-                    if (this.checked = true) {
-                        if (selectedFiles > 0) {
-                            selectedFiles = [];
-                            console.log(selectedFiles);
-                        } else {
-                            selectedFiles.push($(this).val());
+                $('.selectedFiles').each(function () {   
+                    //Checks to see if checkbox value is already in array. If it isn't - It will be pushed into it.
+                    if ($.inArray(this.value, selectedFiles) === -1) {
+                        this.checked = true;
                         $('#selectedFilesButton').prop('disabled', false);
+                        selectedFiles.push(this.value);
                         console.log(selectedFiles);
-                        }                        
-                    }             
+                    }
+
+
+                    //if (this.checked = true) {
+                    //    if (selectedFiles > 0) {
+                    //        var allFiles = $.uniqueSort(selectedFiles);
+                    //        console.log(selectedFiles);
+                    //    } else {
+                    //        selectedFiles.push($(this).val());
+                    //        $('#selectedFilesButton').prop('disabled', false);
+                    //        console.log(selectedFiles);
+                    //    }                        
+                    //}             
                     
                 });
             } else if ($('.selectedFiles').not(':checked')) {
