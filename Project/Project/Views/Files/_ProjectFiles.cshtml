@@ -23,117 +23,97 @@
 
 <script>
     //Enable Download Selected Files Button if a checkbox is selected
-    $(document).ready(function () {
-        //Set submit button to disabled on page load - no files will be selected at this time
-        $('#selectedFilesButton').prop('disabled', true); 
+$(document).ready(function() {
+    //Set submit button to disabled on page load - no files will be selected at this time
+    $('#selectedFilesButton').prop('disabled', true);
 
-        //Disable checkboxes on startup
-        //$('.selectedFiles').prop('checked', false);
+    //Disable checkboxes on startup
+    //$('.selectedFiles').prop('checked', false);
 
-        //Store selected files in an array
-        var selectedFiles = [];
-        console.log("Selected Files: " + selectedFiles);
+    //Store selected files in an array
+    var selectedFiles = [];
+    console.log("Selected Files: " + selectedFiles);
 
-        //Loop through each checkbox and add to array
-        $(".selectedFiles").change(function () {
-            var checked = $(this).val();
-            if ($(this).is(':checked')) {
-                selectedFiles.push(checked);
-                console.log(selectedFiles);                
+    //Loop through each checkbox and add to array
+    $(".selectedFiles").change(function() {
+        var checked = $(this).val();
+        if ($(this).is(':checked')) {
+            selectedFiles.push(checked);
+            console.log(selectedFiles);
 
-            } else {
-                var index = $.inArray($(this).val(), selectedFiles);
-                selectedFiles.splice(index, 1);
-                console.log(selectedFiles);
-            }
-            if (selectedFiles.length > 0) {
-                $('#selectedFilesButton').prop('disabled', false);
-                console.log("Enable Button");
-            }
-            //Disable if file array is empty
-            else if (selectedFiles.length == 0) {
-                $('#selectedFilesButton').prop('disabled', true);
-                console.log("Disable Button");
-            }            
-        });
-
-        //Select all
-        $('#selectAllFiles').change(function () {
-            if ($(this).is(':checked')) {
-                $('.selectedFiles').each(function () {   
-                    //Checks to see if checkbox value is already in array. If it isn't - It will be pushed into it.
-                    if ($.inArray(this.value, selectedFiles) === -1) {
-                        this.checked = true;
-                        $('#selectedFilesButton').prop('disabled', false);
-                        selectedFiles.push(this.value);
-                        console.log(selectedFiles);
-                    }
-
-
-                    //if (this.checked = true) {
-                    //    if (selectedFiles > 0) {
-                    //        var allFiles = $.uniqueSort(selectedFiles);
-                    //        console.log(selectedFiles);
-                    //    } else {
-                    //        selectedFiles.push($(this).val());
-                    //        $('#selectedFilesButton').prop('disabled', false);
-                    //        console.log(selectedFiles);
-                    //    }                        
-                    //}             
-                    
-                });
-            } else if ($('.selectedFiles').not(':checked')) {
-                $('.selectedFiles').each(function () {
-                    this.checked = false;
-                    selectedFiles = [];
-
-                    $('#selectAllFiles').prop('checked', false);
-                    $('#selectedFilesButton').prop('disabled', true);
-                    console.log(selectedFiles);
-                });                
-            }
-        })
-
-        
-        
-
-
-        //console.log(filesTally);
-
-
-
-        //$('.selectedFiles').click(function () {
-        //    $('.selectedFiles').each(function() {
-
-        //        if($(this).prop('checked') == true) {
-        //        alert("File has been selected.")
-        //        $('#selectedFilesButton').prop('disabled', false);
-        //        filesTally += 1;
-        //        console.log(filesTally);
-
-        //        var fileName = $('.selectedFiles').val();
-        //        console.log('fileName: ' + fileName);
-
-        //        //Append a new hidden attribute to selectedFilesForm
-        //        $('<input>').attr({
-        //            type: 'text',
-        //            name: 'selectedFilesFromForm',
-        //            value: fileName
-        //        }).appendTo('#selectedFilesForm');
-
-        //    } else if ($(this).prop('checked') == false) {
-        //        alert('File has not been selected.');
-        //        filesTally -= 1;
-        //        console.log(filesTally);
-
-        //        if (filesTally == 0) {
-        //            $('#selectedFilesButton').prop('disabled', true);
-        //        }
-        //    }
-        //});
-        //});
-
+        } else {
+            var index = $.inArray($(this).val(), selectedFiles);
+            selectedFiles.splice(index, 1);
+            console.log(selectedFiles);
+        }
+        if (selectedFiles.length > 0) {
+            $('#selectedFilesButton').prop('disabled', false);
+            console.log("Enable Button");
+        }
+        //Disable if file array is empty
+        else if (selectedFiles.length == 0) {
+            $('#selectedFilesButton').prop('disabled', true);
+            console.log("Disable Button");
+        }
     });
+
+    //Select all
+    $('#selectAllFiles').change(function() {
+        if ($(this).is(':checked')) {
+            $('.selectedFiles').each(function() {
+                //Checks to see if checkbox value is already in array. If it isn't - It will be pushed into it.
+                if ($.inArray(this.value, selectedFiles) === -1) {
+                    this.checked = true;
+                    $('#selectedFilesButton').prop('disabled', false);
+                    selectedFiles.push(this.value);
+                    console.log(selectedFiles);
+                }
+
+            });
+        } else if ($('.selectedFiles').not(':checked')) {
+            $('.selectedFiles').each(function() {
+                this.checked = false;
+                selectedFiles = [];
+
+                $('#selectAllFiles').prop('checked', false);
+                $('#selectedFilesButton').prop('disabled', true);
+                console.log(selectedFiles);
+            });
+        }
+    })
+
+    //console.log(containerName);
+    var projectID = $('#projectID').val();
+    console.log("Project ID: " + projectID);
+
+    //AJAX CALL - Post the selected files to controller
+$('#selectedFilesButton').click(function(e) {
+    e.preventDefault();
+
+    if ($(this).prop('disabled', false)) {
+        console.log('Can click Button');
+        $.ajax({
+            type: "POST",
+            url: "/Files/GetSelectedFiles",
+            //data: JSON.stringify({'submittedFiles':selectedFiles}),
+            data: JSON.stringify({
+                submittedFiles: selectedFiles,
+                id: projectID
+            }),
+            traditional: true,
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+            processData: false,
+            success: function(result) {
+                console.log(result);
+            },
+        });
+    };
+
+});
+
+});
+
 </script>
 
 @using (Html.BeginForm("GetSelectedFiles", "Files", FormMethod.Post, new { enctype = "multipart/form-data", id = "selectedFilesForm" }))
@@ -159,6 +139,7 @@
         <tr>
             <td>
                 <input type="checkbox" class="selectedFiles" name="fileName" value="@item.FileName" />
+                <input type="hidden" id="projectID" value="@item.PublicID" />
             </td>
             <td>
                 @if (item.FileType.Contains("image"))
@@ -195,4 +176,9 @@
         </tr>
     }
 
+
 </table>
+@if (Model == null)
+{
+    <h1>No Files</h1>
+}

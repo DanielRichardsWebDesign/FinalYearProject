@@ -8,6 +8,8 @@ using System.Net;
 using Microsoft.AspNetCore.Cors;
 using System.IO;
 using ICSharpCode.SharpZipLib.Zip;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Project.Controllers
 {
@@ -149,6 +151,29 @@ namespace Project.Controllers
 
 
             //return File(zipStream, "application/zip", project.ProjectName);
+        }
+
+        //DOWNLOAD SELECTED FILES
+        public async Task<ActionResult> GetSelectedFiles(List<string> submittedFiles, int? id)
+        {
+            //if(selectedFiles == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            //var files = db.Files.Where(f => f.PublicID == id).ToList();
+
+            //var containerName = files.P
+            //if(files == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            //foreach(var item in selectedFiles)
+            //{
+            //    project.Files.Val
+            //}
+
+            return View(submittedFiles.ToList());
+            
         }
 
         protected override void Dispose(bool disposing)
