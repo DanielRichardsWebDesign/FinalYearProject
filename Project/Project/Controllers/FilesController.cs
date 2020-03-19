@@ -210,9 +210,56 @@ namespace Project.Controllers
             return View(downloadList);
         }
 
-        public async Task<ActionResult> DownloadSelectedFiles()
+        public async Task<ActionResult> DownloadSelectedFiles(List<string>downloadFiles, int? projectID)
         {
-            return null;
+            if(projectID == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            if(downloadFiles == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var project = db.Projects.Find(projectID);
+
+            if(project == null)
+            {
+                return HttpNotFound();
+            }
+
+            var containerName = project.ProjectContainerName;
+
+            try
+            {
+                var blobList = await azureBlobService.DownloadSpecifiedFilesAsync(downloadFiles, containerName);
+
+                //Iterate through blob list and add to zip
+                using(var zipOutputStream = new ZipOutputStream(Response.OutputStream))
+                {
+                    foreach(var blob in blobList)
+                    {
+                        zipOutputStream.SetLevel(0);
+                        var entry = new ZipEntry(blob.Name);
+                        zipOutputStream.PutNextEntry(entry);
+                        blob.DownloadToStream(zipOutputStream);
+                    }
+                    zipOutputStream.Finish();
+                    zipOutputStream.Close();
+                }
+                Response.BufferOutput = false;
+                Response.AddHeader("Content-Disposition", "attatchment; filename= " + project.ProjectName + " - Selected Files.zip");
+                Response.Flush();
+                Response.End();
+
+                return null;
+
+            }
+            catch
+            {
+                return View("Error");
+            }           
         }
 
 
