@@ -160,28 +160,14 @@ namespace Project.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
+            
             Projects project =  db.Projects.Find(projectID);
             if(project == null)
             {
                 return HttpNotFound();
             }
 
-            List<Files> downloadList = new List<Files>();
-
-            //var query = from f in db.Files.Select(f => f.PublicID == id && f.FileName == )
-
-            //string item = "";
-
-            //Lis
-
-            //foreach(var item in submittedFiles)
-            //{
-            //    var query = from f in db.Files where f.PublicID == id && f.FileName == item select new { f };
-            //}
+            List<Files> downloadList = new List<Files>();            
 
             foreach (var file in submittedFiles)
             {
@@ -207,16 +193,29 @@ namespace Project.Controllers
 
             TempData["SelectedFiles"] = downloadList;
 
-            return RedirectToAction ("ReviewSelectedFiles", "Files");
+            return RedirectToAction ("ReviewSelectedFiles", "Files", new { id = projectID });
             
         }
 
-        public async Task<ActionResult> ReviewSelectedFiles()
+        public async Task<ActionResult> ReviewSelectedFiles(int? id)
         {
-            List<Files> downloadList = TempData["SelectedFiles"] as List<Files>; 
+            ViewBag.PublicID = id;
+
+            List<Files> downloadList = TempData["SelectedFiles"] as List<Files>;
+            if(downloadList == null)
+            {
+                return HttpNotFound();
+            }
 
             return View(downloadList);
         }
+
+        public async Task<ActionResult> DownloadSelectedFiles()
+        {
+            return null;
+        }
+
+
 
         protected override void Dispose(bool disposing)
         {

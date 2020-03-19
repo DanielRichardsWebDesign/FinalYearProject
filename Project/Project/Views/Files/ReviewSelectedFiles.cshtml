@@ -1,69 +1,40 @@
 ﻿@model IEnumerable<Project.Models.Files>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ApplicationUser.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Projects.ProjectName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FileName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FileType)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FileSize)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FilePath)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateUploaded)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateModified)
-        </th>
-        <th></th>
-    </tr>
+<script>
+    //Give project id value
+    var projectID = $('#projectIDHidden').val();
+    console.log(projectID);
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ApplicationUser.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Projects.ProjectName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FileName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FileType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FileSize)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FilePath)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateUploaded)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateModified)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.FileID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.FileID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.FileID })
-        </td>
-    </tr>
-}
+    $('#projectID').val(projectID);
+</script>
 
-</table>
+<div class="jumbotron bg-primary text-white">
+    <div class="container">
+        <h1 class="display-4">Selected Project Files</h1>
+        <p class="lead">Review the selected files you wish to download.</p>
+        <p id="projectID"></p>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Selected Files</h5>
+        @foreach(var item in Model)
+        {
+            <input type="hidden" id="projectIDHidden" value="@item.PublicID" />
+        }
+        @using (Html.BeginForm("DownloadSelectedFiles", "Files", FormMethod.Post, new { enctype = "multipart/form-data", id = "selectedFilesForm" }))
+        {
+            foreach (var item in Model)
+            {
+                <div class="list-group">  
+                    <p></p>
+                    <input type="text" readonly class="form-control-plaintext" name="downloadFiles[]" value="@item.FileName" />
+                </div>
+            }
+            <input type="hidden" id="projectID" name="projectID" value="@ViewBag.PublicID" />
+            <input type="submit" class="btn btn-primary" value="Download Files" />
+        }
+
+    </div>
+</div>
