@@ -38,29 +38,22 @@ $(document).ready(function() {
     //Loop through each checkbox and add to array
     $(".selectedFiles").change(function() {
         var checked = $(this).val();
+
+        var form = $('#selectedFilesForm')
+
         if ($(this).is(':checked')) {
-            selectedFiles.push(checked);
-            $('<input>', {
-                type: 'text',
-                id: $(this).val(),
-                name: 'submittedFiles[]',
-                value: $(this).val(),
-            }).appendTo('#selectedFilesForm');
+            selectedFiles.push(checked);            
+            $('#input_' + this.id).prop('disabled', false);
             console.log(selectedFiles);
 
-        } else {
+        } else if ($(this).not(':checked')) {
             var index = $.inArray($(this).val(), selectedFiles);
             selectedFiles.splice(index, 1);
 
-            if (!$(this).is(':checked')) {
-                $('<input>', {
-                type: 'text',
-                id: $(this).val(),
-                name: 'submittedFiles[]',
-                value: $(this).val(),
-            }).remove('#' + $(this).val());
+            $('#input_' + this.id).prop('disabled', true);
             
-            };
+            //$('#input_' + $(this).val()).remove();            
+           
 
             console.log(selectedFiles);
         }
@@ -151,7 +144,12 @@ $(document).ready(function() {
 
 @using (Html.BeginForm("GetSelectedFiles", "Files", FormMethod.Post, new { enctype = "multipart/form-data", id = "selectedFilesForm" }))
 {
-    <input type="text" id="projectID" name="projectID" />    
+    foreach(var item in Model)
+    {
+        <input type="hidden" id="input_@item.FileID" name="submittedFiles[]" value="@item.FileName" disabled />
+    }
+
+    <input type="hidden" id="projectID" name="projectID" />    
     <input type="submit" id="selectedFilesButton" value="Download Selected Files" class="btn btn-primary" />
 }
 
@@ -174,7 +172,7 @@ $(document).ready(function() {
     {
         <tr>
             <td>
-                <input type="checkbox" class="selectedFiles" name="fileName" value="@item.FileName" />
+                <input type="checkbox"id="@item.FileID" class="selectedFiles" name="fileName" value="@item.FileName" />
                 <input type="hidden" id="projectIDHidden" value="@item.PublicID" />
             </td>
             <td>
