@@ -123,3 +123,6 @@ F:\University Work\Third Year\FinalYearProject\Project\ProjectTests\obj\Debug\Pr
 F:\University Work\Third Year\FinalYearProject\Project\ProjectTests\obj\Debug\ProjectTests.csproj.CoreCompileInputs.cache
 F:\University Work\Third Year\FinalYearProject\Project\ProjectTests\obj\Debug\ProjectTests.dll
 F:\University Work\Third Year\FinalYearProject\Project\ProjectTests\obj\Debug\ProjectTests.pdb
+C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\ICSharpCode.SharpZipLib.dll
+C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\ICSharpCode.SharpZipLib.pdb
+C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\ProjectTests\bin\Debug\ICSharpCode.SharpZipLib.xml

@@ -585,6 +585,7 @@
     <Content Include="Views\Files\Edit.cshtml" />
     <Content Include="Views\Files\Index.cshtml" />
     <Content Include="Views\Files\_ProjectFiles.cshtml" />
+    <Content Include="Views\Files\ReviewSelectedFiles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

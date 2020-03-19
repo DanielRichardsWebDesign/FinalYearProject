@@ -154,26 +154,68 @@ namespace Project.Controllers
         }
 
         //DOWNLOAD SELECTED FILES
-        public async Task<ActionResult> GetSelectedFiles(List<string> submittedFiles, int? id)
+        public async Task<ActionResult> GetSelectedFiles(List<string> submittedFiles, int? projectID)
         {
-            //if(selectedFiles == null)
+            if(submittedFiles == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //if (id == null)
             //{
             //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             //}
-            //var files = db.Files.Where(f => f.PublicID == id).ToList();
+            Projects project =  db.Projects.Find(projectID);
+            if(project == null)
+            {
+                return HttpNotFound();
+            }
 
-            //var containerName = files.P
-            //if(files == null)
+            List<Files> downloadList = new List<Files>();
+
+            //var query = from f in db.Files.Select(f => f.PublicID == id && f.FileName == )
+
+            //string item = "";
+
+            //Lis
+
+            //foreach(var item in submittedFiles)
             //{
-            //    return HttpNotFound();
-            //}
-            //foreach(var item in selectedFiles)
-            //{
-            //    project.Files.Val
+            //    var query = from f in db.Files where f.PublicID == id && f.FileName == item select new { f };
             //}
 
-            return View(submittedFiles.ToList());
+            foreach (var file in submittedFiles)
+            {
+                var query = from f in db.Files where f.PublicID == projectID && f.FileName == file select new { f };
+
+                var addedFile = query.First();
+
+                downloadList.Add(new Files()
+                {
+                    FileID = addedFile.f.FileID,
+                    FileName = addedFile.f.FileName,
+                    FileType = addedFile.f.FileType,
+                    FileSize = addedFile.f.FileSize,
+                    FilePath = addedFile.f.FilePath,
+                    DateUploaded = addedFile.f.DateUploaded,
+                    DateModified = addedFile.f.DateModified,
+                    PublicID = addedFile.f.PublicID,
+                    ApplicationUserID = addedFile.f.ApplicationUserID,
+                    ApplicationUser = addedFile.f.ApplicationUser,
+                    Projects = addedFile.f.Projects
+                });
+            }
+
+            TempData["SelectedFiles"] = downloadList;
+
+            return RedirectToAction ("ReviewSelectedFiles", "Files");
             
+        }
+
+        public async Task<ActionResult> ReviewSelectedFiles()
+        {
+            List<Files> downloadList = TempData["SelectedFiles"] as List<Files>; 
+
+            return View(downloadList);
         }
 
         protected override void Dispose(bool disposing)

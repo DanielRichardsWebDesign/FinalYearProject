@@ -20,6 +20,7 @@ namespace Project.Services
         Task DeleteAsync(string containerName, string fileUri);
         Task<Stream> DownloadAsync(string fileName, string containerName);
         Task<List<CloudBlockBlob>> DownloadRepositoryAsync(string containerName);
+        Task<List<CloudBlockBlob>> DownloadSpecifiedFilesAsync(List<string> selectedFiles, string containerName);
     }
 
     public class AzureBlobService : IAzureBlobService
@@ -160,34 +161,33 @@ namespace Project.Services
 
                 blobList.Add(blob);                
             }
+            return blobList;            
+        }
+
+        public async Task<List<CloudBlockBlob>> DownloadSpecifiedFilesAsync(List<string> selectedFiles, string containerName)
+        {
+            //Create connection to client
+            var connectionStringConfiguration = ConfigurationManager.ConnectionStrings["StorageClient"].ConnectionString;
+            var cloudStorageConnection = CloudStorageAccount.Parse(connectionStringConfiguration);
+            var blobClient = cloudStorageConnection.CreateCloudBlobClient();
+
+            //Get container
+            var blobContainer = blobClient.GetContainerReference(containerName);
+
+            //List for retrieved blobs
+            List<CloudBlockBlob> blobList = new List<CloudBlockBlob>();
+
+            //Get blobs via items in selected files list
+            foreach(var item in selectedFiles)
+            {
+                CloudBlockBlob blob = blobContainer.GetBlockBlobReference(item);
+                blob.FetchAttributes();
+
+                //Add blob to list
+                blobList.Add(blob);
+            }
+
             return blobList;
-
-
-            //using (ZipOutputStream zipOutputStream = new ZipOutputStream(response.OutputStream))
-            //{
-            //    zipOutputStream.SetLevel(0);
-            //    response.BufferOutput = false;
-            //    response.AddHeader("Content-Disposition", "attachment; filename=" + blobContainer.Name);
-            //    response.ContentType = "application/octet-stream";                
-
-            //    //Add blobs to list
-            //    foreach (var item in listOfBlobs)
-            //    {
-
-            //        CloudBlockBlob blob = (CloudBlockBlob)item;
-            //        blob.FetchAttributes();                    
-            //        zipOutputStream.PutNextEntry(new ZipEntry(blob.Name));
-            //        await blob.DownloadToStreamAsync(zipOutputStream);
-            //        response.Flush();                    
-            //    }
-            //    //var entry = new ZipEntry(blob.Name);
-            //    //zipOutputStream.PutNextEntry(entry);
-            //    //blob.DownloadToStream(zipOutputStream);
-
-            //    zipOutputStream.Finish();
-
-            //    return zipOutputStream;
-            //}            
         }
 
         public async Task DeleteAsync(string containerName, string fileUri)

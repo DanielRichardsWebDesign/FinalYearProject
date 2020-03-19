@@ -27,8 +27,9 @@ $(document).ready(function() {
     //Set submit button to disabled on page load - no files will be selected at this time
     $('#selectedFilesButton').prop('disabled', true);
 
-    //Disable checkboxes on startup
-    //$('.selectedFiles').prop('checked', false);
+    var projectID = $('#projectIDHidden').val();
+    $('#projectID').val(projectID);
+    console.log($('#projectID').val(projectID));
 
     //Store selected files in an array
     var selectedFiles = [];
@@ -39,11 +40,28 @@ $(document).ready(function() {
         var checked = $(this).val();
         if ($(this).is(':checked')) {
             selectedFiles.push(checked);
+            $('<input>', {
+                type: 'text',
+                id: $(this).val(),
+                name: 'submittedFiles[]',
+                value: $(this).val(),
+            }).appendTo('#selectedFilesForm');
             console.log(selectedFiles);
 
         } else {
             var index = $.inArray($(this).val(), selectedFiles);
             selectedFiles.splice(index, 1);
+
+            if (!$(this).is(':checked')) {
+                $('<input>', {
+                type: 'text',
+                id: $(this).val(),
+                name: 'submittedFiles[]',
+                value: $(this).val(),
+            }).remove('#' + $(this).val());
+            
+            };
+
             console.log(selectedFiles);
         }
         if (selectedFiles.length > 0) {
@@ -84,42 +102,60 @@ $(document).ready(function() {
 
     //console.log(containerName);
     var projectID = $('#projectID').val();
+
+    var link = '@Url.Action("GetSelectedFiles", "Files")';
+    link = link.replace("-1", projectID);
+
     console.log("Project ID: " + projectID);
 
     //AJAX CALL - Post the selected files to controller
-$('#selectedFilesButton').click(function(e) {
-    e.preventDefault();
+//$('#selectedFilesButton').click(function(e) {
+//    e.preventDefault();
 
-    if ($(this).prop('disabled', false)) {
-        console.log('Can click Button');
-        $.ajax({
-            type: "POST",
-            url: "/Files/GetSelectedFiles",
-            //data: JSON.stringify({'submittedFiles':selectedFiles}),
-            data: JSON.stringify({
-                submittedFiles: selectedFiles,
-                id: projectID
-            }),
-            traditional: true,
-            dataType: 'json',
-            contentType: "application/json; charset=utf-8",
-            processData: false,
-            success: function(result) {
-                console.log(result);
-            },
-        });
-    };
+//    if ($(this).prop('disabled', false)) {
+//        console.log('Can click Button');
+//        $.post({
+//            type: "POST",
+//            url: link,
+//            //data: JSON.stringify({'submittedFiles':selectedFiles}),
+//            data: JSON.stringify({
+//                submittedFiles: selectedFiles,
+//                id: projectID
+//            }),
+//            //traditional: true,
+//            dataType: 'json',
+//            contentType: "application/json; charset=utf-8",
+//            processData: false,
+//            xhrFields: {
+//                responseType: 'blob',
+//            },
+//            success: function (response) {
+//                if (response.redirect) {
+//                    window.location.replace(response.redirect);
+//                }
+//            }
 
-});
+//        });
+//    };
+
+//});
 
 });
 
 </script>
 
+@*@using (Html.BeginForm("GetSelectedFiles", "Files", FormMethod.Post, new { enctype = "multipart/form-data", id = "selectedFilesForm" }))
+    {
+        <input type="submit" id="selectedFilesButton" value="Download Selected Files" class="btn btn-primary" />
+    }*@
+
 @using (Html.BeginForm("GetSelectedFiles", "Files", FormMethod.Post, new { enctype = "multipart/form-data", id = "selectedFilesForm" }))
 {
+    <input type="text" id="projectID" name="projectID" />    
     <input type="submit" id="selectedFilesButton" value="Download Selected Files" class="btn btn-primary" />
 }
+
+@*<input type="button" id="selectedFilesButton" class="btn btn-primary">Download Selected Files</input>*@
 
 <table class="table table-hover">
     <thead>
@@ -139,7 +175,7 @@ $('#selectedFilesButton').click(function(e) {
         <tr>
             <td>
                 <input type="checkbox" class="selectedFiles" name="fileName" value="@item.FileName" />
-                <input type="hidden" id="projectID" value="@item.PublicID" />
+                <input type="hidden" id="projectIDHidden" value="@item.PublicID" />
             </td>
             <td>
                 @if (item.FileType.Contains("image"))
