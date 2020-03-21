@@ -803,3 +803,5 @@ C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Projec
 F:\University Work\FinalYearProject\Project\Project\bin\ICSharpCode.SharpZipLib.dll
 F:\University Work\FinalYearProject\Project\Project\bin\ICSharpCode.SharpZipLib.pdb
 F:\University Work\FinalYearProject\Project\Project\bin\ICSharpCode.SharpZipLib.xml
+C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\bin\NReco.VideoConverter.dll
+C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\bin\NReco.VideoConverter.xml

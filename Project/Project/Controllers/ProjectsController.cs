@@ -170,14 +170,16 @@ namespace Project.Controllers
 
         // POST: FileUploadAsync
         [HttpPost]
-        public async Task<ActionResult> UploadFileAsync(IEnumerable<HttpPostedFileBase> formFiles, string containerName, string publicID, string userID, DateTime currentDate)
+        public async Task<ActionResult> UploadFileAsync(ICollection<HttpPostedFileBase> formFiles, string containerName, string publicID, string userID, DateTime currentDate)
         {                                         
             try
             {
                 if (formFiles == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }                
+                }               
+                
+                //List<string> newNames                
 
                 //Upload to Azure Blob Container
                 await azureBlobService.UploadAsync(formFiles, containerName);

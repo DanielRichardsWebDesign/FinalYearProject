@@ -15,7 +15,7 @@ namespace Project.Services
     public interface IAzureBlobService
     {
         Task<CloudBlobContainer> CreateBlobContainer(string containerName);
-        Task UploadAsync(IEnumerable<HttpPostedFileBase> files, string containerName);
+        Task UploadAsync(ICollection<HttpPostedFileBase> files, string containerName);
         Task<string> GetBlobUri(string fileName, string containerName);
         Task DeleteAsync(string containerName, string fileUri);
         Task<Stream> DownloadAsync(string fileName, string containerName);
@@ -89,7 +89,7 @@ namespace Project.Services
             return blobUri;
         }
 
-        public async Task UploadAsync(IEnumerable<HttpPostedFileBase> files, string containerName)
+        public async Task UploadAsync(ICollection<HttpPostedFileBase> files, string containerName)
         {
             //Create connection to client
             var connectionStringConfiguration = ConfigurationManager.ConnectionStrings["StorageClient"].ConnectionString;
@@ -100,14 +100,31 @@ namespace Project.Services
             var blobContainer = blobClient.GetContainerReference(containerName);
 
             //Iterate and add files to container
-            foreach(var file in files)
+            foreach (var file in files)
             {
                 CloudBlockBlob blob = blobContainer.GetBlockBlobReference(file.FileName);
-                //Set content type to match uploaded file
-                blob.Properties.ContentType = file.ContentType;
-                blob.UploadFromStream(file.InputStream);
-                file.InputStream.Close();
-            };
+
+                int i = 0;
+
+
+                //Check if exists
+                if (blob.Exists())
+                {                  
+                    //Create new name based on time stamp.
+                    string fileName = file.FileName.Split('.')[0] + '(' + DateTime.Now.ToString("yyyyMMddHHmmss") + ")." + file.FileName.Split('.')[1];
+
+                    var newBlobVersion = blobContainer.GetBlockBlobReference(fileName);
+                    newBlobVersion.Properties.ContentType = file.ContentType;
+                    newBlobVersion.UploadFromStream(file.InputStream);
+                    file.InputStream.Close();                                             
+                }
+                else
+                {
+                    blob.Properties.ContentType = file.ContentType;
+                    blob.UploadFromStream(file.InputStream);
+                    file.InputStream.Close();
+                }                                    
+            }                         
         }
 
         public async Task<Stream> DownloadAsync(string fileName, string containerName)
