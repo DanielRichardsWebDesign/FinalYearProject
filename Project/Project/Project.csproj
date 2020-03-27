@@ -319,6 +319,7 @@
     <Compile Include="Models\Files.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ProjectRoles.cs" />
     <Compile Include="Models\Projects.cs" />
     <Compile Include="Models\ProjectUsers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

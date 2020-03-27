@@ -22,6 +22,12 @@ namespace Project.Models
             return userIdentity;
         }
     }
+
+    //Application Role class
+    public class ApplicationRole : IdentityRole
+    {
+
+    }
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()

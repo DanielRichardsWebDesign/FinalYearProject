@@ -48,6 +48,9 @@ namespace Project.Models
 
         //Collection of files on Project
         public virtual ICollection<Files> Files { get; set; }
+
+        //Collection of users on Project
+        public virtual ICollection<ProjectUsers> ProjectUsers { get; set; }
     }
 
     public class ProjectDBContext : DbContext
