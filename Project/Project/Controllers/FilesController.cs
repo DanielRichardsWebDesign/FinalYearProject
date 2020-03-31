@@ -11,6 +11,7 @@ using ICSharpCode.SharpZipLib.Zip;
 using System.Linq;
 using System.Collections.Generic;
 using NReco.VideoConverter;
+using Microsoft.AspNet.Identity;
 
 namespace Project.Controllers
 {
@@ -44,7 +45,10 @@ namespace Project.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Files files = await db.Files.FindAsync(id);
-            if(files == null)
+
+            ViewBag.UserID = User.Identity.GetUserId();
+
+            if (files == null)
             {
                 return HttpNotFound();
             }

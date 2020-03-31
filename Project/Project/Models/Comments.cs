@@ -12,7 +12,10 @@ namespace Project.Models
         [Key]
         public int CommentID { get; set; }
         [Required]
+        [StringLength(500, ErrorMessage = "You need to type something before you can submit!", MinimumLength = 1)]
         public string Comment { get; set; }
+
+
         [DataType(DataType.DateTime), Display(Name = "Date Commented"), Column(TypeName = "DateTime"), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime DateCommented { get; set; }
 

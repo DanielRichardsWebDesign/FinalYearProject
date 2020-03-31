@@ -125,6 +125,37 @@ namespace Project.Controllers
             return RedirectToAction("Index");
         }
 
+        // POST COMMENT
+        [HttpPost]
+        public async Task<ActionResult> PostComment(string comment, int fileID, string userID)
+        {
+            try
+            {
+                if(comment == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                var currentDateTime = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
+
+                var newComment = new Comments()
+                {
+                    Comment = comment,
+                    DateCommented = Convert.ToDateTime(currentDateTime),
+                    FileID = fileID,
+                    ApplicationUserID = userID,
+                };
+                db.Comments.Add(newComment);
+                await db.SaveChangesAsync();
+
+                return Redirect(Request.UrlReferrer.ToString());
+            }
+            catch
+            {
+                return View("Error");
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
