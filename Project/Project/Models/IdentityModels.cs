@@ -46,5 +46,9 @@ namespace Project.Models
         public System.Data.Entity.DbSet<Project.Models.Files> Files { get; set; }
 
         public System.Data.Entity.DbSet<Project.Models.ProjectUsers> ProjectUsers { get; set; }
+
+        public System.Data.Entity.DbSet<Project.Models.Comments> Comments { get; set; }
+
+        //public System.Data.Entity.DbSet<Project.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }

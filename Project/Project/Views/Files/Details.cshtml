@@ -133,3 +133,5 @@
 <p>    
     <a href="@Url.Action("WorkStation", "Projects", new { id = Model.PublicID })">Back to Workstation</a>
 </p>
+
+@Html.Partial("../Comments/_Comments", Model.Comments)

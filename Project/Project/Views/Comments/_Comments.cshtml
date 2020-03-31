@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Project.Models.Comments>
+
+<h2>Comments: @Model.Count()</h2> 
+
+@if (Model.Count() == 0)
+{
+    <div class="card text-center">
+        <div class="card-body">
+            <h1>Oh no! No one has commented yet! <span class="fas fa-sad-tear"></span></h1>
+            <p>Give your colleague feedback by commenting below!</p>
+        </div>
+    </div>
+}
+
+@foreach (var item in Model)
+{
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">@item.ApplicationUser.UserName</h5>
+            <p class="card-text">@item.Comment</p>
+        </div>  
+        <div class="card-footer text-muted">
+            @item.DateCommented
+        </div>
+    </div>
+    <br />
+}
+
