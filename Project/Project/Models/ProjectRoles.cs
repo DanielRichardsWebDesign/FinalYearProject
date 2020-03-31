@@ -7,7 +7,8 @@ namespace Project.Models
 {
     public class ProjectRoles
     {
-        public virtual string RoleId { get; set; }
+        [Key]
+        public virtual string RoleID { get; set; }
         public virtual string PublicID { get; set; }
 
         public virtual ApplicationRole Role { get; set; }

@@ -45,5 +45,8 @@ namespace Project.Models
         public virtual Projects Projects { get; set; }
 
         public virtual ApplicationUser ApplicationUser { get; set; }
+
+        //Collection of comments for many relationship with comments
+        public virtual ICollection<Comments> Comments { get; set; }
     }
 }

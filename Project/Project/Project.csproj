@@ -287,6 +287,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
+    <Compile Include="Controllers\ProjectUsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -314,8 +315,17 @@
     <Compile Include="Migrations\202003091714330_ChangeDateToDateTime.designer.cs">
       <DependentUpon>202003091714330_ChangeDateToDateTime.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003271040113_ProjectUsersAndRoles.cs" />
+    <Compile Include="Migrations\202003271040113_ProjectUsersAndRoles.designer.cs">
+      <DependentUpon>202003271040113_ProjectUsersAndRoles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003310850083_AddComments.cs" />
+    <Compile Include="Migrations\202003310850083_AddComments.designer.cs">
+      <DependentUpon>202003310850083_AddComments.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Comments.cs" />
     <Compile Include="Models\Files.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -591,6 +601,12 @@
     <Content Include="Views\Files\Index.cshtml" />
     <Content Include="Views\Files\_ProjectFiles.cshtml" />
     <Content Include="Views\Files\ReviewSelectedFiles.cshtml" />
+    <Content Include="Views\ProjectUsers\AddUser.cshtml" />
+    <Content Include="Views\ProjectUsers\Delete.cshtml" />
+    <Content Include="Views\ProjectUsers\Details.cshtml" />
+    <Content Include="Views\ProjectUsers\Edit.cshtml" />
+    <Content Include="Views\ProjectUsers\Index.cshtml" />
+    <Content Include="Views\ProjectUsers\_ProjectUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -624,6 +640,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003091714330_ChangeDateToDateTime.resx">
       <DependentUpon>202003091714330_ChangeDateToDateTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003271040113_ProjectUsersAndRoles.resx">
+      <DependentUpon>202003271040113_ProjectUsersAndRoles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003310850083_AddComments.resx">
+      <DependentUpon>202003310850083_AddComments.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

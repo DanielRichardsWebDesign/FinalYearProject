@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Project.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Add User</h2>
+
+@foreach (var item in Model)
+{
+    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 mt-2 mb-2">
+        <div class="card">
+            <div class="card-header">
+                @Html.DisplayFor(modelItem => item.UserName)
+            </div>
+            <div class="card-body">
+                
+                <a href="@Ajax.ActionLink("AddUserToProject", "ProjectUsers", new { id = item.Id }, new AjaxOptions { HttpMethod = "POST" })" class="btn btn-primary">
+                    View Details
+                    <span class="fa fa-user"></span>
+                </a>                
+            </div>            
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
