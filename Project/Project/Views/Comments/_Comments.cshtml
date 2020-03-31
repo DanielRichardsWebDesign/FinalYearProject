@@ -22,9 +22,7 @@
                 <button id="edit_@item.CommentID" class="btn btn-primary">
                     <i class="fas fa-pen"></i>
                 </button>
-                <button id="delete_@item.CommentID" class="btn btn-danger">
-                    <i class="fas fa-trash"></i>
-                </button>
+                <a href="@Url.Action("Delete", "Comments", new { id = item.CommentID })" class="btn btn-danger"><span class="fas fa-trash"></span></a>
             </div>
         }
         <div class="card-body">

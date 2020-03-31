@@ -120,9 +120,11 @@ namespace Project.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Comments comments = await db.Comments.FindAsync(id);
+            var fileID = comments.FileID;
+
             db.Comments.Remove(comments);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Files", new { id = fileID });
         }
 
         // POST COMMENT
