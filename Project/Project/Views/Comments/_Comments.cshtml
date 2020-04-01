@@ -32,7 +32,7 @@
         @if (User.Identity.GetUserId() == item.ApplicationUserID)
         {
             <div class="card-header text-right">
-                <button id="@item.CommentID" class="btn btn-primary editButton">
+                <button id="edit_@item.CommentID" class="btn btn-primary editButton">
                     <i class="fas fa-pen"></i>
                 </button>
                 <a href="@Url.Action("Delete", "Comments", new { id = item.CommentID })" class="btn btn-danger"><span class="fas fa-trash"></span></a>
@@ -49,7 +49,7 @@
                 <input class="userID" type="hidden" name="userID" id="userID" value="@item.ApplicationUserID" />*@
 
                 <script>
-                    $('.editButton').click(function () {
+                    $('#edit_@item.CommentID').click(function () {
                         
                         $('#editForm_' + @item.CommentID).append('<form action="Comments/EditComment/' + @item.CommentID + '">'
                             + '<textarea class="form-control" id="comment_"'+@item.CommentID+'" name="comment" rows="5" cols="50" required>@item.Comment</textarea>'
@@ -58,6 +58,9 @@
                             + '<input type="submit" class="btn btn-primary" value="Post" />'
                             + '</form>'
                         );
+
+                        $('#edit_@item.CommentID').attr("disabled", true);
+
                     });
                 </script>
             </form>
