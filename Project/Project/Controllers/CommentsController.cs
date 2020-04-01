@@ -158,6 +158,25 @@ namespace Project.Controllers
             }
         }
 
+        //EDIT COMMENT
+        [HttpPost]
+        public async Task<ActionResult> EditComment(string comment, int commentID, int fileID, string userID)
+        {
+            if(ModelState.IsValid)
+            {
+                var editComment = db.Comments.FirstOrDefault(c => c.CommentID == commentID);
+
+                //Set new properties
+                editComment.Comment = comment;
+
+                //Save changes
+                db.Entry(editComment).State = EntityState.Modified;
+                db.SaveChanges();
+                return Redirect(Request.UrlReferrer.ToString());
+            }
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

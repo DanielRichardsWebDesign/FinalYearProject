@@ -43,7 +43,7 @@
             <p class="card-text">@item.Comment</p>
         </div>
         <div id="editForm_@item.CommentID">
-            <form action="@Url.Action("EditComment", "Comments", new { id = item.CommentID })">
+            
                 @*<textarea class="form-control" id="comment" name="comment" rows="5" cols="50" placeholder="Insert Comment here..." required></textarea>
                 <input type="hidden" name="fileID" id="fileID" value="@item.CommentID" />
                 <input class="userID" type="hidden" name="userID" id="userID" value="@item.ApplicationUserID" />*@
@@ -51,8 +51,9 @@
                 <script>
                     $('#edit_@item.CommentID').click(function () {
                         
-                        $('#editForm_' + @item.CommentID).append('<form action="Comments/EditComment/' + @item.CommentID + '">'
-                            + '<textarea class="form-control" id="comment_"'+@item.CommentID+'" name="comment" rows="5" cols="50" required>@item.Comment</textarea>'
+                        $('#editForm_' + @item.CommentID).append('<form action="@Url.Action("EditComment", "Comments")" method="POST">'
+                            + '<textarea class="form-control" id="comment_"' +@item.CommentID+'" name="comment" rows="5" cols="50" required>@item.Comment</textarea>'
+                            + '<input type="hidden" name="commentID" id="commentID_'+@item.CommentID+'" value="' + @item.CommentID + '" />'
                             + '<input type="hidden" name="fileID" id="fileID_'+@item.FileID+'" value="' + @item.FileID + '" />'
                             + '<input type="hidden" name="userID" id="userID" value="@item.ApplicationUserID" />'
                             + '<input type="submit" class="btn btn-primary" value="Post" />'
@@ -63,7 +64,7 @@
 
                     });
                 </script>
-            </form>
+            
         </div>
         <div class="card-footer text-muted">
             @item.DateCommented
