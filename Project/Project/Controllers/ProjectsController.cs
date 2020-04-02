@@ -218,7 +218,20 @@ namespace Project.Controllers
         {
             Projects project = await db.Projects.FindAsync(id);
 
+            ViewBag.PublicID = project.PublicID;
+
             return View(project);
+        }
+
+        public async Task<ActionResult> AddUser(int id)
+        {
+            List<ProjectUsers> userList = db.ProjectUsers.Where(u => u.PublicID == id.ToString()).ToList();
+
+            var userId = User.Identity.GetUserId();
+
+            var user = db.Users.Where(u => u.Id != userId && !userList.Select(pu => pu.ApplicationUserID).Contains(u.Id));
+
+            return View(user.ToList());
         }
         
     }
