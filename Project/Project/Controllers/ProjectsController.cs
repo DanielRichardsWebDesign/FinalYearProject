@@ -212,7 +212,14 @@ namespace Project.Controllers
                 return View("Error");
             }            
             
-        }       
+        }
+        
+        public async Task<ActionResult> ProjectUsers(int? id)
+        {
+            Projects project = await db.Projects.FindAsync(id);
+
+            return View(project);
+        }
         
     }
 }

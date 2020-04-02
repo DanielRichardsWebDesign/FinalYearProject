@@ -37,14 +37,14 @@ namespace Project.Controllers
         }
 
         // GET: ProjectUsers/Create
-        //public ActionResult AddUser(int projectID)
-        //{
-        //    //var projectUsers = db.ProjectUsers.Select(p => p.ApplicationUserID).Where(p => p.);
+        public ActionResult AddUser(int projectID)
+        {
+            var projectUsers = db.ProjectUsers.Select(p => p.ApplicationUserID);
 
-        //    //var returnTo = db.Users.Where(u => !projectUsers.Contains(u.Id)).ToList();
+            var returnTo = db.Users.Where(u => !projectUsers.Contains(u.Id)).ToList();
 
-        //    //return View(returnTo);
-        //}
+            return View(returnTo);
+        }
 
         // POST: ProjectUsers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 

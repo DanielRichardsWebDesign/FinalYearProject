@@ -1,0 +1,35 @@
+﻿@model Project.Models.Projects
+
+@{
+    ViewBag.Title = "ProjectUsers";
+}
+
+<div class="jumbotron bg-primary text-white">
+    <div class="container">
+        <h1 class="display-4">@Model.ProjectName: Users</h1>
+        <p class="lead">View & add users to current project...</p>
+    </div>
+</div>
+
+<h2>Project Users</h2>
+
+<div class="card text-center">
+    <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("WorkStation", "Projects", new { id = Model.PublicID })">Files <span class="fas fa-file"></span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="@Url.Action("ProjectUsers", "Projects", new { id = Model.PublicID })">Users <span class="fas fa-user"></span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Activity</a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body">
+        <!--Retrieve Files Partial view to display.-->
+        @Html.Partial("../ProjectUsers/_ProjectUsers", Model.ProjectUsers)
+    </div>
+</div>
+
