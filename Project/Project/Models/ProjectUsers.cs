@@ -8,16 +8,18 @@ namespace Project.Models
     public class ProjectUsers
     {
         [Key]
+        public virtual int ProjectUserID { get; set; }
+        
         [Required]
         public virtual string ApplicationUserID { get; set; }
 
         [Required]
-        public virtual string PublicID { get; set; }
+        public virtual int PublicID { get; set; }
 
         public virtual ApplicationUser User { get; set; }
         public virtual Projects Projects { get; set; }
 
         //Collection of roles for users
-        public virtual ICollection<ProjectRoles> ProjectRoles { get; set; }
+        //public virtual ICollection<ProjectRoles> ProjectRoles { get; set; }
     }
 }

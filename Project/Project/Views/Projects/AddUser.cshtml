@@ -10,12 +10,19 @@
     <div class="card-header">
         Add User
     </div>
-    <ul class="list-group list-group-flush">
+    <div class="card-body">
         @foreach (var item in Model)
         {
-            @Html.DisplayFor(modelItem => item.UserName, new { @class = "list-group-item" })
+            using (Html.BeginForm("AddUserToProject", "Projects", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {                             
+                <label for="AddUser">@item.UserName</label>
+                <input type="hidden" name="userID" value="@item.Id" />
+                <input type="hidden" name="publicID" value="@ViewBag.PublicID" />
+                <input type="submit" class="btn btn-success" value="Add User" />                
+            }
         }
-    </ul>
+
+    </div>    
 </div>
 
 <div>

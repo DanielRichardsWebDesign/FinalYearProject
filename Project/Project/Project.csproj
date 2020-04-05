@@ -328,6 +328,18 @@
     <Compile Include="Migrations\202003311249387_UpdateComments.designer.cs">
       <DependentUpon>202003311249387_UpdateComments.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004051106092_RemoveForeignKeysProjectUsers.cs" />
+    <Compile Include="Migrations\202004051106092_RemoveForeignKeysProjectUsers.designer.cs">
+      <DependentUpon>202004051106092_RemoveForeignKeysProjectUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004051134519_DropProjectUsers.cs" />
+    <Compile Include="Migrations\202004051134519_DropProjectUsers.designer.cs">
+      <DependentUpon>202004051134519_DropProjectUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004051251512_Update.cs" />
+    <Compile Include="Migrations\202004051251512_Update.designer.cs">
+      <DependentUpon>202004051251512_Update.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comments.cs" />
@@ -662,6 +674,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003311249387_UpdateComments.resx">
       <DependentUpon>202003311249387_UpdateComments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004051106092_RemoveForeignKeysProjectUsers.resx">
+      <DependentUpon>202004051106092_RemoveForeignKeysProjectUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004051134519_DropProjectUsers.resx">
+      <DependentUpon>202004051134519_DropProjectUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004051251512_Update.resx">
+      <DependentUpon>202004051251512_Update.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -218,21 +218,43 @@ namespace Project.Controllers
         {
             Projects project = await db.Projects.FindAsync(id);
 
-            ViewBag.PublicID = project.PublicID;
+            ViewBag.PublicID = id;
 
             return View(project);
         }
 
         public async Task<ActionResult> AddUser(int id)
         {
-            List<ProjectUsers> userList = db.ProjectUsers.Where(u => u.PublicID == id.ToString()).ToList();
+            ViewBag.PublicID = id;
+
+            List<ProjectUsers> userList = db.ProjectUsers.Where(u => u.PublicID == id).ToList();
 
             var userId = User.Identity.GetUserId();
 
-            var user = db.Users.Where(u => u.Id != userId && !userList.Select(pu => pu.ApplicationUserID).Contains(u.Id));
+            var user = db.Users.AsEnumerable().Where(u => u.Id != userId && !userList.Select(pu => pu.ApplicationUserID).Contains(u.Id));
 
             return View(user.ToList());
         }
         
+        [HttpPost]
+        public async Task<ActionResult> AddUserToProject(string userID, int publicID)
+        {
+            try
+            {
+                var newProjectUser = new ProjectUsers
+                {
+                    ApplicationUserID = userID,
+                    PublicID = publicID,
+                };
+                db.ProjectUsers.Add(newProjectUser);
+                db.SaveChanges();
+
+                return RedirectToAction("ProjectUsers", "Projects", new { id = publicID });
+            }
+            catch
+            {
+                return View("Error");
+            }            
+        }
     }
 }
