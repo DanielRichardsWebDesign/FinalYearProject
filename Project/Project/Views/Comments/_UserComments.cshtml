@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Project.Models.Comments>
+
+<script>
+    $(function () {
+
+        $('.pop-over').each(function (i) {
+            $(this).popover({
+                trigger: "hover focus"
+            });
+        });
+    });
+</script>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">File Name</th>
+            <th scope="col">Comment</th>
+            <th scope="col">Date Commented</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>
+                    @if (item.Files.FileType.Contains("image"))
+                    {
+                        <a href="@Url.Action("Details", "Files", new { id = item.FileID })" tabindex="0" class="pop-over" data-trigger="hover focus" title="@item.Files.FileName" data-html="true" data-content="'<img src='@item.Files.FilePath' alt='@item.Files.FileName' width='200' class='img-thumbnail' />'" data-placement="top">@Html.DisplayFor(modelItem => item.Files.FileName)</a>
+                    }
+                    @if (item.Files.FileType.Contains("audio"))
+                    {
+                        <a href="@Url.Action("Details", "Files", new { id = item.FileID })" tabindex="0" class="pop-over" data-trigger="hover focus" title="@item.Files.FileName" data-html="true" data-content="<span class='fas fa-file-audio fa-10x'></span>" data-placement="top">@Html.DisplayFor(modelItem => item.Files.FileName)</a>
+
+                    }
+                    @if (item.Files.FileType.Contains("video"))
+                    {
+                        <a href="@Url.Action("Details", "Files", new { id = item.FileID })" tabindex="0" class="pop-over" data-trigger="hover focus" title="@item.Files.FileName" data-html="true" data-content="<span class='fas fa-file-video fa-10x'></span>" data-placement="top">@Html.DisplayFor(modelItem => item.Files.FileName)</a>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateCommented)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

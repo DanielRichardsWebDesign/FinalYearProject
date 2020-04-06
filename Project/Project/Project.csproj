@@ -639,6 +639,7 @@
     <Content Include="Views\Projects\RemoveUser.cshtml" />
     <Content Include="Views\Projects\ViewContributions.cshtml" />
     <Content Include="Views\Files\_UserFiles.cshtml" />
+    <Content Include="Views\Comments\_UserComments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
