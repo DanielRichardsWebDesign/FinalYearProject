@@ -340,6 +340,10 @@
     <Compile Include="Migrations\202004051251512_Update.designer.cs">
       <DependentUpon>202004051251512_Update.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004061328058_AddCommentsToUser.cs" />
+    <Compile Include="Migrations\202004061328058_AddCommentsToUser.designer.cs">
+      <DependentUpon>202004061328058_AddCommentsToUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comments.cs" />
@@ -633,6 +637,8 @@
     <Content Include="Views\Projects\ProjectUsers.cshtml" />
     <Content Include="Views\Projects\AddUser.cshtml" />
     <Content Include="Views\Projects\RemoveUser.cshtml" />
+    <Content Include="Views\Projects\ViewContributions.cshtml" />
+    <Content Include="Views\Files\_UserFiles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -684,6 +690,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004051251512_Update.resx">
       <DependentUpon>202004051251512_Update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004061328058_AddCommentsToUser.resx">
+      <DependentUpon>202004061328058_AddCommentsToUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

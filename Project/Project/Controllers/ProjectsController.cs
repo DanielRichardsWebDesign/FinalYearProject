@@ -80,6 +80,15 @@ namespace Project.Controllers
                 //Create Container with ProjectContainerName
                 await azureBlobService.CreateBlobContainer(containerName);
 
+                //Add the creator to the list of Project Users
+                ProjectUsers projectUser = new ProjectUsers
+                { 
+                    ApplicationUserID = projects.ApplicationUserID,
+                    PublicID = projects.PublicID
+                };
+                db.ProjectUsers.Add(projectUser);
+                await db.SaveChangesAsync();
+
                 return RedirectToAction("Index");
             }
 
@@ -279,6 +288,20 @@ namespace Project.Controllers
             await db.SaveChangesAsync();
 
             return RedirectToAction("ProjectUsers", "Projects", new { id = projectID });
+        }
+
+        public async Task<ActionResult> ViewContributions(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ProjectUsers projectUser = db.ProjectUsers.Where(p => p.ProjectUserID == id).FirstOrDefault();
+            if(projectUser == null)
+            {
+                return HttpNotFound();
+            }
+            return View(projectUser);
         }
     }
 }

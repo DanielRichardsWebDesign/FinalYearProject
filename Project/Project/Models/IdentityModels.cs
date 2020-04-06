@@ -13,6 +13,7 @@ namespace Project.Models
         //Virtual DbSet to interact with the generated code created by Identity
         public virtual ICollection<Projects> Projects { get; set; }
         public virtual ICollection<Files> Files { get; set; }
+        public virtual ICollection<Comments> Comments { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
