@@ -256,5 +256,29 @@ namespace Project.Controllers
                 return View("Error");
             }            
         }
+
+        public async Task<ActionResult> RemoveUser(int? id)
+        {
+            if(id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ProjectUsers projectUser = await db.ProjectUsers.FindAsync(id);
+            if(projectUser == null)
+            {
+                return HttpNotFound();
+            }
+            return View(projectUser);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> RemoveUserFromProject(string userID, int projectID)
+        {
+            ProjectUsers projectUser = db.ProjectUsers.Where(p => p.ApplicationUserID == userID && p.PublicID == projectID).FirstOrDefault();
+            db.ProjectUsers.Remove(projectUser);
+            await db.SaveChangesAsync();
+
+            return RedirectToAction("ProjectUsers", "Projects", new { id = projectID });
+        }
     }
 }

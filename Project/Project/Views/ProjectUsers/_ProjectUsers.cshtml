@@ -19,6 +19,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.User.UserName)
             </td>
+            <td>
+                <a class="btn btn-danger" href="@Url.Action("RemoveUser", "Projects", new { id = item.ProjectUserID })"><span class="fas fa-trash"></span></a>
+            </td>
         </tr>
     }
 </table>
