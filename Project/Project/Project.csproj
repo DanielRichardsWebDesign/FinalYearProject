@@ -340,9 +340,9 @@
     <Compile Include="Migrations\202004051251512_Update.designer.cs">
       <DependentUpon>202004051251512_Update.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202004061328058_AddCommentsToUser.cs" />
-    <Compile Include="Migrations\202004061328058_AddCommentsToUser.designer.cs">
-      <DependentUpon>202004061328058_AddCommentsToUser.cs</DependentUpon>
+    <Compile Include="Migrations\202004081455046_AddIsAdminToProjectUsers.cs" />
+    <Compile Include="Migrations\202004081455046_AddIsAdminToProjectUsers.designer.cs">
+      <DependentUpon>202004081455046_AddIsAdminToProjectUsers.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -692,8 +692,8 @@
     <EmbeddedResource Include="Migrations\202004051251512_Update.resx">
       <DependentUpon>202004051251512_Update.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004061328058_AddCommentsToUser.resx">
-      <DependentUpon>202004061328058_AddCommentsToUser.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202004081455046_AddIsAdminToProjectUsers.resx">
+      <DependentUpon>202004081455046_AddIsAdminToProjectUsers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

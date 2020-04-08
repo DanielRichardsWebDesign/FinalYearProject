@@ -7,13 +7,13 @@ namespace Project.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.0")]
-    public sealed partial class AddCommentsToUser : IMigrationMetadata
+    public sealed partial class AddIsAdminToProjectUsers : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddCommentsToUser));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddIsAdminToProjectUsers));
         
         string IMigrationMetadata.Id
         {
-            get { return "202004061328058_AddCommentsToUser"; }
+            get { return "202004081455046_AddIsAdminToProjectUsers"; }
         }
         
         string IMigrationMetadata.Source

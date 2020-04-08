@@ -16,6 +16,9 @@ namespace Project.Models
         [Required]
         public virtual int PublicID { get; set; }
 
+        //True or false for admin status
+        public virtual bool IsAdmin { get; set; }
+
         public virtual ApplicationUser User { get; set; }
         public virtual Projects Projects { get; set; }
 
