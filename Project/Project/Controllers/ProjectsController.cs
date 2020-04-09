@@ -303,5 +303,19 @@ namespace Project.Controllers
             }
             return View(projectUser);
         }
+
+        public async Task<ActionResult> MyFiles(int? id)
+        {
+            if(id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Projects project = await db.Projects.FindAsync(id);
+            if(project == null)
+            {
+                return HttpNotFound();
+            }
+            return View(project);
+        }
     }
 }

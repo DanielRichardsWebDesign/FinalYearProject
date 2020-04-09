@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Project.Models.Files>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">File Name</th>
+                <th scope="col">File Type</th>
+                <th scope="col">File Size</th>
+                <th scope="col">Date Uploaded</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr>                
+                <td>
+                    @if (item.FileType.Contains("image"))
+                    {
+                        <a href="@Url.Action("Details", "Files", new { id = item.FileID })" tabindex="0" class="pop-over" data-trigger="hover focus" title="@item.FileName" data-html="true" data-content="'<img src='@item.FilePath' alt='@item.FileName' width='200' class='img-thumbnail' />'" data-placement="top">@Html.DisplayFor(modelItem => item.FileName)</a>
+                    }
+                    @if (item.FileType.Contains("audio"))
+                    {
+                        <a href="@Url.Action("Details", "Files", new { id = item.FileID })" tabindex="0" class="pop-over" data-trigger="hover focus" title="@item.FileName" data-html="true" data-content="<span class='fas fa-file-audio fa-10x'></span>" data-placement="top">@Html.DisplayFor(modelItem => item.FileName)</a>
+
+                    }
+                    @if (item.FileType.Contains("video"))
+                    {
+                        <a href="@Url.Action("Details", "Files", new { id = item.FileID })" tabindex="0" class="pop-over" data-trigger="hover focus" title="@item.FileName" data-html="true" data-content="<span class='fas fa-file-video fa-10x'></span>" data-placement="top">@Html.DisplayFor(modelItem => item.FileName)</a>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FileType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FileSize)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateUploaded)
+                </td>                
+                <td>
+                    <a class="btn btn-primary" href="@Url.Action("Details", "Files", new { id = item.FileID })"><span class="fas fa-eye"></span></a>
+                    <a href="@Url.Action("DownloadFile", "Files", new { id = item.FileID })" class="btn btn-primary"><span class="fas fa-download"></span></a>
+                    <a class="btn btn-danger" href="@Url.Action("Delete", "Files", new { id = item.FileID })"><span class="fas fa-trash"></span></a>
+                </td>
+            </tr>
+        }
+    </table>

@@ -640,6 +640,8 @@
     <Content Include="Views\Projects\ViewContributions.cshtml" />
     <Content Include="Views\Files\_UserFiles.cshtml" />
     <Content Include="Views\Comments\_UserComments.cshtml" />
+    <Content Include="Views\Projects\MyFiles.cshtml" />
+    <Content Include="Views\Files\_MyFiles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

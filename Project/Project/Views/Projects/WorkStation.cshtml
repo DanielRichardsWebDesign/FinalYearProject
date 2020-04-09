@@ -39,6 +39,9 @@
                 <a class="nav-link active" href="@Url.Action("WorkStation", "Projects", new { id = Model.PublicID })">Files <span class="fas fa-file"></span></a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("MyFiles", "Projects", new { id = Model.PublicID })">My Files <span class="fas fa-file"></span></a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="@Url.Action("ProjectUsers", "Projects", new { id = Model.PublicID })">Users <span class="fas fa-user"></span></a>
             </li>
             <li class="nav-item">
