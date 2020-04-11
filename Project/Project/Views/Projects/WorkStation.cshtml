@@ -1,4 +1,5 @@
 ﻿@model Project.Models.Projects
+@using Microsoft.AspNet.Identity
 
 @{
     ViewBag.Title = "WorkStation";
@@ -28,6 +29,15 @@
     <input type="submit" value="Upload" class="btn btn-default" />
 }
 <br />
+
+@if(!Model.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()) && !Model.ProjectUserRequests.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+{
+    <h2>Request project membership</h2>
+}
+@if(Model.ProjectUserRequests.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+{
+    <h2>Your request has been sent and is currently being verified.</h2>
+}
 
 <a class="btn btn-primary" href="@Url.Action("DownloadRepository", "Files", new { id = Model.PublicID })"><span class="fas fa-file-archive"></span> Download as Zip</a>
 <br />
