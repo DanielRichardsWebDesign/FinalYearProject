@@ -288,6 +288,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
+    <Compile Include="Controllers\ProjectUserRequestsController.cs" />
     <Compile Include="Controllers\ProjectUsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -647,6 +648,7 @@
     <Content Include="Views\Comments\_UserComments.cshtml" />
     <Content Include="Views\Projects\MyFiles.cshtml" />
     <Content Include="Views\Files\_MyFiles.cshtml" />
+    <Content Include="Views\ProjectUserRequests\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

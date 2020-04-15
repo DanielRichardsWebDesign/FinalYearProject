@@ -50,6 +50,10 @@ namespace Project.Models
 
         public System.Data.Entity.DbSet<Project.Models.Comments> Comments { get; set; }
 
+        public System.Data.Entity.DbSet<Project.Models.ProjectUserRequests> ProjectUserRequests { get; set; }
+
+        //public System.Data.Entity.DbSet<Project.Models.ApplicationUser> ApplicationUsers { get; set; }
+
         //public System.Data.Entity.DbSet<Project.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }
