@@ -16,7 +16,7 @@
                     @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
                 </td>
                 <td>
-                    @using (Html.BeginForm("ApproveUser", "ProjectUserRequests", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    @using (Html.BeginForm("ApproveMembership", "ProjectUserRequests", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
                         <input type="hidden" value="@item.ProjectUserRequestID" name="requestID" />
                         <input type="submit" class="btn btn-success" value="Approve" />
