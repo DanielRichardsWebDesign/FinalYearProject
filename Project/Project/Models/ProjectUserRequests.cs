@@ -19,8 +19,8 @@ namespace Project.Models
         public string ApplicationUserID { get; set; }
 
         //Virtual objects to set user and project properties
-        public Projects Projects { get; set; }
+        public virtual Projects Projects { get; set; }
 
-        public ApplicationUser ApplicationUser { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }

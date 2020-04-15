@@ -36,6 +36,35 @@ namespace Project.Controllers
             return Redirect(Request.UrlReferrer.ToString());
         }
 
+        // POST: ApproveMembership
+        public async Task<ActionResult> ApproveMembership(int? requestID)
+        {
+            if(requestID == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ProjectUserRequests request = await db.ProjectUserRequests.FindAsync(requestID);
+            if(request == null)
+            {
+                return HttpNotFound();
+            }
+            ProjectUsers projectUser = new ProjectUsers
+            {
+                ApplicationUserID = request.ApplicationUserID,
+                PublicID = request.PublicID,
+                IsAdmin = false
+            };
+            db.ProjectUsers.Add(projectUser);
+
+            //Delete the request once the user has been approved
+            db.ProjectUserRequests.Remove(request);
+
+            //Save database
+            await db.SaveChangesAsync();
+
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
         // GET: ProjectUserRequests/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {

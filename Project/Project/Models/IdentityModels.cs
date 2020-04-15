@@ -14,6 +14,7 @@ namespace Project.Models
         public virtual ICollection<Projects> Projects { get; set; }
         public virtual ICollection<Files> Files { get; set; }
         public virtual ICollection<Comments> Comments { get; set; }
+        public virtual ICollection<ProjectUserRequests> ProjectUserRequests { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

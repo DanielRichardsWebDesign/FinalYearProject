@@ -84,7 +84,8 @@ namespace Project.Controllers
                 ProjectUsers projectUser = new ProjectUsers
                 { 
                     ApplicationUserID = projects.ApplicationUserID,
-                    PublicID = projects.PublicID
+                    PublicID = projects.PublicID,
+                    IsAdmin = true
                 };
                 db.ProjectUsers.Add(projectUser);
                 await db.SaveChangesAsync();
@@ -316,6 +317,20 @@ namespace Project.Controllers
                 return HttpNotFound();
             }
             return View(project);
+        }
+
+        public async Task<ActionResult> UserRequests(int? id)
+        {
+            if(id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var projectUserRequests = db.Projects.Where(p => p.PublicID == id).Include(u => u.ApplicationUser).First();
+            if(projectUserRequests == null)
+            {
+                return HttpNotFound();
+            }
+            return View(projectUserRequests);
         }
     }
 }

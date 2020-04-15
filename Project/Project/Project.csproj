@@ -649,6 +649,8 @@
     <Content Include="Views\Projects\MyFiles.cshtml" />
     <Content Include="Views\Files\_MyFiles.cshtml" />
     <Content Include="Views\ProjectUserRequests\Delete.cshtml" />
+    <Content Include="Views\Projects\UserRequests.cshtml" />
+    <Content Include="Views\ProjectUserRequests\_UserRequests.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
