@@ -651,6 +651,7 @@
     <Content Include="Views\ProjectUserRequests\Delete.cshtml" />
     <Content Include="Views\Projects\UserRequests.cshtml" />
     <Content Include="Views\ProjectUserRequests\_UserRequests.cshtml" />
+    <Content Include="Views\Projects\MemberOf.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

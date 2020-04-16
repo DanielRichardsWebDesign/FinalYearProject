@@ -35,6 +35,12 @@ namespace Project.Controllers
         {
 
             var currentUserID = User.Identity.GetUserId();
+
+            if(currentUserID == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             var projects = db.Projects.Include(p => p.ApplicationUser);
             return View(await projects.Where(p => p.ApplicationUserID.Equals(currentUserID)).ToListAsync());
         }
@@ -331,6 +337,19 @@ namespace Project.Controllers
                 return HttpNotFound();
             }
             return View(projectUserRequests);
+        }
+
+        public async Task<ActionResult> MemberOf()
+        {
+            var currentUserID = User.Identity.GetUserId();
+
+            if(currentUserID == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var projects = db.Projects.Where(p => p.ProjectUsers.Any(pm => pm.ApplicationUserID == currentUserID) && p.ApplicationUserID != currentUserID);
+            return View(await projects.ToListAsync());
         }
     }
 }
