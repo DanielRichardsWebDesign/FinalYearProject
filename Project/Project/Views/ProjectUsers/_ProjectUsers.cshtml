@@ -25,6 +25,7 @@
             </td>
             <td>
                 <a class="btn btn-primary" href="@Url.Action("ViewContributions", "Projects", new { id = item.ProjectUserID })"><span class="fas fa-eye"></span></a>
+                <a class="btn btn-primary" href="@Url.Action("EditUserPrivileges", "Projects", new { id = item.ProjectUserID })"><span class="fas fa-eye"></span></a>
                 <a class="btn btn-danger" href="@Url.Action("RemoveUser", "Projects", new { id = item.ProjectUserID })"><span class="fas fa-trash"></span></a>
             </td>
         </tr>

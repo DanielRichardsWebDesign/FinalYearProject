@@ -351,5 +351,40 @@ namespace Project.Controllers
             var projects = db.Projects.Where(p => p.ProjectUsers.Any(pm => pm.ApplicationUserID == currentUserID) && p.ApplicationUserID != currentUserID);
             return View(await projects.ToListAsync());
         }
+
+        public async Task<ActionResult> EditUserPrivileges(int? id)
+        {
+            var currentUserID = User.Identity.GetUserId();
+            //var project = db.Projects.Where
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            if (currentUserID == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            ProjectUsers projectUser = db.ProjectUsers.Find(id);            
+
+            if(projectUser == null)
+            {
+                return HttpNotFound();
+            }
+
+            var projectID = projectUser.PublicID;
+            var project = db.Projects.Find(projectID);
+            var projectMemberLoggedIn = db.ProjectUsers.Where(p => p.PublicID == projectID && p.ApplicationUserID == currentUserID).FirstOrDefault();
+
+            if(projectMemberLoggedIn.IsAdmin == false)
+            {
+                return View("Unauthorised");
+            }
+                      
+                return View(projectUser);
+            
+        }
     }
 }

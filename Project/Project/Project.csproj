@@ -652,6 +652,7 @@
     <Content Include="Views\Projects\UserRequests.cshtml" />
     <Content Include="Views\ProjectUserRequests\_UserRequests.cshtml" />
     <Content Include="Views\Projects\MemberOf.cshtml" />
+    <Content Include="Views\Projects\EditUserPrivileges.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
