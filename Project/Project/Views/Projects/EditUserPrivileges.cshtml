@@ -16,8 +16,9 @@
 @using (Html.BeginForm("UpdateUserPrivileges", "Projects", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <div class="form-group">
-        @Html.LabelFor(model => model.ApplicationUserID, "ApplicationUserID", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.HiddenFor(model => model.ProjectUserID)
         @Html.HiddenFor(model => model.ApplicationUserID)
+        @Html.HiddenFor(model => model.PublicID)
     </div>
 
     <div class="form-group">

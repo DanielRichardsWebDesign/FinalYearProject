@@ -386,5 +386,20 @@ namespace Project.Controllers
                 return View(projectUser);
             
         }
+
+        [HttpPost]
+        public async Task<ActionResult> UpdateUserPrivileges([Bind(Include = "ProjectUserID,ApplicationUserID,PublicID,IsAdmin")] ProjectUsers projectUser)
+        {
+            if(ModelState.IsValid)
+            {
+                db.Entry(projectUser).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+
+                var projectID = projectUser.PublicID;
+
+                return RedirectToAction("ProjectUsers", "Projects", new { id = projectID });
+            }
+            return View(projectUser);
+        }
     }
 }
