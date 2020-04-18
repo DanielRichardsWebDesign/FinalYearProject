@@ -401,5 +401,52 @@ namespace Project.Controllers
             }
             return View(projectUser);
         }
+
+        //Tasks view
+        public async Task<ActionResult> Tasks(int? id)
+        {
+            if(id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Projects project = await db.Projects.FindAsync(id);
+            if(project == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.PublicID = project.PublicID;
+            ViewBag.ApplicationUserID = User.Identity.GetUserId();
+
+            return View(project);
+        }
+
+        //Create Task
+        [HttpPost]
+        public async Task<ActionResult> CreateTask(int? projectID, string userID, string taskDesc)
+        {
+            if(projectID == null && userID == null && taskDesc == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var task = new Tasks();
+
+            if(ModelState.IsValid)
+            {
+                task = new Tasks 
+                {
+                    PublicID = Convert.ToInt32(projectID),
+                    ApplicationUserID = userID,
+                    TaskDescription = taskDesc
+                };
+                db.Tasks.Add(task);
+                await db.SaveChangesAsync();
+
+                return RedirectToAction("Tasks", "Projects", new { id = task.PublicID });
+            }
+
+            return View(task);
+        }
     }
 }

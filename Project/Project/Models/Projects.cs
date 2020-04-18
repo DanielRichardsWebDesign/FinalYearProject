@@ -54,6 +54,9 @@ namespace Project.Models
 
         //Collection of User requests on Project
         public virtual ICollection<ProjectUserRequests> ProjectUserRequests { get; set; }
+
+        //Collection of tasks on Project
+        public virtual ICollection<Tasks> Tasks { get; set; }
     }
 
     public class ProjectDBContext : DbContext
