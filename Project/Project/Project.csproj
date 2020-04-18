@@ -349,6 +349,10 @@
     <Compile Include="Migrations\202004111234214_AddProjectUserRequests.designer.cs">
       <DependentUpon>202004111234214_AddProjectUserRequests.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004181050327_AddTasks.cs" />
+    <Compile Include="Migrations\202004181050327_AddTasks.designer.cs">
+      <DependentUpon>202004181050327_AddTasks.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comments.cs" />
@@ -359,6 +363,8 @@
     <Compile Include="Models\Projects.cs" />
     <Compile Include="Models\ProjectUserRequests.cs" />
     <Compile Include="Models\ProjectUsers.cs" />
+    <Compile Include="Models\Tasks.cs" />
+    <Compile Include="Models\UserTasks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AzureBlobService.cs" />
     <Compile Include="Startup.cs" />
@@ -710,6 +716,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004111234214_AddProjectUserRequests.resx">
       <DependentUpon>202004111234214_AddProjectUserRequests.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004181050327_AddTasks.resx">
+      <DependentUpon>202004181050327_AddTasks.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

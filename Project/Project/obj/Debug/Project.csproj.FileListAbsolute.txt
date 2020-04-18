@@ -813,3 +813,4 @@ C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Projec
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\obj\Debug\Project.Migrations.Update.resources
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\obj\Debug\Project.Migrations.AddIsAdminToProjectUsers.resources
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\obj\Debug\Project.Migrations.AddProjectUserRequests.resources
+C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\obj\Debug\Project.Migrations.AddTasks.resources

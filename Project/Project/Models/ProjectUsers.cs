@@ -24,5 +24,8 @@ namespace Project.Models
 
         //Collection of roles for users
         //public virtual ICollection<ProjectRoles> ProjectRoles { get; set; }
+
+        //Collection of tasks assigned to user
+        public virtual ICollection<UserTasks> UserTasks { get; set; }
     }
 }
