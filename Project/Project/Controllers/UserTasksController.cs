@@ -153,7 +153,7 @@ namespace Project.Controllers
             //ViewBag for selecting users to assign
             ViewBag.TaskID = task.TaskID;
             ViewBag.TaskDescription = task.TaskDescription;
-            ViewBag.ProjectUsers = db.ProjectUsers.Where(p => p.PublicID == task.PublicID && !db.UserTasks.Any(t => t.ProjectUserID == p.ProjectUserID)).Include(p => p.User).ToList();
+            ViewBag.ProjectUsers = db.ProjectUsers.Where(p => p.PublicID == task.PublicID && !db.UserTasks.Any(t => t.ProjectUserID == p.ProjectUserID && t.TaskID == task.TaskID)).Include(p => p.User).ToList();
             ViewBag.AssignedUsers = db.UserTasks.Where(p => p.TaskID == task.TaskID).Include(u => u.ProjectUsers.User).ToList();
 
             return View();

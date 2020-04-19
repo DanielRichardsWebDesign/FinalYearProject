@@ -15,9 +15,10 @@
                     @foreach (var item in Model.Where(i => i.IsComplete == false))
                     {
                         <li class="list-group-item">@item.TaskDescription</li>
-                        <div class="card-body">
+                        <div class="card-footer">
                             <a class="btn btn-primary" href="@Url.Action("AssignUsers", "UserTasks", new { id = item.TaskID })"><span class="fas fa-users"></span></a>
                             <a class="btn btn-primary" href="#"><span class="fas fa-eye"></span></a>
+                            <a class="btn btn-primary" href="@Url.Action("EditTask", "Projects", new { id = item.TaskID })"><span class="fas fa-pen"></span></a>
                         </div>
                     }
                 </ul>
@@ -37,7 +38,7 @@
                     @foreach (var item in Model.Where(i => i.IsComplete == true))
                     {
                         <li class="list-group-item">@item.TaskDescription</li>
-                        <div class="card-body">
+                        <div class="card-footer">
                             
                         </div>
                     }
