@@ -151,8 +151,10 @@ namespace Project.Controllers
             }
 
             //ViewBag for selecting users to assign
-            ViewBag.TaskID = new SelectList(db.Tasks.Where(t => t.TaskID == id).ToList(), "TaskID", "TaskDescription", id);
-            ViewBag.ProjectUsers = db.ProjectUsers.Where(p => p.PublicID == task.PublicID).Include(p => p.User).ToList();            
+            ViewBag.TaskID = task.TaskID;
+            ViewBag.TaskDescription = task.TaskDescription;
+            ViewBag.ProjectUsers = db.ProjectUsers.Where(p => p.PublicID == task.PublicID && !db.UserTasks.Any(t => t.ProjectUserID == p.ProjectUserID)).Include(p => p.User).ToList();
+            ViewBag.AssignedUsers = db.UserTasks.Where(p => p.TaskID == task.TaskID).Include(u => u.ProjectUsers.User).ToList();
 
             return View();
 
@@ -160,7 +162,7 @@ namespace Project.Controllers
 
         //Add Users to Task post method
         [HttpPost]
-        public async Task<ActionResult> AddUserToTask(int? TaskID, int []projectUserIDs)
+        public async Task<ActionResult> AddUserToTask(int? TaskID, int? []projectUserIDs, int? []assignedUserIDs)
         {
             Tasks task = await db.Tasks.FindAsync(TaskID);
             if(task == null)
@@ -173,8 +175,9 @@ namespace Project.Controllers
             {
                 UserTasks userTask = new UserTasks();
                 userTask.TaskID = Convert.ToInt32(TaskID);
-                userTask.ProjectUserID = projectUserID;
+                userTask.ProjectUserID = Convert.ToInt32(projectUserID);
 
+                //Query for checking if entity exists
                 var userTaskQuery = db.UserTasks.SingleOrDefault(u => u.TaskID == userTask.TaskID && u.ProjectUserID == userTask.ProjectUserID);
 
                 //Checks if entity exists in UserTasks table and removes it if it does
@@ -188,9 +191,25 @@ namespace Project.Controllers
                 db.SaveChanges();
             }
 
-            return RedirectToAction("Tasks", "Projects", new { id = task.PublicID });
-        }
+            //Loop through each UserID for AssignedUsers array and remove the checked ones
+            foreach(var projectUserID in assignedUserIDs)
+            {
+                UserTasks userTask = new UserTasks();
+                userTask.TaskID = Convert.ToInt32(TaskID);
+                userTask.ProjectUserID = Convert.ToInt32(projectUserID);
 
+                //Check if entity exists in UserTasks
+                var assignedUserQuery = db.UserTasks.SingleOrDefault(u => u.TaskID == userTask.TaskID && u.ProjectUserID == userTask.ProjectUserID);
+
+                if(assignedUserQuery != null)
+                {
+                    db.UserTasks.Remove(assignedUserQuery);
+                }
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Tasks", "Projects", new { id = task.PublicID });
+        }      
 
     }
 }
