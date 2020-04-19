@@ -448,5 +448,42 @@ namespace Project.Controllers
 
             return View(task);
         }
+
+        //Edit Task
+        public async Task<ActionResult> EditTask(int? id)
+        {
+            var currentUserID = User.Identity.GetUserId();
+
+            if(id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Tasks task = await db.Tasks.FindAsync(id);
+            if(task == null)
+            {
+                return HttpNotFound();
+            }
+            var projectMemberLoggedIn = db.ProjectUsers.Where(p => p.PublicID == task.PublicID && p.ApplicationUserID == currentUserID).FirstOrDefault();
+            if(projectMemberLoggedIn == null)
+            {
+                return View("Unauthorised");
+            }
+
+            return View(task);
+        }
+
+        //Update Task: POST
+        public async Task<ActionResult> UpdateTask([Bind(Include = "TaskID,PublicID,ApplicationUserID,TaskDescription,IsComplete")] Tasks task)
+        {
+            if(ModelState.IsValid)
+            {
+                db.Entry(task).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+
+                return RedirectToAction("Tasks", "Projects", new { id = task.PublicID });
+            }
+
+            return View(task);
+        }
     }
 }
