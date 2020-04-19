@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "AssignUsers";
+}
+
+<h2>Assign Users to Task</h2>
+
+
+@using (Html.BeginForm("AddUserToTask", "UserTasks", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <label>Task Name</label> @Html.DropDownList("TaskID", "")
+
+    <ul>
+        @foreach (var projectUser in @ViewBag.ProjectUsers)
+        {
+            <li><input type="checkbox" name="projectUserIDs" value="@projectUser.ProjectUserID" />@projectUser.User.UserName</li>
+        }
+    </ul>
+
+    <input type="submit" class="btn btn-default" value="Assign Users" />
+}

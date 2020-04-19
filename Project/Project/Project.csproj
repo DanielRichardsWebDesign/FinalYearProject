@@ -291,6 +291,7 @@
     <Compile Include="Controllers\ProjectUserRequestsController.cs" />
     <Compile Include="Controllers\ProjectUsersController.cs" />
     <Compile Include="Controllers\TasksController.cs" />
+    <Compile Include="Controllers\UserTasksController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -667,6 +668,12 @@
     <Content Include="Views\Tasks\Edit.cshtml" />
     <Content Include="Views\Tasks\Index.cshtml" />
     <Content Include="Views\Tasks\_ProjectTasks.cshtml" />
+    <Content Include="Views\UserTasks\Create.cshtml" />
+    <Content Include="Views\UserTasks\Delete.cshtml" />
+    <Content Include="Views\UserTasks\Details.cshtml" />
+    <Content Include="Views\UserTasks\Edit.cshtml" />
+    <Content Include="Views\UserTasks\Index.cshtml" />
+    <Content Include="Views\UserTasks\AssignUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
