@@ -170,43 +170,49 @@ namespace Project.Controllers
                 return HttpNotFound();
             }
 
-            //Loop through each UserIDs and add to UserTasks table
-            foreach(var projectUserID in projectUserIDs)
+            if(projectUserIDs != null)
             {
-                UserTasks userTask = new UserTasks();
-                userTask.TaskID = Convert.ToInt32(TaskID);
-                userTask.ProjectUserID = Convert.ToInt32(projectUserID);
-
-                //Query for checking if entity exists
-                var userTaskQuery = db.UserTasks.SingleOrDefault(u => u.TaskID == userTask.TaskID && u.ProjectUserID == userTask.ProjectUserID);
-
-                //Checks if entity exists in UserTasks table and removes it if it does
-                if(userTaskQuery != null)
+                //Loop through each UserIDs and add to UserTasks table
+                foreach (var projectUserID in projectUserIDs)
                 {
-                    db.UserTasks.Remove(userTaskQuery);
+                    UserTasks userTask = new UserTasks();
+                    userTask.TaskID = Convert.ToInt32(TaskID);
+                    userTask.ProjectUserID = Convert.ToInt32(projectUserID);
+
+                    //Query for checking if entity exists
+                    var userTaskQuery = db.UserTasks.SingleOrDefault(u => u.TaskID == userTask.TaskID && u.ProjectUserID == userTask.ProjectUserID);
+
+                    //Checks if entity exists in UserTasks table and removes it if it does
+                    if (userTaskQuery != null)
+                    {
+                        db.UserTasks.Remove(userTaskQuery);
+                    }
+
+                    //Add to database
+                    db.UserTasks.Add(userTask);
+                    db.SaveChanges();
                 }
+            }            
 
-                //Add to database
-                db.UserTasks.Add(userTask);
-                db.SaveChanges();
-            }
-
-            //Loop through each UserID for AssignedUsers array and remove the checked ones
-            foreach(var projectUserID in assignedUserIDs)
+            if(assignedUserIDs != null)
             {
-                UserTasks userTask = new UserTasks();
-                userTask.TaskID = Convert.ToInt32(TaskID);
-                userTask.ProjectUserID = Convert.ToInt32(projectUserID);
-
-                //Check if entity exists in UserTasks
-                var assignedUserQuery = db.UserTasks.SingleOrDefault(u => u.TaskID == userTask.TaskID && u.ProjectUserID == userTask.ProjectUserID);
-
-                if(assignedUserQuery != null)
+                //Loop through each UserID for AssignedUsers array and remove the checked ones
+                foreach (var projectUserID in assignedUserIDs)
                 {
-                    db.UserTasks.Remove(assignedUserQuery);
+                    UserTasks userTask = new UserTasks();
+                    userTask.TaskID = Convert.ToInt32(TaskID);
+                    userTask.ProjectUserID = Convert.ToInt32(projectUserID);
+
+                    //Check if entity exists in UserTasks
+                    var assignedUserQuery = db.UserTasks.SingleOrDefault(u => u.TaskID == userTask.TaskID && u.ProjectUserID == userTask.ProjectUserID);
+
+                    if (assignedUserQuery != null)
+                    {
+                        db.UserTasks.Remove(assignedUserQuery);
+                    }
+                    db.SaveChanges();
                 }
-                db.SaveChanges();
-            }
+            }            
 
             return RedirectToAction("Tasks", "Projects", new { id = task.PublicID });
         }      
