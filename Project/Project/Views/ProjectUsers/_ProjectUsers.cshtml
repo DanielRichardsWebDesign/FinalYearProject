@@ -11,7 +11,7 @@
             </a>
 
             <a href="@Url.Action("UserRequests", "Projects", new { id = ViewBag.PublicID })" class="btn btn-success">
-                Approve User Requests
+                Approve User Requests (@Model.Select(u => u.Projects.ProjectUserRequests.Count).FirstOrDefault())
                 <span class="fas fa-check" aria-hidden="true"></span>
             </a>
         }
@@ -27,7 +27,18 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.User.UserName)
+                @if (item.ApplicationUserID == item.Projects.ApplicationUserID)
+                {
+                    @Html.DisplayFor(modelItem => item.User.UserName) <p>(Creator)</p>
+                }
+                @if (item.IsAdmin == true && item.ApplicationUserID != item.Projects.ApplicationUserID)
+                {
+                    @Html.DisplayFor(modelItem => item.User.UserName) <p>(Admin)</p>
+                }
+                @if (item.IsAdmin == false)
+                {
+                    @Html.DisplayFor(modelItem => item.User.UserName)
+                }
             </td>
             <td>
                 <a class="btn btn-primary" href="@Url.Action("ViewContributions", "Projects", new { id = item.ProjectUserID })"><span class="fas fa-eye"></span></a>
