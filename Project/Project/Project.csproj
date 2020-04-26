@@ -677,6 +677,7 @@
     <Content Include="Views\Projects\EditTask.cshtml" />
     <Content Include="Views\Projects\MyTasks.cshtml" />
     <Content Include="Views\Tasks\_MyTasks.cshtml" />
+    <Content Include="Views\Projects\AwaitingApproval.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

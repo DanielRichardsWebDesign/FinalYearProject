@@ -512,5 +512,19 @@ namespace Project.Controllers
 
             return View(project);
         }
+
+        //Awaiting Membership Approval Projects: GET
+        public async Task<ActionResult> AwaitingApproval()
+        {
+            if(User.Identity.GetUserId() == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var projects = db.Projects.Include(p => p.ApplicationUser);
+            var loggedInUser = User.Identity.GetUserId();
+
+            return View(await db.Projects.Where(p => p.ProjectUserRequests.Any(r => r.ApplicationUserID == loggedInUser)).ToListAsync());
+        }
     }
 }
