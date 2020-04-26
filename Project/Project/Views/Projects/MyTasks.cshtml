@@ -1,17 +1,10 @@
 ﻿@model Project.Models.Projects
 
 @{
-    ViewBag.Title = "ProjectUsers";
+    ViewBag.Title = "MyTasks";
 }
 
-<div class="jumbotron bg-primary text-white">
-    <div class="container">
-        <h1 class="display-4">@Model.ProjectName: Users</h1>
-        <p class="lead">View & add users to current project...</p>
-    </div>
-</div>
-
-<h2>Project Users</h2>
+<h2>My Tasks</h2>
 
 <div class="card text-center">
     <div class="card-header">
@@ -23,13 +16,13 @@
                 <a class="nav-link" href="@Url.Action("MyFiles", "Projects", new { id = Model.PublicID })">My Files <span class="fas fa-file"></span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="@Url.Action("ProjectUsers", "Projects", new { id = Model.PublicID })">Users <span class="fas fa-user"></span></a>
+                <a class="nav-link" href="@Url.Action("ProjectUsers", "Projects", new { id = Model.PublicID })">Users <span class="fas fa-user"></span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="@Url.Action("Tasks", "Projects", new { id = Model.PublicID })">Tasks <span class="fas fa-list"></span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("MyTasks", "Projects", new { id = Model.PublicID })">My Tasks <span class="fas fa-list"></span></a>
+                <a class="nav-link active" href="@Url.Action("MyTasks", "Projects", new { id = Model.PublicID })">My Tasks <span class="fas fa-list"></span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link disabled" href="#">Activity</a>
@@ -37,8 +30,7 @@
         </ul>
     </div>
     <div class="card-body">
-        <!--Retrieve Files Partial view to display.-->
-        @Html.Partial("../ProjectUsers/_ProjectUsers", Model.ProjectUsers)
+        @Html.Partial("../Tasks/_MyTasks", Model.Tasks)
     </div>
 </div>
 

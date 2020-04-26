@@ -152,7 +152,7 @@ $(document).ready(function() {
             <th scope="col"><input type="checkbox" id="selectAllFiles" name="selectAllFiles" /></th>
             <th scope="col">File Name</th>
             <th scope="col">File Type</th>
-            <th scope="col">File Size</th>
+            @*<th scope="col">File Size</th>*@
             <th scope="col">Date Uploaded</th>
             <th scope="col">Uploaded by</th>
             <th scope="col">Actions</th>
@@ -184,9 +184,9 @@ $(document).ready(function() {
             <td>
                 @Html.DisplayFor(modelItem => item.FileType)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.FileSize)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.DateUploaded)
             </td>

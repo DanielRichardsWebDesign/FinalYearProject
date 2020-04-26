@@ -675,6 +675,8 @@
     <Content Include="Views\UserTasks\Index.cshtml" />
     <Content Include="Views\UserTasks\AssignUsers.cshtml" />
     <Content Include="Views\Projects\EditTask.cshtml" />
+    <Content Include="Views\Projects\MyTasks.cshtml" />
+    <Content Include="Views\Tasks\_MyTasks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

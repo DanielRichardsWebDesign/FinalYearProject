@@ -485,5 +485,32 @@ namespace Project.Controllers
 
             return View(task);
         }
+
+        //My Tasks: GET
+        public async Task<ActionResult> MyTasks(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Projects project = await db.Projects.FindAsync(id);
+            if (project == null)
+            {
+                return HttpNotFound();
+            }
+
+            var userId = User.Identity.GetUserId();
+
+            ViewBag.PublicID = project.PublicID;
+            ViewBag.ApplicationUserID = User.Identity.GetUserId();
+            ViewBag.ProjectUserID = db.ProjectUsers.Where(p => p.PublicID == project.PublicID && p.ApplicationUserID == userId);
+
+            if(User.Identity.GetUserId() == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            return View(project);
+        }
     }
 }
