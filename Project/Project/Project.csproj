@@ -679,6 +679,13 @@
     <Content Include="Views\Tasks\_MyTasks.cshtml" />
     <Content Include="Views\Projects\AwaitingApproval.cshtml" />
     <Content Include="Views\Projects\ViewProjects.cshtml" />
+    <Content Include="Views\Projects\Action.cshtml" />
+    <Content Include="Views\Projects\Animated.cshtml" />
+    <Content Include="Views\Projects\Comedy.cshtml" />
+    <Content Include="Views\Projects\Drama.cshtml" />
+    <Content Include="Views\Projects\Horror.cshtml" />
+    <Content Include="Views\Projects\ScienceFiction.cshtml" />
+    <Content Include="Views\Projects\Western.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

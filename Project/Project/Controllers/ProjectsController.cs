@@ -534,5 +534,62 @@ namespace Project.Controllers
 
             return View(await projects.ToListAsync());
         }
+
+        //View all Action Genre Projects: GET
+        public async Task<ActionResult> Action()
+        {
+            var projects = db.Projects.Include(p => p.ApplicationUser).Where(p => p.ProjectType == "Action");
+
+            return View(await projects.ToListAsync());
+        }
+
+        //View all Animated Genre Projects: GET
+        public async Task<ActionResult> Animated()
+        {
+            var projects = db.Projects.Include(p => p.ApplicationUser).Where(p => p.ProjectType == "Animated");
+
+            return View(await projects.ToListAsync());
+        }
+
+        //View all Comedy Genre Projects: GET
+        public async Task<ActionResult> Comedy()
+        {
+            var projects = db.Projects.Include(p => p.ApplicationUser).Where(p => p.ProjectType == "Comedy");
+
+            return View(await projects.ToListAsync());
+        }
+
+        //View all Drama Genre Projects: GET
+        public async Task<ActionResult> Drama()
+        {
+            var projects = db.Projects.Include(p => p.ApplicationUser).Where(p => p.ProjectType == "Drama");
+
+            return View(await projects.ToListAsync());
+        }
+
+        //View all Horror Genre Projects: GET
+        public async Task<ActionResult> Horror()
+        {
+            var projects = db.Projects.Include(p => p.ApplicationUser).Where(p => p.ProjectType == "Horror");
+
+            return View(await projects.ToListAsync());
+        }
+
+        //View all Science-Fiction Genre Projects: GET
+        public async Task<ActionResult> ScienceFiction()
+        {
+            var projects = db.Projects.Include(p => p.ApplicationUser).Where(p => p.ProjectType == "Science-Fiction");
+
+            return View(await projects.ToListAsync());
+        }
+
+        //View all Western Genre Projects: GET
+        public async Task<ActionResult> Western()
+        {
+            var projects = db.Projects.Include(p => p.ApplicationUser).Where(p => p.ProjectType == "Western");
+
+            return View(await projects.ToListAsync());
+        }
+
     }
 }

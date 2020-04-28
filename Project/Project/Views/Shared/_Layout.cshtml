@@ -42,7 +42,22 @@
                 <li class="nav-item">@Html.ActionLink("Home", "Index", new { controller = "Home" }, new { @class = "nav-link" })</li>
                 <li class="nav-item">@Html.ActionLink("About", "About", "Home", new { controller = "Home" }, new { @class = "nav-link" })</li>
                 <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", new { controller = "Home" }, new { @class = "nav-link" })</li>
-                <li class="nav-item">@Html.ActionLink("View Projects", "ViewProjects", "Projects", new { controller = "Projects" }, new { @class = "nav-link" })</li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="projectDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        View Projects
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="projectDropdown">
+                        @Html.ActionLink("All Projects", "ViewProjects", "Projects", null, new { title = "Projects", @class = "dropdown-item" })
+                        <div class="dropdown-divider"></div>
+                        @Html.ActionLink("Action", "Action", "Projects", null, new { title = "Projects", @class = "dropdown-item" })
+                        @Html.ActionLink("Animated", "Animated", "Projects", null, new { title = "Projects", @class = "dropdown-item" })
+                        @Html.ActionLink("Comedy", "Comedy", "Projects", null, new { title = "Projects", @class = "dropdown-item" })
+                        @Html.ActionLink("Drama", "Drama", "Projects", null, new { title = "Projects", @class = "dropdown-item" })
+                        @Html.ActionLink("Horror", "Horror", "Projects", null, new { title = "Projects", @class = "dropdown-item" })
+                        @Html.ActionLink("Science-Fiction", "ScienceFiction", "Projects", null, new { title = "Projects", @class = "dropdown-item" })
+                        @Html.ActionLink("Western", "Western", "Projects", null, new { title = "Projects", @class = "dropdown-item" })
+                    </div>
+                </li>                
             </ul>
             @Html.Partial("_LoginPartial");
         </div>

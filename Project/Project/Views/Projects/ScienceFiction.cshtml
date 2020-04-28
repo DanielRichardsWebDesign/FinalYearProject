@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Project.Models.Projects>
+
+@{
+    ViewBag.Title = "ScienceFiction";
+}
+
+<div class="jumbotron bg-primary text-white">
+    <div class="container">
+        <h1 class="display-4">Projects: Science-Fiction</h1>
+        <p class="lead">View all projects within the science-fiction genre...</p>
+    </div>
+</div>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 mt-2 mb-2">
+            <div class="card">
+                <div class="card-header">
+                    @Html.DisplayFor(modelItem => item.ProjectType)
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.ProjectName)</h5>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.ProjectDescription)</p>
+                    <a href="@Url.Action("Details", "Projects", new { id = item.PublicID })" class="btn btn-primary">
+                        View Details
+                        <span class="fa fa-eye"></span>
+                    </a>
+                </div>
+                <div class="card-footer">
+                    <p>Created by: @item.ApplicationUser.UserName</p>
+                    @Html.DisplayFor(modelItem => item.DateCreated)
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
