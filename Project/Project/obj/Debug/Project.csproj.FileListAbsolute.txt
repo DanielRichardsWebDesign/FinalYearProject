@@ -814,3 +814,9 @@ C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Projec
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\obj\Debug\Project.Migrations.AddIsAdminToProjectUsers.resources
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\obj\Debug\Project.Migrations.AddProjectUserRequests.resources
 C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\obj\Debug\Project.Migrations.AddTasks.resources
+C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\bin\System.Net.Http.Formatting.dll
+C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\bin\System.Web.Http.dll
+C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\bin\System.Web.Http.WebHost.dll
+C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\bin\System.Net.Http.Formatting.xml
+C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\bin\System.Web.Http.xml
+C:\Users\Daniel Richards\Documents\University\Third Year\FinalYearProject\Project\Project\bin\System.Web.Http.WebHost.xml

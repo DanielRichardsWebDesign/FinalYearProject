@@ -11,6 +11,7 @@ using Project.Models;
 using Project.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace Project.Controllers
 {
@@ -513,6 +514,28 @@ namespace Project.Controllers
             return View(project);
         }
 
+        //View Project Activity: GET
+        public async Task<ActionResult> Activity(int? id)
+        {
+            if(id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Projects project = await db.Projects.FindAsync(id);
+            if(project == null)
+            {
+                return HttpNotFound();
+            }
+
+            //Lists to use for graphs
+            List<Files> fileList = db.Files.Include(a => a.ApplicationUser).Where(f => f.PublicID == id).ToList();
+            var list = JsonConvert.SerializeObject(fileList);
+            
+            ViewBag.FileList = list;       
+
+            return View(project);
+        }
+
         //Awaiting Membership Approval Projects: GET
         public async Task<ActionResult> AwaitingApproval()
         {
@@ -590,6 +613,9 @@ namespace Project.Controllers
 
             return View(await projects.ToListAsync());
         }
+
+        
+
 
     }
 }

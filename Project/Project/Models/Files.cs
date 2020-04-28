@@ -1,12 +1,15 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
+using System.Runtime.Serialization;
 
 namespace Project.Models
 {
+    
     public class Files
     {
         [Key]
@@ -42,11 +45,13 @@ namespace Project.Models
         public string ApplicationUserID { get; set; }        
 
         //Virtual Objects to access User and Project properties
+        [JsonIgnore]
         public virtual Projects Projects { get; set; }
-
+        
         public virtual ApplicationUser ApplicationUser { get; set; }
 
         //Collection of comments for many relationship with comments
+        [JsonIgnore]
         public virtual ICollection<Comments> Comments { get; set; }
     }
 }

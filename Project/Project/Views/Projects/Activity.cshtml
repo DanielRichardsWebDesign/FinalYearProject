@@ -1,0 +1,50 @@
+﻿@model Project.Models.Projects
+
+@{
+    ViewBag.Title = "Activity";
+}
+
+<script>
+    //Convert ViewBag.FileList to JSON. Can then be used with Google Charts
+    var fileList = JSON.parse('@Html.Raw(ViewBag.FileList)');
+    console.log(fileList);
+</script>
+
+
+<div class="jumbotron bg-primary text-white">
+    <div class="container">
+        <h1 class="display-4">@Model.ProjectName: Activity</h1>
+        <p class="lead">View various charts to determine user activity, and file type upload patterns...</p>
+    </div>
+</div>
+
+<h2>Activity</h2>
+
+<div class="card text-center">
+    <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("WorkStation", "Projects", new { id = Model.PublicID })">Files <span class="fas fa-file"></span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("MyFiles", "Projects", new { id = Model.PublicID })">My Files <span class="fas fa-file"></span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("ProjectUsers", "Projects", new { id = Model.PublicID })">Users <span class="fas fa-user"></span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Tasks", "Projects", new { id = Model.PublicID })">Tasks <span class="fas fa-list"></span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("MyTasks", "Projects", new { id = Model.PublicID })">My Tasks <span class="fas fa-list"></span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="@Url.Action("Activity", "Projects", new { id = Model.PublicID })">Activity</a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body">
+        
+    </div>
+</div>
+

@@ -4,16 +4,22 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Newtonsoft.Json;
 
 namespace Project.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
+    [JsonObject(IsReference = true)]
     public class ApplicationUser : IdentityUser
     {
         //Virtual DbSet to interact with the generated code created by Identity
+        [JsonIgnore]
         public virtual ICollection<Projects> Projects { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Files> Files { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Comments> Comments { get; set; }
+        [JsonIgnore]
         public virtual ICollection<ProjectUserRequests> ProjectUserRequests { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
