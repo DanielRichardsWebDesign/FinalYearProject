@@ -526,5 +526,13 @@ namespace Project.Controllers
 
             return View(await db.Projects.Where(p => p.ProjectUserRequests.Any(r => r.ApplicationUserID == loggedInUser)).ToListAsync());
         }
+
+        //View All Projects: GET
+        public async Task<ActionResult> ViewProjects()
+        {
+            var projects = db.Projects.Include(p => p.ApplicationUser);
+
+            return View(await projects.ToListAsync());
+        }
     }
 }
