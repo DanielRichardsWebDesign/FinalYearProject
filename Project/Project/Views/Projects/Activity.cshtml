@@ -6,8 +6,43 @@
 
 <script>
     //Convert ViewBag.FileList to JSON. Can then be used with Google Charts
-    var fileList = JSON.parse('@Html.Raw(ViewBag.FileList)');
-    console.log(fileList);
+    var jsonData = JSON.parse('@Html.Raw(ViewBag.FileList)');
+    console.log(jsonData);
+
+    console.log(jsonData.ApplicationUserID);
+
+    //Load Google charts
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawPieChart);
+
+    function drawPieChart(result) {        
+
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'User');
+        data.addColumn('number', 'Amount Uploaded');
+
+        for (var i = 0; i < jsonData.length; i++)
+        {
+            var obj = jsonData[i];
+            var count = {};
+
+            console.log("obj: " + obj.ApplicationUser.UserName);
+
+            if (obj.ApplicationUser.UserName != null)
+            {
+                data.addRows([
+                    [obj.ApplicationUser.UserName, 10]
+                ]);
+            }
+        }
+
+            var options = {
+          title: 'File Upload Amount'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('pie_chart_div'));
+        chart.draw(data, options);
+    }
 </script>
 
 
@@ -45,6 +80,8 @@
     </div>
     <div class="card-body">
         
+        <div id="pie_chart_div" style="width: 900px; height: 500px;"></div>
+
     </div>
 </div>
 
