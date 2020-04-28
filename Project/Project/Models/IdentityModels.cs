@@ -35,12 +35,7 @@ namespace Project.Models
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
-        }
-
-        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        //{            
-                   
-        //}
+        }        
 
         public virtual DbSet<Projects> Projects { get; set; }
         //public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; }
