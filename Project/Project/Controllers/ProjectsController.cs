@@ -528,9 +528,13 @@ namespace Project.Controllers
             }
 
             //Lists to use for graphs
-            IEnumerable<ApplicationUser> projectUsers = db.Users.Where(u => u.Files.Any(f => f.PublicID == project.PublicID)).ToList();            
+            IEnumerable<ApplicationUser> projectUsers = db.Users.Where(u => u.Files.Any(f => f.PublicID == project.PublicID)).ToList();
+            IEnumerable<string> lastSixMonths = Enumerable.Range(0, 6)
+                              .Select(i => DateTime.Now.AddMonths(i - 6))
+                              .Select(date => date.ToString("MMMM")).ToList();
 
-            ViewBag.UserList = projectUsers;            
+            ViewBag.UserList = projectUsers;
+            ViewBag.MonthsList = lastSixMonths;
 
             return View(project);
         }
