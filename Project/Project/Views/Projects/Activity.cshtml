@@ -4,12 +4,7 @@
     ViewBag.Title = "Activity";
 }
 
-<script>
-    //Convert ViewBag.FileList to JSON. Can then be used with Google Charts
-    var jsonData = JSON.parse('@Html.Raw(ViewBag.FileList)');
-    console.log(jsonData);
-
-    console.log(jsonData.ApplicationUserID);
+<script>   
 
     //Load Google charts
     google.charts.load('current', {'packages':['corechart']});
@@ -19,23 +14,17 @@
 
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'User');
-        data.addColumn('number', 'Amount Uploaded');
-
-        for (var i = 0; i < jsonData.length; i++)
-        {
-            var obj = jsonData[i];
-            var count = {};
-
-            console.log("obj: " + obj.ApplicationUser.UserName);
-
-            if (obj.ApplicationUser.UserName != null)
-            {
-                data.addRows([
-                    [obj.ApplicationUser.UserName, 10]
-                ]);
-            }
-        }
-
+        data.addColumn('number', 'Amount Uploaded');        
+            
+        data.addRows([
+                        @foreach(var item in ViewBag.UserList)
+                        {                           
+                            
+                            @:['@item.UserName', @Model.Files.Where(p => p.ApplicationUser.UserName == item.UserName).Count()],
+                            
+                        }
+                ]);          
+  
             var options = {
           title: 'File Upload Amount'
         };

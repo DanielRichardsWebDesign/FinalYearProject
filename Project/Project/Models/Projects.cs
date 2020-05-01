@@ -26,9 +26,7 @@ namespace Project.Models
         [StringLength(250, ErrorMessage = "The {0} must be at least {2} characters long", MinimumLength = 10)]
         [Display(Name = "Project Description")]
         [Required]
-        public string ProjectDescription { get; set; }
-        //True for private. False for public
-        //public bool ProjectPrivacy { get; set; }
+        public string ProjectDescription { get; set; }        
         
         //Name to set for Blob storage container for this Project
         [MaxLength(63)]

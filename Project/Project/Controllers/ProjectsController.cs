@@ -528,10 +528,33 @@ namespace Project.Controllers
             }
 
             //Lists to use for graphs
-            List<Files> fileList = db.Files.Include(a => a.ApplicationUser).Where(f => f.PublicID == id).ToList();
-            var list = JsonConvert.SerializeObject(fileList);
-            
-            ViewBag.FileList = list;       
+            IEnumerable<ApplicationUser> projectUsers = db.Users.Where(u => u.Files.Any(f => f.PublicID == project.PublicID)).ToList();
+            List<int> filtered = new List<int>();
+
+            //foreach(var projectUser in projectUsers)
+            //{
+            //    var filter = db.Files.Where(f => f.ApplicationUserID == projectUser.ApplicationUserID && f.PublicID == project.PublicID).Count();                
+
+            //    filtered.Add(filter);
+            //}
+
+
+            //List<int> filesCount = users.Where(u => u.Files.Any().Count())
+
+            //var userList = JsonConvert.SerializeObject(projectUsers, Formatting.None,
+            //                                        new JsonSerializerSettings()
+            //                                        { 
+            //                                            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            //                                        });
+
+            //var filesList = JsonConvert.SerializeObject(filtered, Formatting.None,
+            //                                        new JsonSerializerSettings()
+            //                                        {
+            //                                            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            //                                        });
+
+            ViewBag.UserList = projectUsers;
+            //ViewBag.FilesList = filesList;
 
             return View(project);
         }

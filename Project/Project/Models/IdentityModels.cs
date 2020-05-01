@@ -15,7 +15,7 @@ namespace Project.Models
         //Virtual DbSet to interact with the generated code created by Identity
         [JsonIgnore]
         public virtual ICollection<Projects> Projects { get; set; }
-        [JsonIgnore]
+        
         public virtual ICollection<Files> Files { get; set; }
         [JsonIgnore]
         public virtual ICollection<Comments> Comments { get; set; }
