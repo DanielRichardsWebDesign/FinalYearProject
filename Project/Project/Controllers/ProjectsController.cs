@@ -64,6 +64,11 @@ namespace Project.Controllers
         // GET: Projects/Create
         public ActionResult Create()
         {
+            if(User.Identity.GetUserId() == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             ViewBag.UserID = User.Identity.GetUserId().ToString();
             ViewBag.CurrentDate = DateTime.Today.ToString("dd/MM/yyyy");
             return View();
@@ -76,6 +81,12 @@ namespace Project.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "PublicID,ProjectName,ProjectType,ProjectDescription,DateCreated,ApplicationUserID,ProjectContainerName")] Projects projects)
         {
+            if(User.Identity.GetUserId() == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+
             if (ModelState.IsValid)
             {
                 db.Projects.Add(projects);
@@ -108,6 +119,11 @@ namespace Project.Controllers
         // GET: Projects/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
+            if(User.Identity.GetUserId() == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -116,6 +132,10 @@ namespace Project.Controllers
             if (projects == null)
             {
                 return HttpNotFound();
+            }
+            if(User.Identity.GetUserId() != projects.ApplicationUserID)
+            {
+                return RedirectToAction("Unauthorised");
             }
             ViewBag.ApplicationUserID = new SelectList(db.Users, "Id", "Email", projects.ApplicationUserID);
             ViewBag.DateCreated = db.Projects.Find(id).DateCreated.ToString("dd/MM/yyyy");
@@ -129,6 +149,16 @@ namespace Project.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "PublicID,ProjectName,ProjectType,ProjectDescription,DateCreated,ApplicationUserID,ProjectContainerName")] Projects projects)
         {
+            if (User.Identity.GetUserId() == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            if (User.Identity.GetUserId() != projects.ApplicationUserID)
+            {
+                return RedirectToAction("Unauthorised");
+            }
+
             if (ModelState.IsValid)
             {
                 db.Entry(projects).State = EntityState.Modified;
@@ -142,11 +172,22 @@ namespace Project.Controllers
         // GET: Projects/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
+            if (User.Identity.GetUserId() == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Projects projects = await db.Projects.FindAsync(id);
+
+            if (User.Identity.GetUserId() != projects.ApplicationUserID)
+            {
+                return RedirectToAction("Unauthorised");
+            }
+
             if (projects == null)
             {
                 return HttpNotFound();
@@ -159,7 +200,18 @@ namespace Project.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
+            if(User.Identity.GetUserId() == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             Projects projects = await db.Projects.FindAsync(id);
+
+            if(User.Identity.GetUserId() != projects.ApplicationUserID)
+            {
+                return RedirectToAction("Unauthorised");
+            }
+
             db.Projects.Remove(projects);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
@@ -188,7 +240,18 @@ namespace Project.Controllers
         // POST: FileUploadAsync
         [HttpPost]
         public async Task<ActionResult> UploadFileAsync(ICollection<HttpPostedFileBase> formFiles, string containerName, string publicID, string userID, DateTime currentDate)
-        {                                         
+        {
+            
+            if(User.Identity.GetUserId() == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            var projectUsers = await db.ProjectUsers.Where(p => p.PublicID.ToString() == publicID).ToListAsync();
+            if(!projectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+            {
+                return RedirectToAction("Unauthorised");
+            }
+
             try
             {
                 if (formFiles == null)
@@ -242,9 +305,19 @@ namespace Project.Controllers
 
         public async Task<ActionResult> AddUser(int id)
         {
+            if(User.Identity.GetUserId() == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             ViewBag.PublicID = id;
 
             List<ProjectUsers> userList = db.ProjectUsers.Where(u => u.PublicID == id).ToList();
+
+            if(!userList.Any(u => u.ApplicationUserID == User.Identity.GetUserId() && u.IsAdmin == true))
+            {
+                return RedirectToAction("Unauthorised");
+            }
 
             var userId = User.Identity.GetUserId();
 
@@ -256,6 +329,17 @@ namespace Project.Controllers
         [HttpPost]
         public async Task<ActionResult> AddUserToProject(string userID, int publicID)
         {
+            if(User.Identity.GetUserId() == null)
+            {
+                RedirectToAction("Login", "Account");
+            }
+            
+            var projectUsers = await db.ProjectUsers.Where(p => p.PublicID == publicID).ToListAsync();
+            if(!projectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId() && p.IsAdmin == true))
+            {
+                RedirectToAction("Unauthorised");
+            }
+
             try
             {
                 var newProjectUser = new ProjectUsers
@@ -276,11 +360,23 @@ namespace Project.Controllers
 
         public async Task<ActionResult> RemoveUser(int? id)
         {
+            if(User.Identity.GetUserId() == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             if(id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            }            
+
             ProjectUsers projectUser = await db.ProjectUsers.FindAsync(id);
+            var projectUsers = db.ProjectUsers.Where(p => p.PublicID == projectUser.PublicID).ToList();
+            if(!projectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId() && p.IsAdmin == true))
+            {
+                return RedirectToAction("Unauthorised");
+            }
+
             if(projectUser == null)
             {
                 return HttpNotFound();
@@ -314,6 +410,11 @@ namespace Project.Controllers
 
         public async Task<ActionResult> MyFiles(int? id)
         {
+            if(User.Identity.GetUserId() == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             if(id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -323,11 +424,21 @@ namespace Project.Controllers
             {
                 return HttpNotFound();
             }
+            var projectUsers = await db.ProjectUsers.Where(p => p.PublicID == project.PublicID).ToListAsync();
+            if(!projectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+            {
+                return RedirectToAction("Unauthorised");
+            }
             return View(project);
         }
 
         public async Task<ActionResult> UserRequests(int? id)
         {
+            if(User.Identity.GetUserId() == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             if(id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -336,6 +447,11 @@ namespace Project.Controllers
             if(projectUserRequests == null)
             {
                 return HttpNotFound();
+            }
+            var projectUsers = await db.ProjectUsers.Where(p => p.PublicID == projectUserRequests.PublicID).ToListAsync();
+            if(!projectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId() && p.IsAdmin == true))
+            {
+                return RedirectToAction("Unauthorised");
             }
             return View(projectUserRequests);
         }
@@ -367,13 +483,13 @@ namespace Project.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
-
+                        
             ProjectUsers projectUser = db.ProjectUsers.Find(id);            
 
             if(projectUser == null)
             {
                 return HttpNotFound();
-            }
+            }                      
 
             var projectID = projectUser.PublicID;
             var project = db.Projects.Find(projectID);
@@ -391,6 +507,17 @@ namespace Project.Controllers
         [HttpPost]
         public async Task<ActionResult> UpdateUserPrivileges([Bind(Include = "ProjectUserID,ApplicationUserID,PublicID,IsAdmin")] ProjectUsers projectUser)
         {
+            if(User.Identity.GetUserId() == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+           
+            var projectUsers = await db.ProjectUsers.Where(p => p.PublicID == projectUser.PublicID).ToListAsync();
+            if(!projectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId() && p.IsAdmin == true))
+            {
+                return View("Unauthorised");
+            }
+
             if(ModelState.IsValid)
             {
                 db.Entry(projectUser).State = EntityState.Modified;
@@ -426,6 +553,11 @@ namespace Project.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateTask(int? projectID, string userID, string taskDesc)
         {
+            if(User.Identity.GetUserId() == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             if(projectID == null && userID == null && taskDesc == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -441,6 +573,13 @@ namespace Project.Controllers
                     ApplicationUserID = userID,
                     TaskDescription = taskDesc
                 };
+
+                var projectUsers = await db.ProjectUsers.Where(p => p.PublicID == task.PublicID).ToListAsync();
+                if(!projectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+                {
+                    return View("Unauthorised");
+                }
+
                 db.Tasks.Add(task);
                 await db.SaveChangesAsync();
 
@@ -454,6 +593,11 @@ namespace Project.Controllers
         public async Task<ActionResult> EditTask(int? id)
         {
             var currentUserID = User.Identity.GetUserId();
+
+            if(currentUserID == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
 
             if(id == null)
             {
@@ -476,8 +620,20 @@ namespace Project.Controllers
         //Update Task: POST
         public async Task<ActionResult> UpdateTask([Bind(Include = "TaskID,PublicID,ApplicationUserID,TaskDescription,IsComplete")] Tasks task)
         {
+            if(User.Identity.GetUserId() == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             if(ModelState.IsValid)
             {
+                var projectUsers = await db.ProjectUsers.Where(p => p.PublicID == task.PublicID).ToListAsync();
+
+                if(!projectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+                {
+                    return View("Unauthorised");
+                }
+
                 db.Entry(task).State = EntityState.Modified;
                 await db.SaveChangesAsync();
 
@@ -509,6 +665,12 @@ namespace Project.Controllers
             if(User.Identity.GetUserId() == null)
             {
                 return RedirectToAction("Login", "Account");
+            }
+
+            var projectUsers = await db.ProjectUsers.Where(p => p.PublicID == project.PublicID).ToListAsync();
+            if(!projectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+            {
+                return View("Unauthorised");
             }
 
             return View(project);
