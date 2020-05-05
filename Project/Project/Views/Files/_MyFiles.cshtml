@@ -1,11 +1,10 @@
 ﻿@model IEnumerable<Project.Models.Files>
 
-    <table class="table table-hover">
+    <table id="filesTable" class="table table-hover">
         <thead>
             <tr>
                 <th scope="col">File Name</th>
-                <th scope="col">File Type</th>
-                <th scope="col">File Size</th>
+                <th scope="col">File Type</th>                
                 <th scope="col">Date Uploaded</th>
                 <th scope="col">Actions</th>
             </tr>
@@ -30,10 +29,7 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.FileType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FileSize)
-                </td>
+                </td>                
                 <td>
                     @Html.DisplayFor(modelItem => item.DateUploaded)
                 </td>                
@@ -45,3 +41,7 @@
             </tr>
         }
     </table>
+    <script>
+        //Filter table contents
+        $('#filesTable').ddTableFilter();
+    </script>
