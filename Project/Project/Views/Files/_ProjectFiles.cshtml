@@ -90,48 +90,12 @@ $(document).ready(function() {
     var link = '@Url.Action("GetSelectedFiles", "Files")';
     link = link.replace("-1", projectID);
 
-    console.log("Project ID: " + projectID);
-
-    //AJAX CALL - Post the selected files to controller
-//$('#selectedFilesButton').click(function(e) {
-//    e.preventDefault();
-
-//    if ($(this).prop('disabled', false)) {
-//        console.log('Can click Button');
-//        $.post({
-//            type: "POST",
-//            url: link,
-//            //data: JSON.stringify({'submittedFiles':selectedFiles}),
-//            data: JSON.stringify({
-//                submittedFiles: selectedFiles,
-//                id: projectID
-//            }),
-//            //traditional: true,
-//            dataType: 'json',
-//            contentType: "application/json; charset=utf-8",
-//            processData: false,
-//            xhrFields: {
-//                responseType: 'blob',
-//            },
-//            success: function (response) {
-//                if (response.redirect) {
-//                    window.location.replace(response.redirect);
-//                }
-//            }
-
-//        });
-//    };
-
-//});
+    console.log("Project ID: " + projectID);    
 
 });
 
 </script>
 
-@*@using (Html.BeginForm("GetSelectedFiles", "Files", FormMethod.Post, new { enctype = "multipart/form-data", id = "selectedFilesForm" }))
-    {
-        <input type="submit" id="selectedFilesButton" value="Download Selected Files" class="btn btn-primary" />
-    }*@
 
 @using (Html.BeginForm("GetSelectedFiles", "Files", FormMethod.Post, new { enctype = "multipart/form-data", id = "selectedFilesForm" }))
 {
@@ -146,7 +110,7 @@ $(document).ready(function() {
 
 @*<input type="button" id="selectedFilesButton" class="btn btn-primary">Download Selected Files</input>*@
 
-<table class="table table-hover">
+<table id="filesTable" class="table table-hover">
     <thead>
         <tr>
             <th scope="col"><input type="checkbox" id="selectAllFiles" name="selectAllFiles" /></th>
@@ -203,6 +167,10 @@ $(document).ready(function() {
 
 
 </table>
+<script>
+    //Filter table contents
+    $('#filesTable').ddTableFilter();
+</script>
 @if (Model == null)
 {
     <h1>No Files</h1>
