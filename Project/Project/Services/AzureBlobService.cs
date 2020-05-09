@@ -171,10 +171,7 @@ namespace Project.Services
                 MemoryStream memStream = new MemoryStream();
 
                 CloudBlockBlob blob = (CloudBlockBlob)item;
-                blob.FetchAttributes();
-
-                //await blob.DownloadToStreamAsync(memStream);
-                //memStream.Position = 0;
+                blob.FetchAttributes();                
 
                 blobList.Add(blob);                
             }

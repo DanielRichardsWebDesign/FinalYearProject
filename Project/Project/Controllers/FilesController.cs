@@ -67,6 +67,12 @@ namespace Project.Controllers
             {
                 return HttpNotFound();
             }
+            var projectUsers = await db.ProjectUsers.Where(p => p.PublicID == files.PublicID).ToListAsync();
+            if(!projectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId() && p.IsAdmin == true))
+            {
+                return View("Unauthorised");
+            }
+
             return View(files);
         }
 
@@ -84,6 +90,12 @@ namespace Project.Controllers
 
             try
             {
+                var projectUsers = await db.ProjectUsers.Where(p => p.PublicID == files.PublicID).ToListAsync();
+                if (!projectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId() && p.IsAdmin == true))
+                {
+                    return View("Unauthorised");
+                }
+
                 //Delete file from Azure storage
                 await azureBlobService.DeleteAsync(projectContainer, filePath);
 
@@ -104,7 +116,13 @@ namespace Project.Controllers
         public async Task<ActionResult> DownloadFile(int id)
         {
             //Get file object
-            Files file = db.Files.Find(id);           
+            Files file = db.Files.Find(id);
+
+            var projectUsers = await db.ProjectUsers.Where(p => p.PublicID == file.PublicID).ToListAsync();
+            if (!projectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId() && p.IsAdmin == true))
+            {
+                return View("Unauthorised");
+            }
 
             //Get file from blob container
             var blobStream = await azureBlobService.DownloadAsync(file.FileName, file.Projects.ProjectContainerName);            
@@ -126,6 +144,12 @@ namespace Project.Controllers
             if(project == null)
             {
                 return HttpNotFound();
+            }
+
+            var projectUsers = await db.ProjectUsers.Where(p => p.PublicID == project.PublicID).ToListAsync();
+            if (!projectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId() && p.IsAdmin == true))
+            {
+                return View("Unauthorised");
             }
 
             var containerName = project.ProjectContainerName;
@@ -151,11 +175,7 @@ namespace Project.Controllers
             Response.Flush();
             Response.End();
 
-            return null;
-
-
-
-            //return File(zipStream, "application/zip", project.ProjectName);
+            return null;            
         }
 
         //DOWNLOAD SELECTED FILES
@@ -170,6 +190,12 @@ namespace Project.Controllers
             if(project == null)
             {
                 return HttpNotFound();
+            }
+
+            var projectUsers = await db.ProjectUsers.Where(p => p.PublicID == project.PublicID).ToListAsync();
+            if (!projectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId() && p.IsAdmin == true))
+            {
+                return View("Unauthorised");
             }
 
             List<Files> downloadList = new List<Files>();            
