@@ -1,10 +1,12 @@
 ﻿@model Project.Models.Projects
+@using Microsoft.AspNet.Identity
 
 @{
     ViewBag.Title = "Activity";
 }
 
-<script>   
+<script>
+
 
     //Load Google charts
     google.charts.load('current', {'packages':['corechart']});
@@ -12,22 +14,22 @@
     google.charts.setOnLoadCallback(drawBarChart);
     google.charts.setOnLoadCallback(drawLineChart);
 
-    function drawPieChart(result) {        
+    function drawPieChart(result) {
 
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'User');
-        data.addColumn('number', 'Amount Uploaded');        
+        data.addColumn('number', 'Amount Uploaded');
 
         //Add relevant data to rows
         data.addRows([
                         @foreach(var item in ViewBag.UserList)
-                        {                           
-                            
+                        {
+
                             @:['@item.UserName', @Model.Files.Where(p => p.ApplicationUser.UserName == item.UserName).Count()],
-                            
+
                         }
-                ]);          
-  
+                ]);
+
             var options = {
           title: 'File Upload Amount by Project Members'
         };
@@ -42,20 +44,20 @@
         data.addColumn('number', 'Amount Uploaded');
 
         //Add relevant data to rows
-        data.addRows([          
-                
-                
+        data.addRows([
+
+
                 ['Video', @Model.Files.Where(p => p.FileType.Contains("video")).Count()],
-                
-                
-                
+
+
+
                 ['Audio', @Model.Files.Where(p => p.FileType.Contains("audio")).Count()],
-                
-                
-                
+
+
+
                 ['Image', @Model.Files.Where(p => p.FileType.Contains("image")).Count()],
-                
-            
+
+
         ]);
 
         var options = {
@@ -103,19 +105,19 @@
     <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs">
             <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("WorkStation", "Projects", new { id = Model.PublicID })">Files <span class="fas fa-file"></span></a>
+                <a class="nav-link" href="@Url.Action("WorkStation", "Projects", new { id = Model.PublicID })">Files <span class="fas fa-file"></span> (@Model.Files.Count())</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("MyFiles", "Projects", new { id = Model.PublicID })">My Files <span class="fas fa-file"></span></a>
+                <a class="nav-link" href="@Url.Action("MyFiles", "Projects", new { id = Model.PublicID })">My Files <span class="fas fa-file"></span> (@Model.Files.Where(p => p.ApplicationUserID == User.Identity.GetUserId() && p.PublicID == Model.PublicID).Count())</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("ProjectUsers", "Projects", new { id = Model.PublicID })">Users <span class="fas fa-user"></span></a>
+                <a class="nav-link" href="@Url.Action("ProjectUsers", "Projects", new { id = Model.PublicID })">Users <span class="fas fa-user"></span> (@Model.ProjectUsers.Count())</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("Tasks", "Projects", new { id = Model.PublicID })">Tasks <span class="fas fa-list"></span></a>
+                <a class="nav-link" href="@Url.Action("Tasks", "Projects", new { id = Model.PublicID })">Tasks <span class="fas fa-list"></span> (@Model.Tasks.Where(t => t.IsComplete == false && t.PublicID == Model.PublicID).Count())</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("MyTasks", "Projects", new { id = Model.PublicID })">My Tasks <span class="fas fa-list"></span></a>
+                <a class="nav-link" href="@Url.Action("MyTasks", "Projects", new { id = Model.PublicID })">My Tasks <span class="fas fa-list"></span> (@Model.Tasks.Where(t => t.IsComplete == false && t.PublicID == Model.PublicID && t.UserTasks.Any(u => u.ProjectUsers.ApplicationUserID == User.Identity.GetUserId())).Count())</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link active" href="@Url.Action("Activity", "Projects", new { id = Model.PublicID })">Activity</a>
