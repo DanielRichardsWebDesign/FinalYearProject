@@ -55,18 +55,24 @@
             <li class="nav-item">
                 <a class="nav-link active" href="@Url.Action("WorkStation", "Projects", new { id = Model.PublicID })">Files <span class="fas fa-file"></span> (@Model.Files.Count())</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("MyFiles", "Projects", new { id = Model.PublicID })">My Files <span class="fas fa-file"></span> (@Model.Files.Where(p => p.ApplicationUserID == User.Identity.GetUserId() && p.PublicID == Model.PublicID).Count())</a>
-            </li>
+            @if (Model.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+            {
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("MyFiles", "Projects", new { id = Model.PublicID })">My Files <span class="fas fa-file"></span> (@Model.Files.Where(p => p.ApplicationUserID == User.Identity.GetUserId() && p.PublicID == Model.PublicID).Count())</a>
+                </li>
+            }
             <li class="nav-item">
                 <a class="nav-link" href="@Url.Action("ProjectUsers", "Projects", new { id = Model.PublicID })">Users <span class="fas fa-user"></span> (@Model.ProjectUsers.Count())</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="@Url.Action("Tasks", "Projects", new { id = Model.PublicID })">Tasks <span class="fas fa-list"></span> (@Model.Tasks.Where(t => t.IsComplete == false && t.PublicID == Model.PublicID).Count())</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("MyTasks", "Projects", new { id = Model.PublicID })">My Tasks <span class="fas fa-list"></span> (@Model.Tasks.Where(t => t.IsComplete == false && t.PublicID == Model.PublicID && t.UserTasks.Any(u => u.ProjectUsers.ApplicationUserID == User.Identity.GetUserId())).Count())</a>
-            </li>
+            @if (Model.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+            {
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("MyTasks", "Projects", new { id = Model.PublicID })">My Tasks <span class="fas fa-list"></span> (@Model.Tasks.Where(t => t.IsComplete == false && t.PublicID == Model.PublicID && t.UserTasks.Any(u => u.ProjectUsers.ApplicationUserID == User.Identity.GetUserId())).Count())</a>
+                </li>
+            }
             <li class="nav-item">
                 <a class="nav-link" href="@Url.Action("Activity", "Projects", new { id = Model.PublicID })">Activity</a>
             </li>
