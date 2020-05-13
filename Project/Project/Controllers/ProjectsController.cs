@@ -510,16 +510,12 @@ namespace Project.Controllers
             if(User.Identity.GetUserId() == null)
             {
                 return RedirectToAction("Login", "Account");
-            }
+            }          
            
-            var projectUsers = await db.ProjectUsers.Where(p => p.PublicID == projectUser.PublicID).ToListAsync();
-            if(!projectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId() && p.IsAdmin == true))
-            {
-                return View("Unauthorised");
-            }
 
             if(ModelState.IsValid)
-            {
+            {               
+
                 db.Entry(projectUser).State = EntityState.Modified;
                 await db.SaveChangesAsync();
 

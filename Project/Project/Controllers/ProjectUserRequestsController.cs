@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Project.Models;
+using Microsoft.AspNet.Identity;
 
 namespace Project.Controllers
 {
@@ -25,6 +26,11 @@ namespace Project.Controllers
             
             if(ModelState.IsValid)
             {
+                if(User.Identity.GetUserId() == null)
+                {
+                    return View("Unauthorised");
+                }
+
                 ProjectUserRequests projectUserRequest = new ProjectUserRequests
                 {
                     PublicID = projectID,
@@ -39,7 +45,12 @@ namespace Project.Controllers
         // POST: ApproveMembership
         public async Task<ActionResult> ApproveMembership(int? requestID)
         {
-            if(requestID == null)
+            if (User.Identity.GetUserId() == null)
+            {
+                return View("Unauthorised");
+            }
+
+            if (requestID == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -48,12 +59,21 @@ namespace Project.Controllers
             {
                 return HttpNotFound();
             }
+
+            var projectUsers = await db.ProjectUsers.Where(p => p.PublicID == request.PublicID).ToListAsync();
+            if (!projectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId() && p.IsAdmin == true))
+            {
+                return View("Unauthorised");
+            }
+
             ProjectUsers projectUser = new ProjectUsers
             {
                 ApplicationUserID = request.ApplicationUserID,
                 PublicID = request.PublicID,
                 IsAdmin = false
-            };
+            };         
+           
+
             db.ProjectUsers.Add(projectUser);
 
             //Delete the request once the user has been approved
