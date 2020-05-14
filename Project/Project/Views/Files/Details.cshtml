@@ -1,4 +1,5 @@
 ﻿@model Project.Models.Files
+@using Microsoft.AspNet.Identity;
 
 @{
     ViewBag.Title = "Details";
@@ -68,7 +69,10 @@
         {
             <img src="@Model.FilePath" class="rounded img-thumbnail" alt="@Model.FileName" height="400" width="400" />
             <br />
-            <a href="@Url.Action("DownloadFile", "Files", new { id = Model.FileID })" class="btn btn-primary"><span class="fas fa-download"></span>Download</a>
+            if (Model.Projects.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+            {
+                <a href="@Url.Action("DownloadFile", "Files", new { id = Model.FileID })" class="btn btn-primary"><span class="fas fa-download"></span>Download</a>
+            }
         }
         @if (Model.FileType.Contains("audio"))
         {
@@ -86,7 +90,10 @@
             </div>
             <br />
 
-            <a href="@Url.Action("DownloadFile", "Files", new { id = Model.FileID })" class="btn btn-primary"><span class="fas fa-download"></span>Download</a>
+            if (Model.Projects.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+            {
+                <a href="@Url.Action("DownloadFile", "Files", new { id = Model.FileID })" class="btn btn-primary"><span class="fas fa-download"></span>Download</a>
+            }
 
             <script src="https://unpkg.com/wavesurfer.js"></script>
 
@@ -109,22 +116,25 @@
 
         @if (Model.FileType.Contains("video"))
         {
-        <video id="video-preview"
-               class="video-js"
-               controls
-               preload="auto"
-               width="640"
-               height="264"
-               data-setup="{}">
+            <video id="video-preview"
+                   class="video-js"
+                   controls
+                   preload="auto"
+                   width="640"
+                   height="264"
+                   data-setup="{}">
                 <source src="@Model.FilePath" type="@Model.FileType" />
                 <p class="vjs-no-js">
                     To view this video please enable JavaScript, and consider upgrading to a
                     web browser that
                     <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
                 </p>
-        </video>
-        <br />
-        <a href="@Url.Action("DownloadFile", "Files", new { id = Model.FileID })" class="btn btn-primary"><span class="fas fa-download"></span>Download</a>       
+            </video>
+            <br />
+            if (Model.Projects.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+            {
+                <a href="@Url.Action("DownloadFile", "Files", new { id = Model.FileID })" class="btn btn-primary"><span class="fas fa-download"></span>Download</a>
+            }
 
         }
     </div>
