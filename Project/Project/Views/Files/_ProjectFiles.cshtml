@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<Project.Models.Files>
+@using Microsoft.AspNet.Identity;
 
 <!--Create popover so that a preview of the Azure blob file can be seen on hovering.-->
 <script>
@@ -96,7 +97,6 @@ $(document).ready(function() {
 
 </script>
 
-
 @using (Html.BeginForm("GetSelectedFiles", "Files", FormMethod.Post, new { enctype = "multipart/form-data", id = "selectedFilesForm" }))
 {
     foreach(var item in Model)
@@ -113,7 +113,7 @@ $(document).ready(function() {
 <table id="filesTable" class="table table-hover">
     <thead>
         <tr>
-            <th scope="col"><input type="checkbox" id="selectAllFiles" name="selectAllFiles" /></th>
+            <th scope="col">#</th>
             <th scope="col">File Name</th>
             <th scope="col">File Type</th>            
             <th scope="col">Date Uploaded</th>
@@ -126,8 +126,11 @@ $(document).ready(function() {
     {
         <tr>
             <td>
-                <input type="checkbox"id="@item.FileID" class="selectedFiles" name="fileName" value="@item.FileName" />
-                <input type="hidden" id="projectIDHidden" value="@item.PublicID" />
+                @if (item.Projects.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+                {
+                    <input type="checkbox" id="@item.FileID" class="selectedFiles" name="fileName" value="@item.FileName" />
+                    <input type="hidden" id="projectIDHidden" value="@item.PublicID" />
+                }
             </td>
             <td>
                 @if (item.FileType.Contains("image"))
@@ -158,8 +161,11 @@ $(document).ready(function() {
             </td>
             <td>
                 <a class="btn btn-primary" href="@Url.Action("Details", "Files", new { id = item.FileID })"><span class="fas fa-eye"></span></a>
-                <a href="@Url.Action("DownloadFile", "Files", new { id = item.FileID })" class="btn btn-primary"><span class="fas fa-download"></span></a>
-                <a class="btn btn-danger" href="@Url.Action("Delete", "Files", new { id = item.FileID })"><span class="fas fa-trash"></span></a>
+                @if (item.Projects.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+                {
+                    <a href="@Url.Action("DownloadFile", "Files", new { id = item.FileID })" class="btn btn-primary"><span class="fas fa-download"></span></a>
+                    <a class="btn btn-danger" href="@Url.Action("Delete", "Files", new { id = item.FileID })"><span class="fas fa-trash"></span></a>
+                }
             </td>
         </tr>
     }
