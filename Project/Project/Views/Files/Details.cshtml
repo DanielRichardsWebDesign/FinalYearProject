@@ -7,7 +7,7 @@
 
 <h2>Details</h2>
 
-  
+
 
 <h4>Files</h4>
 <hr />
@@ -140,21 +140,28 @@
     </div>
 </div>
 
-<p>    
+<p>
     <a href="@Url.Action("WorkStation", "Projects", new { id = Model.PublicID })">Back to Workstation</a>
 </p>
 
-@using(Html.BeginForm("PostComment", "Comments", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@if (Model.Projects.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
 {
+    using (Html.BeginForm("PostComment", "Comments", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
 
-    <div class="form-group">
-        <textarea class="form-control" id="comment" name="comment" rows="5" cols="50" placeholder="Insert Comment here..." required></textarea>
-        <input type="hidden" name="fileID" id="fileID" value="@Model.FileID" />
-        <input type="hidden" name="userID" id="userID" value="@ViewBag.UserID" />
-    </div>    
+        <div class="form-group">
+            <textarea class="form-control" id="comment" name="comment" rows="5" cols="50" placeholder="Insert Comment here..." required></textarea>
+            <input type="hidden" name="fileID" id="fileID" value="@Model.FileID" />
+            <input type="hidden" name="userID" id="userID" value="@ViewBag.UserID" />
+        </div>
 
-    <input type="submit" value="Post" class="btn btn-primary" />
+        <input type="submit" value="Post" class="btn btn-primary" />
+    }
 }
 
-<!--Display a Files comments in partial view-->
-@Html.Partial("../Comments/_Comments", Model.Comments)
+@if (Model.Projects.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+{
+    <!--Display a Files comments in partial view-->
+    @Html.Partial("../Comments/_Comments", Model.Comments)
+}
+
