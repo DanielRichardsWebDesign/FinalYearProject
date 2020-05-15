@@ -3,7 +3,7 @@
 
 <!--Create popover so that a preview of the Azure blob file can be seen on hovering.-->
 <script>
-    $(function () {      
+    $(function () {
 
         $('.pop-over').each(function (i) {
             $(this).popover({
@@ -34,7 +34,7 @@ $(document).ready(function() {
         var form = $('#selectedFilesForm')
 
         if ($(this).is(':checked')) {
-            selectedFiles.push(checked);            
+            selectedFiles.push(checked);
             $('#input_' + this.id).prop('disabled', false);
             console.log(selectedFiles);
 
@@ -43,9 +43,9 @@ $(document).ready(function() {
             selectedFiles.splice(index, 1);
 
             $('#input_' + this.id).prop('disabled', true);
-            
-            //$('#input_' + $(this).val()).remove();            
-           
+
+            //$('#input_' + $(this).val()).remove();
+
 
             console.log(selectedFiles);
         }
@@ -91,31 +91,34 @@ $(document).ready(function() {
     var link = '@Url.Action("GetSelectedFiles", "Files")';
     link = link.replace("-1", projectID);
 
-    console.log("Project ID: " + projectID);    
+    console.log("Project ID: " + projectID);
 
 });
 
 </script>
-
-@using (Html.BeginForm("GetSelectedFiles", "Files", FormMethod.Post, new { enctype = "multipart/form-data", id = "selectedFilesForm" }))
+@if (Model.Any(f => f.Projects.ProjectUsers.Any(u => u.ApplicationUserID == User.Identity.GetUserId())))
 {
-    foreach(var item in Model)
+    using (Html.BeginForm("GetSelectedFiles", "Files", FormMethod.Post, new { enctype = "multipart/form-data", id = "selectedFilesForm" }))
     {
-        <input type="hidden" id="input_@item.FileID" name="submittedFiles[]" value="@item.FileName" disabled />
+        foreach (var item in Model)
+        {
+            <input type="hidden" id="input_@item.FileID" name="submittedFiles[]" value="@item.FileName" disabled />
+        }
+
+        <input type="hidden" id="projectID" name="projectID" />
+
+        <input type="submit" id="selectedFilesButton" value="Download Selected Files" class="btn btn-primary" />
     }
 
-    <input type="hidden" id="projectID" name="projectID" />    
-    <input type="submit" id="selectedFilesButton" value="Download Selected Files" class="btn btn-primary" />
+    @*<input type="button" id="selectedFilesButton" class="btn btn-primary">Download Selected Files</input>*@
 }
-
-@*<input type="button" id="selectedFilesButton" class="btn btn-primary">Download Selected Files</input>*@
 
 <table id="filesTable" class="table table-hover">
     <thead>
         <tr>
             <th scope="col">#</th>
             <th scope="col">File Name</th>
-            <th scope="col">File Type</th>            
+            <th scope="col">File Type</th>
             <th scope="col">Date Uploaded</th>
             <th scope="col">Uploaded by</th>
             <th scope="col">Actions</th>
@@ -151,8 +154,8 @@ $(document).ready(function() {
                 @Html.DisplayFor(modelItem => item.FileType)
             </td>
             @*<td>
-                @Html.DisplayFor(modelItem => item.FileSize)
-            </td>*@
+                    @Html.DisplayFor(modelItem => item.FileSize)
+                </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.DateUploaded)
             </td>
