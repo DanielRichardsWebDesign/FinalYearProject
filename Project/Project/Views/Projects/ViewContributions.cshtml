@@ -1,4 +1,5 @@
 ﻿@model Project.Models.ProjectUsers
+@using Microsoft.AspNet.Identity;
 
 @{
     ViewBag.Title = "ViewContributions";
@@ -21,13 +22,18 @@
     </div>
 </div>
 <br />
-<div class="card">
-    <div class="card-header">
-        Comments: @Model.User.Comments.Where(c => c.Files.PublicID == Model.PublicID).Count()
+
+@if (Model.Projects.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+{
+    <div class="card">
+        <div class="card-header">
+            Comments: @Model.User.Comments.Where(c => c.Files.PublicID == Model.PublicID).Count()
+        </div>
+        <div class="card-body">
+            <!--Retrieve the comments the user has made and display as partial-->
+            @Html.Partial("../Comments/_UserComments", Model.User.Comments.Where(c => c.Files.PublicID == Model.PublicID))
+        </div>
     </div>
-    <div class="card-body">
-        <!--Retrieve the comments the user has made and display as partial-->
-        @Html.Partial("../Comments/_UserComments", Model.User.Comments.Where(c => c.Files.PublicID == Model.PublicID))
-    </div>
-</div>
+}
+
 
