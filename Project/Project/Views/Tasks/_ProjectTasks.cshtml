@@ -55,7 +55,7 @@
                         <p class="font-weight-bold">Assigned Users</p>
                         foreach (var user in item.UserTasks)
                         {
-                            <li style="list-style-type: none">@user.ProjectUsers.User.UserName</li>
+                            <li style="list-style-type: none"><a href="@Url.Action("ViewContributions", "Projects", new { id = user.ProjectUsers.ProjectUserID })">@user.ProjectUsers.User.UserName</a></li>
                         }
                         <div class="card-footer">
                            @if(item.Projects.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
