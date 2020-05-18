@@ -42,10 +42,13 @@
             </td>
             <td>
                 <a class="btn btn-primary" href="@Url.Action("ViewContributions", "Projects", new { id = item.ProjectUserID })"><span class="fas fa-eye"></span></a>
-                @if (Model.Any(p => p.IsAdmin == true && p.ApplicationUserID == User.Identity.GetUserId()))
+                @if (item.ApplicationUserID != item.Projects.ApplicationUserID)
                 {
-                    <a class="btn btn-primary" href="@Url.Action("EditUserPrivileges", "Projects", new { id = item.ProjectUserID })"><span class="fas fa-pen"></span></a>
-                    <a class="btn btn-danger" href="@Url.Action("RemoveUser", "Projects", new { id = item.ProjectUserID })"><span class="fas fa-trash"></span></a>
+                    if (Model.Any(p => p.IsAdmin == true && p.ApplicationUserID == User.Identity.GetUserId()))
+                    {
+                        <a class="btn btn-primary" href="@Url.Action("EditUserPrivileges", "Projects", new { id = item.ProjectUserID })"><span class="fas fa-pen"></span></a>
+                        <a class="btn btn-danger" href="@Url.Action("RemoveUser", "Projects", new { id = item.ProjectUserID })"><span class="fas fa-trash"></span></a>
+                    }
                 }
             </td>
         </tr>
