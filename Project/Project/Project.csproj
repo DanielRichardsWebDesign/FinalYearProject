@@ -365,6 +365,10 @@
     <Compile Include="Migrations\202004181050327_AddTasks.designer.cs">
       <DependentUpon>202004181050327_AddTasks.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005180914542_AddErrorHandlerToTask.cs" />
+    <Compile Include="Migrations\202005180914542_AddErrorHandlerToTask.designer.cs">
+      <DependentUpon>202005180914542_AddErrorHandlerToTask.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comments.cs" />
@@ -757,6 +761,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004181050327_AddTasks.resx">
       <DependentUpon>202004181050327_AddTasks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005180914542_AddErrorHandlerToTask.resx">
+      <DependentUpon>202005180914542_AddErrorHandlerToTask.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

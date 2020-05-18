@@ -614,7 +614,8 @@ namespace Project.Controllers
         }
 
         //Update Task: POST
-        public async Task<ActionResult> UpdateTask([Bind(Include = "TaskID,PublicID,ApplicationUserID,TaskDescription,IsComplete")] Tasks task)
+        [HttpPost]
+        public async Task<ActionResult> EditTask([Bind(Include = "TaskID,PublicID,ApplicationUserID,TaskDescription,IsComplete")] Tasks task)
         {
             if(User.Identity.GetUserId() == null)
             {
