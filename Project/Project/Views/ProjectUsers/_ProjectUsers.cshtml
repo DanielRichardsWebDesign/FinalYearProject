@@ -29,15 +29,15 @@
             <td>
                 @if (item.ApplicationUserID == item.Projects.ApplicationUserID)
                 {
-                    @Html.DisplayFor(modelItem => item.User.UserName) <p>(Creator)</p>
+                    <a href="@Url.Action("ViewContributions", "Projects", new { id = item.ProjectUserID })">@Html.DisplayFor(modelItem => item.User.UserName)</a> <p>(Creator)</p>
                 }
                 @if (item.IsAdmin == true && item.ApplicationUserID != item.Projects.ApplicationUserID)
                 {
-                    @Html.DisplayFor(modelItem => item.User.UserName) <p>(Admin)</p>
+                   <a href="@Url.Action("ViewContributions", "Projects", new { id = item.ProjectUserID })">@Html.DisplayFor(modelItem => item.User.UserName)</a> <p>(Admin)</p>
                 }
                 @if (item.IsAdmin == false)
                 {
-                    @Html.DisplayFor(modelItem => item.User.UserName)
+                    <a href="@Url.Action("ViewContributions", "Projects", new { id = item.ProjectUserID })">@Html.DisplayFor(modelItem => item.User.UserName)</a>
                 }
             </td>
             <td>
