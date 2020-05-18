@@ -74,7 +74,7 @@ namespace Project.Services.Tests
             var blob = "test-image.png";
 
             //Path to file
-            var filePath = "C:/Users/Daniel Richards/Pictures/test-image.png";
+            var filePath = @"Images/test-image.png";
 
             //Create connection to client
             var connectionStringConfiguration = ConfigurationManager.ConnectionStrings["StorageClient"].ConnectionString;
