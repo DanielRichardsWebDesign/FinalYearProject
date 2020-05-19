@@ -1,4 +1,5 @@
 ﻿@model Project.Models.Projects
+@using Microsoft.AspNet.Identity;
 
 @{
     ViewBag.Title = "Details";
@@ -11,15 +12,15 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.ApplicationUser.Email)
+            Created By:
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ApplicationUser.Email)
+            @Html.DisplayFor(model => model.ApplicationUser.UserName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ProjectName)
+            Project Name:
         </dt>
 
         <dd>
@@ -27,7 +28,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ProjectType)
+            Project Type:
         </dt>
 
         <dd>
@@ -35,7 +36,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ProjectDescription)
+            Description:
         </dt>
 
         <dd>
@@ -43,7 +44,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.DateCreated)
+            Date Created:
         </dt>
 
         <dd>
@@ -53,17 +54,25 @@
     </dl>
 </div>
 <p>
-    <a href="@Url.Action("Edit", "Projects", new { id = Model.PublicID })">
-        Edit
-        <span class="fas fa-wrench"></span>
-    </a> |
+    @if (Model.ApplicationUserID == User.Identity.GetUserId())
+    {
+        <a href="@Url.Action("Edit", "Projects", new { id = Model.PublicID })">
+            Edit
+            <span class="fas fa-wrench"></span>
+        </a>
+    }
+    |
     <a href="@Url.Action("WorkStation", "Projects", new { id = Model.PublicID })" class="btn btn-primary">
         View Workstation
         <span class="fa fa-eye"></span>
     </a> |
-    <a href="@Url.Action("Index", "Projects")">
-        Back to List
-        <span class="fas fa-undo"></span>
-    </a> |
+    @if (Model.ApplicationUserID == User.Identity.GetUserId())
+    {
+        <a href="@Url.Action("Index", "Projects")">
+            Back to List
+            <span class="fas fa-undo"></span>
+        </a>
+    }
+    |
 
 </p>

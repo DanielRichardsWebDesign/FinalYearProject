@@ -1,0 +1,84 @@
+﻿@model IEnumerable<Project.Models.Comments>
+@using Microsoft.AspNet.Identity;
+
+
+@*<script>
+    $('.editButton').click(function () {
+        var commentID = $('.editButton').attr('id');
+
+        $('#editForm_' + commentID).append('<form action="Comments/EditComment/' + commentID + '>'
+            + '<input type="hidden" name="fileID" id="fileID" value="' + commentID + '" />'
+            + '<input type="hidden" name="userID" id="userID" value="@item.ApplicationUserID" />'
+
+        );
+    });    
+</script>*@
+
+<h2>Comments: @Model.Count()</h2>
+
+@if (Model.Count() == 0)
+{
+    <div class="card text-center">
+        <div class="card-body">
+            <h1>Oh no! No one has commented yet! <span class="fas fa-sad-tear"></span></h1>
+            <p>Give your colleague feedback by commenting below!</p>
+        </div>
+    </div>
+}
+
+@foreach (var item in Model)
+{
+    <div class="card">
+        @if (User.Identity.GetUserId() == item.ApplicationUserID)
+        {
+            <div class="card-header text-right">
+                <button id="edit_@item.CommentID" class="btn btn-primary editButton">
+                    <i class="fas fa-pen"></i>
+                </button>
+                <a href="@Url.Action("Delete", "Comments", new { id = item.CommentID })" class="btn btn-danger"><span class="fas fa-trash"></span></a>
+            </div>
+        }
+        <div class="card-body">
+            <h5 class="card-title">@item.ApplicationUser.UserName</h5>
+            <p class="card-text">@item.Comment</p>
+        </div>
+        <div id="editForm_@item.CommentID">
+            
+                @*<textarea class="form-control" id="comment" name="comment" rows="5" cols="50" placeholder="Insert Comment here..." required></textarea>
+                <input type="hidden" name="fileID" id="fileID" value="@item.CommentID" />
+                <input class="userID" type="hidden" name="userID" id="userID" value="@item.ApplicationUserID" />*@
+
+                <script>
+                    $(document).ready(function () {
+                        $('#edit_@item.CommentID').click(function () {
+
+                            $('#editForm_' + @item.CommentID).append('<form action="@Url.Action("EditComment", "Comments")" method="POST">'
+                                + '<textarea class="form-control" id="comment_"' +@item.CommentID+'" name="comment" rows="5" cols="50" required>@item.Comment</textarea>'
+                                + '<input type="hidden" name="commentID" id="commentID_' +@item.CommentID+'" value="' + @item.CommentID + '" />'
+                                + '<input type="hidden" name="fileID" id="fileID_' +@item.FileID+'" value="' + @item.FileID + '" />'
+                                + '<input type="hidden" name="userID" id="userID" value="@item.ApplicationUserID" />'
+                                + '<input type="submit" class="btn btn-primary" value="Post" />'
+                                + '</form>'
+                                + '<br />'
+                                + '<button id="close_@item.CommentID" class="btn btn-danger"><i class="fas fa-times"></i></button>'
+                            );
+
+                            $('#edit_@item.CommentID').attr("disabled", true);
+
+                        });
+
+                        $('#close_@item.CommentID').click(function () {
+                            $('#editForm_@item.CommentID').empty();
+                        });
+                    });
+                    
+                </script>
+            
+        </div>
+        <div class="card-footer text-muted">
+            @item.DateCommented
+        </div>
+    </div>
+    <br />
+}
+

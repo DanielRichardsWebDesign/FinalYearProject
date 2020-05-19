@@ -63,28 +63,87 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=1.2.0.246, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.1.2.0\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Cors, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Cors.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Extensions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Extensions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Features, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Features.3.1.2\lib\netstandard2.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.1.0.0\lib\net40\Microsoft.Azure.KeyVault.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.3.1.2\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.FileProviders.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.FileProviders.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.3.1.2\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Net.Http.Headers, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.Headers.2.2.0\lib\netstandard2.0\Microsoft.Net.Http.Headers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=9.3.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAzure.Storage.9.3.3\lib\net45\Microsoft.WindowsAzure.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="NReco.VideoConverter, Version=1.1.4.0, Culture=neutral, PublicKeyToken=395ccb334978a0cd, processorArchitecture=MSIL">
+      <HintPath>..\packages\NReco.VideoConverter.1.1.4\lib\net40\NReco.VideoConverter.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.5.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.6.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Pipelines, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Pipelines.4.7.0\lib\netstandard2.0\System.IO.Pipelines.dll</HintPath>
+    </Reference>
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Numerics" />
     <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
     </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.7.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Text.Encodings.Web, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.4.5.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
@@ -95,6 +154,12 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -229,9 +294,15 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CommentsController.cs" />
+    <Compile Include="Controllers\FilesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
+    <Compile Include="Controllers\ProjectUserRequestsController.cs" />
+    <Compile Include="Controllers\ProjectUsersController.cs" />
+    <Compile Include="Controllers\TasksController.cs" />
+    <Compile Include="Controllers\UserTasksController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -251,13 +322,68 @@
     <Compile Include="Migrations\202002251700436_AddFiles.designer.cs">
       <DependentUpon>202002251700436_AddFiles.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003011240130_AddContainerNameToProjects.cs" />
+    <Compile Include="Migrations\202003011240130_AddContainerNameToProjects.designer.cs">
+      <DependentUpon>202003011240130_AddContainerNameToProjects.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003091714330_ChangeDateToDateTime.cs" />
+    <Compile Include="Migrations\202003091714330_ChangeDateToDateTime.designer.cs">
+      <DependentUpon>202003091714330_ChangeDateToDateTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003271040113_ProjectUsersAndRoles.cs" />
+    <Compile Include="Migrations\202003271040113_ProjectUsersAndRoles.designer.cs">
+      <DependentUpon>202003271040113_ProjectUsersAndRoles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003310850083_AddComments.cs" />
+    <Compile Include="Migrations\202003310850083_AddComments.designer.cs">
+      <DependentUpon>202003310850083_AddComments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003311249387_UpdateComments.cs" />
+    <Compile Include="Migrations\202003311249387_UpdateComments.designer.cs">
+      <DependentUpon>202003311249387_UpdateComments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004051106092_RemoveForeignKeysProjectUsers.cs" />
+    <Compile Include="Migrations\202004051106092_RemoveForeignKeysProjectUsers.designer.cs">
+      <DependentUpon>202004051106092_RemoveForeignKeysProjectUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004051134519_DropProjectUsers.cs" />
+    <Compile Include="Migrations\202004051134519_DropProjectUsers.designer.cs">
+      <DependentUpon>202004051134519_DropProjectUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004051251512_Update.cs" />
+    <Compile Include="Migrations\202004051251512_Update.designer.cs">
+      <DependentUpon>202004051251512_Update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004081455046_AddIsAdminToProjectUsers.cs" />
+    <Compile Include="Migrations\202004081455046_AddIsAdminToProjectUsers.designer.cs">
+      <DependentUpon>202004081455046_AddIsAdminToProjectUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004111234214_AddProjectUserRequests.cs" />
+    <Compile Include="Migrations\202004111234214_AddProjectUserRequests.designer.cs">
+      <DependentUpon>202004111234214_AddProjectUserRequests.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004181050327_AddTasks.cs" />
+    <Compile Include="Migrations\202004181050327_AddTasks.designer.cs">
+      <DependentUpon>202004181050327_AddTasks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005180914542_AddErrorHandlerToTask.cs" />
+    <Compile Include="Migrations\202005180914542_AddErrorHandlerToTask.designer.cs">
+      <DependentUpon>202005180914542_AddErrorHandlerToTask.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Comments.cs" />
     <Compile Include="Models\Files.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ProjectRoles.cs" />
     <Compile Include="Models\Projects.cs" />
+    <Compile Include="Models\ProjectUserRequests.cs" />
+    <Compile Include="Models\ProjectUsers.cs" />
+    <Compile Include="Models\Tasks.cs" />
+    <Compile Include="Models\UserTasks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AzureBlobService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -518,6 +644,65 @@
     <Content Include="webfonts\fa-brands-400.ttf" />
     <Content Include="webfonts\fa-brands-400.eot" />
     <Content Include="Views\Projects\WorkStation.cshtml" />
+    <Content Include="Views\Files\Create.cshtml" />
+    <Content Include="Views\Files\Delete.cshtml" />
+    <Content Include="Views\Files\Details.cshtml" />
+    <Content Include="Views\Files\Edit.cshtml" />
+    <Content Include="Views\Files\Index.cshtml" />
+    <Content Include="Views\Files\_ProjectFiles.cshtml" />
+    <Content Include="Views\Files\ReviewSelectedFiles.cshtml" />
+    <Content Include="Views\ProjectUsers\AddUser.cshtml" />
+    <Content Include="Views\ProjectUsers\Delete.cshtml" />
+    <Content Include="Views\ProjectUsers\Details.cshtml" />
+    <Content Include="Views\ProjectUsers\Edit.cshtml" />
+    <Content Include="Views\ProjectUsers\Index.cshtml" />
+    <Content Include="Views\ProjectUsers\_ProjectUsers.cshtml" />
+    <Content Include="Views\Comments\Create.cshtml" />
+    <Content Include="Views\Comments\Delete.cshtml" />
+    <Content Include="Views\Comments\Details.cshtml" />
+    <Content Include="Views\Comments\Edit.cshtml" />
+    <Content Include="Views\Comments\Index.cshtml" />
+    <Content Include="Views\Comments\_Comments.cshtml" />
+    <Content Include="Views\Projects\ProjectUsers.cshtml" />
+    <Content Include="Views\Projects\AddUser.cshtml" />
+    <Content Include="Views\Projects\RemoveUser.cshtml" />
+    <Content Include="Views\Projects\ViewContributions.cshtml" />
+    <Content Include="Views\Files\_UserFiles.cshtml" />
+    <Content Include="Views\Comments\_UserComments.cshtml" />
+    <Content Include="Views\Projects\MyFiles.cshtml" />
+    <Content Include="Views\Files\_MyFiles.cshtml" />
+    <Content Include="Views\ProjectUserRequests\Delete.cshtml" />
+    <Content Include="Views\Projects\UserRequests.cshtml" />
+    <Content Include="Views\ProjectUserRequests\_UserRequests.cshtml" />
+    <Content Include="Views\Projects\MemberOf.cshtml" />
+    <Content Include="Views\Projects\EditUserPrivileges.cshtml" />
+    <Content Include="Views\Projects\Tasks.cshtml" />
+    <Content Include="Views\Tasks\Create.cshtml" />
+    <Content Include="Views\Tasks\Delete.cshtml" />
+    <Content Include="Views\Tasks\Details.cshtml" />
+    <Content Include="Views\Tasks\Edit.cshtml" />
+    <Content Include="Views\Tasks\Index.cshtml" />
+    <Content Include="Views\Tasks\_ProjectTasks.cshtml" />
+    <Content Include="Views\UserTasks\Create.cshtml" />
+    <Content Include="Views\UserTasks\Delete.cshtml" />
+    <Content Include="Views\UserTasks\Details.cshtml" />
+    <Content Include="Views\UserTasks\Edit.cshtml" />
+    <Content Include="Views\UserTasks\Index.cshtml" />
+    <Content Include="Views\UserTasks\AssignUsers.cshtml" />
+    <Content Include="Views\Projects\EditTask.cshtml" />
+    <Content Include="Views\Projects\MyTasks.cshtml" />
+    <Content Include="Views\Tasks\_MyTasks.cshtml" />
+    <Content Include="Views\Projects\AwaitingApproval.cshtml" />
+    <Content Include="Views\Projects\ViewProjects.cshtml" />
+    <Content Include="Views\Projects\Action.cshtml" />
+    <Content Include="Views\Projects\Animated.cshtml" />
+    <Content Include="Views\Projects\Comedy.cshtml" />
+    <Content Include="Views\Projects\Drama.cshtml" />
+    <Content Include="Views\Projects\Horror.cshtml" />
+    <Content Include="Views\Projects\ScienceFiction.cshtml" />
+    <Content Include="Views\Projects\Western.cshtml" />
+    <Content Include="Views\Projects\Activity.cshtml" />
+    <Content Include="Views\Projects\DeleteTask.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -545,6 +730,42 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002251700436_AddFiles.resx">
       <DependentUpon>202002251700436_AddFiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003011240130_AddContainerNameToProjects.resx">
+      <DependentUpon>202003011240130_AddContainerNameToProjects.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003091714330_ChangeDateToDateTime.resx">
+      <DependentUpon>202003091714330_ChangeDateToDateTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003271040113_ProjectUsersAndRoles.resx">
+      <DependentUpon>202003271040113_ProjectUsersAndRoles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003310850083_AddComments.resx">
+      <DependentUpon>202003310850083_AddComments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003311249387_UpdateComments.resx">
+      <DependentUpon>202003311249387_UpdateComments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004051106092_RemoveForeignKeysProjectUsers.resx">
+      <DependentUpon>202004051106092_RemoveForeignKeysProjectUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004051134519_DropProjectUsers.resx">
+      <DependentUpon>202004051134519_DropProjectUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004051251512_Update.resx">
+      <DependentUpon>202004051251512_Update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004081455046_AddIsAdminToProjectUsers.resx">
+      <DependentUpon>202004081455046_AddIsAdminToProjectUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004111234214_AddProjectUserRequests.resx">
+      <DependentUpon>202004111234214_AddProjectUserRequests.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004181050327_AddTasks.resx">
+      <DependentUpon>202004181050327_AddTasks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005180914542_AddErrorHandlerToTask.resx">
+      <DependentUpon>202005180914542_AddErrorHandlerToTask.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

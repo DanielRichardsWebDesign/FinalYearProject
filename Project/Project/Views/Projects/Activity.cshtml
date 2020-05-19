@@ -1,0 +1,143 @@
+﻿@model Project.Models.Projects
+@using Microsoft.AspNet.Identity
+
+@{
+    ViewBag.Title = "Activity";
+}
+
+<script>
+
+
+    //Load Google charts
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawPieChart);
+    google.charts.setOnLoadCallback(drawBarChart);
+    google.charts.setOnLoadCallback(drawLineChart);
+
+    function drawPieChart(result) {
+
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'User');
+        data.addColumn('number', 'Amount Uploaded');
+
+        //Add relevant data to rows
+        data.addRows([
+                        @foreach(var item in ViewBag.UserList)
+                        {
+
+                            @:['@item.UserName', @Model.Files.Where(p => p.ApplicationUser.UserName == item.UserName).Count()],
+
+                        }
+                ]);
+
+            var options = {
+          title: 'File Upload Amount by Project Members'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('pie_chart_div'));
+        chart.draw(data, options);
+    }
+
+    function drawBarChart(result) {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'File Type');
+        data.addColumn('number', 'Amount Uploaded');
+
+        //Add relevant data to rows
+        data.addRows([
+
+
+                ['Video', @Model.Files.Where(p => p.FileType.Contains("video")).Count()],
+
+
+
+                ['Audio', @Model.Files.Where(p => p.FileType.Contains("audio")).Count()],
+
+
+
+                ['Image', @Model.Files.Where(p => p.FileType.Contains("image")).Count()],
+
+
+        ]);
+
+        var options = {
+            title: 'Types of Files Uploaded'
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('bar_chart_div'));
+        chart.draw(data, options);
+    }
+
+    function drawLineChart(result) {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Month');
+        data.addColumn('number', 'Amount Uploaded');
+
+        //Add relevant data
+        data.addRows([
+            @foreach(var item in ViewBag.MonthsList)
+            {
+                @:['@item', @Model.Files.Where(f => f.DateUploaded.ToString("MMMM") == item).Count()],
+            }
+        ]);
+
+        var options = {
+            title: 'Files Uploaded in the Last Six Months'
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('line_chart_div'));
+        chart.draw(data, options);
+
+    }
+</script>
+
+
+<div class="jumbotron bg-primary text-white">
+    <div class="container">
+        <h1 class="display-4">@Model.ProjectName: Activity</h1>
+        <p class="lead">View various charts to determine user activity, and file type upload patterns...</p>
+    </div>
+</div>
+
+<h2>Activity</h2>
+
+<div class="card text-center">
+    <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("WorkStation", "Projects", new { id = Model.PublicID })">Files <span class="fas fa-file"></span> (@Model.Files.Count())</a>
+            </li>
+            @if (Model.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+            {
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("MyFiles", "Projects", new { id = Model.PublicID })">My Files <span class="fas fa-file"></span> (@Model.Files.Where(p => p.ApplicationUserID == User.Identity.GetUserId() && p.PublicID == Model.PublicID).Count())</a>
+                </li>
+            }
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("ProjectUsers", "Projects", new { id = Model.PublicID })">Users <span class="fas fa-user"></span> (@Model.ProjectUsers.Count())</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Tasks", "Projects", new { id = Model.PublicID })">Tasks <span class="fas fa-list"></span> (@Model.Tasks.Where(t => t.IsComplete == false && t.PublicID == Model.PublicID).Count())</a>
+            </li>
+            @if (Model.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+            {
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("MyTasks", "Projects", new { id = Model.PublicID })">My Tasks <span class="fas fa-list"></span> (@Model.Tasks.Where(t => t.IsComplete == false && t.PublicID == Model.PublicID && t.UserTasks.Any(u => u.ProjectUsers.ApplicationUserID == User.Identity.GetUserId())).Count())</a>
+                </li>
+            }
+            <li class="nav-item">
+                <a class="nav-link active" href="@Url.Action("Activity", "Projects", new { id = Model.PublicID })">Activity</a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body">
+        <!--Display Google Charts-->
+        <div id="pie_chart_div" style="width: 900px; height: 500px;"></div>
+
+        <div id="bar_chart_div" style="width: 900px; height: 500px;"></div>
+
+        <div id="line_chart_div" style="width: 900px; height: 500px;"></div>
+
+    </div>
+</div>
+

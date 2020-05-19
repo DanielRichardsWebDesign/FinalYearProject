@@ -26,9 +26,14 @@ namespace Project.Models
         [StringLength(250, ErrorMessage = "The {0} must be at least {2} characters long", MinimumLength = 10)]
         [Display(Name = "Project Description")]
         [Required]
-        public string ProjectDescription { get; set; }
-        //True for private. False for public
-        //public bool ProjectPrivacy { get; set; } 
+        public string ProjectDescription { get; set; }        
+        
+        //Name to set for Blob storage container for this Project
+        [MaxLength(63)]
+        [StringLength(63, ErrorMessage = "The {0} must be at least {2} characters long", MinimumLength = 3)]
+        [Display(Name = "Project Container Name")]
+        [Required]
+        public string ProjectContainerName { get; set; }
 
         //Define the certain date/time format to use 
         [DataType(DataType.Date), Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
@@ -41,6 +46,15 @@ namespace Project.Models
 
         //Collection of files on Project
         public virtual ICollection<Files> Files { get; set; }
+
+        //Collection of users on Project
+        public virtual ICollection<ProjectUsers> ProjectUsers { get; set; }
+
+        //Collection of User requests on Project
+        public virtual ICollection<ProjectUserRequests> ProjectUserRequests { get; set; }
+
+        //Collection of tasks on Project
+        public virtual ICollection<Tasks> Tasks { get; set; }
     }
 
     public class ProjectDBContext : DbContext

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Project.Models.ProjectUsers>
+@using Microsoft.AspNet.Identity
+
+    <p>
+
+        @if (Model.Any(p => p.IsAdmin == true && p.ApplicationUserID == User.Identity.GetUserId()))
+        {
+            <a href="@Url.Action("AddUser", "Projects", new { id = ViewBag.PublicID })" class="btn btn-success">
+                Add New User
+                <span class="fa fa-plus" aria-hidden="true"></span>
+            </a>
+
+            <a href="@Url.Action("UserRequests", "Projects", new { id = ViewBag.PublicID })" class="btn btn-success">
+                Approve User Requests (@Model.Select(u => u.Projects.ProjectUserRequests.Count).FirstOrDefault())
+                <span class="fas fa-check" aria-hidden="true"></span>
+            </a>
+        }
+    </p>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Username</th>            
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>
+                @if (item.ApplicationUserID == item.Projects.ApplicationUserID)
+                {
+                    <a href="@Url.Action("ViewContributions", "Projects", new { id = item.ProjectUserID })">@Html.DisplayFor(modelItem => item.User.UserName)</a> <p>(Creator)</p>
+                }
+                @if (item.IsAdmin == true && item.ApplicationUserID != item.Projects.ApplicationUserID)
+                {
+                   <a href="@Url.Action("ViewContributions", "Projects", new { id = item.ProjectUserID })">@Html.DisplayFor(modelItem => item.User.UserName)</a> <p>(Admin)</p>
+                }
+                @if (item.IsAdmin == false)
+                {
+                    <a href="@Url.Action("ViewContributions", "Projects", new { id = item.ProjectUserID })">@Html.DisplayFor(modelItem => item.User.UserName)</a>
+                }
+            </td>
+            <td>
+                <a class="btn btn-primary" href="@Url.Action("ViewContributions", "Projects", new { id = item.ProjectUserID })"><span class="fas fa-eye"></span></a>
+                @if (item.ApplicationUserID != item.Projects.ApplicationUserID)
+                {
+                    if (Model.Any(p => p.IsAdmin == true && p.ApplicationUserID == User.Identity.GetUserId()))
+                    {
+                        <a class="btn btn-primary" href="@Url.Action("EditUserPrivileges", "Projects", new { id = item.ProjectUserID })"><span class="fas fa-pen"></span></a>
+                        <a class="btn btn-danger" href="@Url.Action("RemoveUser", "Projects", new { id = item.ProjectUserID })"><span class="fas fa-trash"></span></a>
+                    }
+                }
+            </td>
+        </tr>
+    }
+</table>

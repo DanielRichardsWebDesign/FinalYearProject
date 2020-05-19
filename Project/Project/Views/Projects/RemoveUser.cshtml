@@ -1,0 +1,41 @@
+﻿@model Project.Models.ProjectUsers
+
+@{
+    ViewBag.Title = "RemoveUser";
+}
+
+<h2>RemoveUser</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ProjectUsers</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Projects.ProjectName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Projects.ProjectName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.UserName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm("RemoveUserFromProject", "Projects")) {
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="userID" value="@Model.ApplicationUserID" />
+        <input type="hidden" name="projectID" value="@Model.PublicID" />
+        <div class="form-actions no-color">
+            <input type="submit" value="Remove User" class="btn btn-success" /> |
+            <a href="@Url.Action("ProjectUsers", "Projects", new { id = Model.PublicID })">Back to Project Users</a>
+        </div>
+    }
+</div>

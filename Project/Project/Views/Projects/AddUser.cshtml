@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Project.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "AddUser";
+}
+
+<h2>Add User</h2>
+<p class="text-success">@ViewBag.Message</p>
+
+<div class="card">
+    <div class="card-header">
+        Add User
+    </div>
+    <div class="card-body">
+        @foreach (var item in Model)
+        {
+            using (Html.BeginForm("AddUserToProject", "Projects", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {                             
+                <label for="AddUser">@item.UserName</label>
+                <input type="hidden" name="userID" value="@item.Id" />
+                <input type="hidden" name="publicID" value="@ViewBag.PublicID" />
+                <input type="submit" class="btn btn-success" value="Add User" />                
+            }
+        }
+
+    </div>    
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

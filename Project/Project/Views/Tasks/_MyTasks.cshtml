@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Project.Models.Tasks>
+
+@{
+    ViewBag.Title = "_MyTasks";
+}
+
+<div class="container">
+
+    <div class="card-deck">
+
+        <div class="card">
+            <div class="card-header">
+                Tasks
+            </div>
+            <ul class="list-group list-group-flush">
+                @foreach (var item in Model.Where(i => i.IsComplete == false && i.UserTasks.Any(u => u.ProjectUsers.ApplicationUserID == ViewBag.ApplicationUserID)))
+                {
+                    <li class="list-group-item">@item.TaskDescription</li>
+                    <p class="font-weight-bold">Assigned Users</p>
+                    foreach (var user in item.UserTasks)
+                    {
+                        <li style="list-style-type: none"><a href="@Url.Action("ViewContributions", "Projects", new { id = user.ProjectUsers.ProjectUserID })">@user.ProjectUsers.User.UserName</a></li>
+
+                    }
+                    <div class="card-footer">
+                        <a class="btn btn-primary" href="@Url.Action("AssignUsers", "UserTasks", new { id = item.TaskID })"><span class="fas fa-users"></span></a>                        
+                        <a class="btn btn-primary" href="@Url.Action("EditTask", "Projects", new { id = item.TaskID })"><span class="fas fa-pen"></span></a>
+                        <a class="btn btn-danger" href="@Url.Action("DeleteTask", "Projects", new { id = item.TaskID })"><span class="fas fa-trash"></span></a>
+                    </div>
+                }
+            </ul>            
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                Completed Tasks
+            </div>
+            <ul class="list-group list-group-flush">
+                @foreach (var item in Model.Where(i => i.IsComplete == true && i.UserTasks.Any(u => u.ProjectUsers.ApplicationUserID == ViewBag.ApplicationUserID)))
+                {
+                    <li class="list-group-item">@item.TaskDescription</li>
+                    <p class="font-weight-bold">Assigned Users</p>
+                    foreach (var user in item.UserTasks)
+                    {
+                        <li style="list-style-type: none"><a href="@Url.Action("ViewContributions", "Projects", new { id = user.ProjectUsers.ProjectUserID })">@user.ProjectUsers.User.UserName</a></li>
+                    }
+                    <div class="card-footer">
+                        <a class="btn btn-primary" href="@Url.Action("AssignUsers", "UserTasks", new { id = item.TaskID })"><span class="fas fa-users"></span></a>                        
+                        <a class="btn btn-primary" href="@Url.Action("EditTask", "Projects", new { id = item.TaskID })"><span class="fas fa-pen"></span></a>
+                        <a class="btn btn-danger" href="@Url.Action("DeleteTask", "Projects", new { id = item.TaskID })"><span class="fas fa-trash"></span></a>
+                    </div>
+                }
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+<!--Create task modal-->
+<div class="modal fade bd-example-modal-lg" id="createTaskModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Create Task</h5>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("CreateTask", "Projects", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <input type="hidden" name="projectID" value="@ViewBag.PublicID" />
+                    <input type="hidden" name="userID" value="@ViewBag.ApplicationUserID" />
+
+                    <div class="form-group">
+                        <label for="exampleTask">Task Description</label>
+                        <textarea class="form-control" name="taskDesc" rows="3" required></textarea>
+                    </div>
+
+                    <input type="submit" class="btn btn-default" />
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

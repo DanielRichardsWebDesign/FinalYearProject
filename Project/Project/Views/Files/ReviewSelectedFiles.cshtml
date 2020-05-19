@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Project.Models.Files>
+
+<script>
+    //Give project id value
+    var projectID = $('#projectIDHidden').val();
+    console.log(projectID);
+
+    $('#projectID').val(projectID);
+</script>
+
+<div class="jumbotron bg-primary text-white">
+    <div class="container">
+        <h1 class="display-4">Selected Project Files</h1>
+        <p class="lead">Review the selected files you wish to download.</p>
+        <p id="projectID"></p>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Selected Files</h5>
+        @foreach(var item in Model)
+        {
+            <input type="hidden" id="projectIDHidden" value="@item.PublicID" />
+        }
+        @using (Html.BeginForm("DownloadSelectedFiles", "Files", FormMethod.Post, new { enctype = "multipart/form-data", id = "selectedFilesForm" }))
+        {
+            foreach (var item in Model)
+            {
+                <div class="list-group">  
+                    <p></p>
+                    <input type="text" readonly class="form-control-plaintext" name="downloadFiles[]" value="@item.FileName" />
+                </div>
+            }
+            <input type="hidden" id="projectID" name="projectID" value="@ViewBag.PublicID" />
+            <input type="submit" class="btn btn-primary" value="Download Files" />
+        }
+
+    </div>
+</div>

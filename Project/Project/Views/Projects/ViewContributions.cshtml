@@ -1,0 +1,39 @@
+﻿@model Project.Models.ProjectUsers
+@using Microsoft.AspNet.Identity;
+
+@{
+    ViewBag.Title = "ViewContributions";
+}
+
+<div class="jumbotron bg-primary text-white">
+    <div class="container">
+        <h1 class="display-4">@Model.User.UserName's Contributions to @Model.Projects.ProjectName</h1>
+        <p class="lead">View @Model.User.UserName's contributions...</p>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        Files: @Model.User.Files.Where(f => f.PublicID == Model.PublicID).Count()
+    </div>
+    <div class="card-body">
+        <!--Retrieve the files the user has uploaded and display as partial-->
+        @Html.Partial("../Files/_UserFiles", Model.User.Files.Where(f => f.PublicID == Model.PublicID))
+    </div>
+</div>
+<br />
+
+@if (Model.Projects.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+{
+    <div class="card">
+        <div class="card-header">
+            Comments: @Model.User.Comments.Where(c => c.Files.PublicID == Model.PublicID).Count()
+        </div>
+        <div class="card-body">
+            <!--Retrieve the comments the user has made and display as partial-->
+            @Html.Partial("../Comments/_UserComments", Model.User.Comments.Where(c => c.Files.PublicID == Model.PublicID))
+        </div>
+    </div>
+}
+
+

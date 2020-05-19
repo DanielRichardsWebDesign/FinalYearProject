@@ -1,12 +1,15 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
+using System.Runtime.Serialization;
 
 namespace Project.Models
 {
+    
     public class Files
     {
         [Key]
@@ -29,21 +32,26 @@ namespace Project.Models
         public string FilePath { get; set; }
 
         //Gets the specific date and time a file has been uploaded
-        [DataType(DataType.DateTime), Display(Name = "Date Uploaded"), Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.DateTime), Display(Name = "Date Uploaded"), Column(TypeName = "DateTime"), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime DateUploaded { get; set; }
 
-        [DataType(DataType.DateTime), Display(Name = "Date Modified"), Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.DateTime), Display(Name = "Date Modified"), Column(TypeName = "DateTime"), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime DateModified { get; set; }
 
         //Get specific Project by ID
         public int PublicID { get; set; }
 
         //Get specific User by ID
-        public string ApplicationUserID { get; set; }
+        public string ApplicationUserID { get; set; }        
 
         //Virtual Objects to access User and Project properties
+        [JsonIgnore]
         public virtual Projects Projects { get; set; }
-
+        
         public virtual ApplicationUser ApplicationUser { get; set; }
+
+        //Collection of comments for many relationship with comments
+        [JsonIgnore]
+        public virtual ICollection<Comments> Comments { get; set; }
     }
 }

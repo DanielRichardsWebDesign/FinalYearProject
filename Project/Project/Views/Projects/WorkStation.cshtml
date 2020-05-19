@@ -1,4 +1,5 @@
 ﻿@model Project.Models.Projects
+@using Microsoft.AspNet.Identity
 
 @{
     ViewBag.Title = "WorkStation";
@@ -13,68 +14,81 @@
 
 <h2>Workstation</h2>
 
+@if (Model.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+{
+    using (Html.BeginForm("UploadFileAsync", "Projects", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input type="file" class="btn btn-success" id="formFiles" name="formFiles" value="Select A File" multiple="multiple" required />
+
+        <input type="hidden" name="containerName" value="@Model.ProjectContainerName" />
+
+        <input type="hidden" name="publicID" value="@Model.PublicID" />
+
+        <input type="hidden" name="userID" value="@ViewBag.UserID" />
+
+        <input type="hidden" name="currentDate" value="@ViewBag.CurrentDate" />
+
+        <input type="submit" value="Upload" class="btn btn-default" />
+    }
+    <br />
+}
+
+@if (!Model.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()) && User.Identity.GetUserId() != null && !Model.ProjectUserRequests.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+{
+    <h2>Request project membership</h2>
+    using (Html.BeginForm("RequestMembership", "ProjectUserRequests", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input type="hidden" value="@Model.PublicID" name="projectID" />
+        <input type="hidden" value="@User.Identity.GetUserId()" name="userID" />
+        <input type="submit" class="btn btn-success" value="Submit Request" />
+        <br />
+    } 
+ 
+}
+<p class="text-success">@ViewBag.Message</p>
+@if (Model.ProjectUserRequests.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+{
+    <h2>Your request has been sent and is currently being verified.</h2>
+}
+
+@if (Model.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+{
+    <a class="btn btn-primary" href="@Url.Action("DownloadRepository", "Files", new { id = Model.PublicID })"><span class="fas fa-file-archive"></span> Download as Zip</a>
+    <br />
+}
+
 <div class="card text-center">
     <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs">
             <li class="nav-item">
-                <a class="nav-link active" href="#">Files <span class="fas fa-file"></span></a>
+                <a class="nav-link active" href="@Url.Action("WorkStation", "Projects", new { id = Model.PublicID })">Files <span class="fas fa-file"></span> (@Model.Files.Count())</a>
+            </li>
+            @if (Model.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+            {
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("MyFiles", "Projects", new { id = Model.PublicID })">My Files <span class="fas fa-file"></span> (@Model.Files.Where(p => p.ApplicationUserID == User.Identity.GetUserId() && p.PublicID == Model.PublicID).Count())</a>
+                </li>
+            }
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("ProjectUsers", "Projects", new { id = Model.PublicID })">Users <span class="fas fa-user"></span> (@Model.ProjectUsers.Count())</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" href="#">Users <span class="fas fa-user"></span></a>
+                <a class="nav-link" href="@Url.Action("Tasks", "Projects", new { id = Model.PublicID })">Tasks <span class="fas fa-list"></span> (@Model.Tasks.Where(t => t.IsComplete == false && t.PublicID == Model.PublicID).Count())</a>
             </li>
+            @if (Model.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+            {
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("MyTasks", "Projects", new { id = Model.PublicID })">My Tasks <span class="fas fa-list"></span> (@Model.Tasks.Where(t => t.IsComplete == false && t.PublicID == Model.PublicID && t.UserTasks.Any(u => u.ProjectUsers.ApplicationUserID == User.Identity.GetUserId())).Count())</a>
+                </li>
+            }
             <li class="nav-item">
-                <a class="nav-link disabled" href="#">Activity</a>
+                <a class="nav-link" href="@Url.Action("Activity", "Projects", new { id = Model.PublicID })">Activity</a>
             </li>
         </ul>
     </div>
     <div class="card-body">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">File Name</th>
-                    <th scope="col">File Type</th>
-                    <th scope="col">File Size</th>
-                    <th scope="col">Date Uploaded</th>
-                    <th scope="col">Uploaded by</th>
-                    <th scope="col">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">IMG_001</th>
-                    <td>.png</td>
-                    <td>5MB</td>
-                    <td>22/02/2020</td>
-                    <td>DanFilmsLtd</td>
-                    <td>
-                        <a class="btn btn-primary" href="#"><span class="fas fa-download"></span></a>
-                        <a class="btn btn-danger" href="#"><span class="fas fa-trash"></span></a>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">VID_002</th>
-                    <td>.mp4</td>
-                    <td>15MB</td>
-                    <td>22/02/2020</td>
-                    <td>DanFilmsLtd</td>
-                    <td>
-                        <a class="btn btn-primary" href="#"><span class="fas fa-download"></span></a>
-                        <a class="btn btn-danger" href="#"><span class="fas fa-trash"></span></a>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">AUD_003</th>
-                    <td>.mp3</td>
-                    <td>10MB</td>
-                    <td>22/02/2020</td>
-                    <td>DanFilmsLtd</td>
-                    <td>
-                        <a class="btn btn-primary" href="#"><span class="fas fa-download"></span></a>
-                        <a class="btn btn-danger" href="#"><span class="fas fa-trash"></span></a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <!--Retrieve Files Partial view to display.-->
+        @Html.Partial("../Files/_ProjectFiles", Model.Files)
     </div>
 </div>
 

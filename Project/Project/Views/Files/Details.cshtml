@@ -1,0 +1,159 @@
+﻿@model Project.Models.Files
+@using Microsoft.AspNet.Identity;
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+
+
+<h4>Files</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6 col-sm-12">
+        <dl class="dl-horizontal">
+            <dt>
+                Uploaded By:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ApplicationUser.UserName)
+            </dd>
+
+            <dt>
+                Project:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Projects.ProjectName)
+            </dd>
+
+            <dt>
+                File Name:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FileName)
+            </dd>
+
+            <dt>
+                File Type:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FileType)
+            </dd>           
+
+            <dt>
+                Date Uploaded:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DateUploaded)
+            </dd>
+
+        </dl>
+    </div>
+    <div class="col-md-6 col-sm-12">
+        @if (Model.FileType.Contains("image"))
+        {
+            <img src="@Model.FilePath" class="rounded img-thumbnail" alt="@Model.FileName" height="400" width="400" />
+            <br />
+            if (Model.Projects.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+            {
+                <a href="@Url.Action("DownloadFile", "Files", new { id = Model.FileID })" class="btn btn-primary"><span class="fas fa-download"></span>Download</a>
+            }
+        }
+        @if (Model.FileType.Contains("audio"))
+        {
+            <!--Div container for waveform.js audio player.-->
+            <div id="waveform"></div>
+            <br />
+            <!--Control buttons for audio-->
+            <div class="controls">
+                <button class="btn btn-primary" onclick="wavesurfer.playPause()">
+                    <i class="fas fa-play"></i>
+                    Play /
+                    <i class="fas fa-pause"></i>
+                    Pause
+                </button>
+            </div>
+            <br />
+
+            if (Model.Projects.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+            {
+                <a href="@Url.Action("DownloadFile", "Files", new { id = Model.FileID })" class="btn btn-primary"><span class="fas fa-download"></span>Download</a>
+            }
+
+            <script src="https://unpkg.com/wavesurfer.js"></script>
+
+            <!--Generate Waveform from Audio File-->
+            <script>
+                var wavesurfer = WaveSurfer.create({
+                    container: '#waveform',
+                    barWidth: 2,
+                    barHeight: 1, // the height of the wave
+                    barGap: null, // the optional spacing between bars of the wave, if not provided will be calculated in legacy format
+                    responsive: true
+                });
+
+                var song = '@Model.FilePath';
+                wavesurfer.load(song);
+                wavesurfer.on('ready', function () { wavesurfer.play(); });
+            </script>
+            <!--Generate Waveform from Audio File-->
+        }
+
+        @if (Model.FileType.Contains("video"))
+        {
+            <video id="video-preview"
+                   class="video-js"
+                   controls
+                   preload="auto"
+                   width="640"
+                   height="264"
+                   data-setup="{}">
+                <source src="@Model.FilePath" type="@Model.FileType" />
+                <p class="vjs-no-js">
+                    To view this video please enable JavaScript, and consider upgrading to a
+                    web browser that
+                    <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+                </p>
+            </video>
+            <br />
+            if (Model.Projects.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+            {
+                <a href="@Url.Action("DownloadFile", "Files", new { id = Model.FileID })" class="btn btn-primary"><span class="fas fa-download"></span>Download</a>
+            }
+
+        }
+    </div>
+</div>
+
+<p>
+    <a href="@Url.Action("WorkStation", "Projects", new { id = Model.PublicID })">Back to Workstation</a>
+</p>
+
+@if (Model.Projects.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+{
+    using (Html.BeginForm("PostComment", "Comments", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+        <div class="form-group">
+            <textarea class="form-control" id="comment" name="comment" rows="5" cols="50" placeholder="Insert Comment here..." required></textarea>
+            <input type="hidden" name="fileID" id="fileID" value="@Model.FileID" />
+            <input type="hidden" name="userID" id="userID" value="@ViewBag.UserID" />
+        </div>
+
+        <input type="submit" value="Post" class="btn btn-primary" />
+    }
+}
+
+@if (Model.Projects.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+{
+    <!--Display a Files comments in partial view-->
+    @Html.Partial("../Comments/_Comments", Model.Comments)
+}
+

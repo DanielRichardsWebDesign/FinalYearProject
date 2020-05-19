@@ -1,0 +1,185 @@
+﻿@model IEnumerable<Project.Models.Files>
+@using Microsoft.AspNet.Identity;
+
+<!--Create popover so that a preview of the Azure blob file can be seen on hovering.-->
+<script>
+    $(function () {
+
+        $('.pop-over').each(function (i) {
+            $(this).popover({
+                trigger: "hover focus"
+            });
+        });
+    });
+</script>
+
+<script>
+    //Enable Download Selected Files Button if a checkbox is selected
+$(document).ready(function() {
+    //Set submit button to disabled on page load - no files will be selected at this time
+    $('#selectedFilesButton').prop('disabled', true);
+
+    var projectID = $('#projectIDHidden').val();
+    $('#projectID').val(projectID);
+    console.log($('#projectID').val(projectID));
+
+    //Store selected files in an array
+    var selectedFiles = [];
+    console.log("Selected Files: " + selectedFiles);
+
+    //Loop through each checkbox and add to array
+    $(".selectedFiles").change(function() {
+        var checked = $(this).val();
+
+        var form = $('#selectedFilesForm')
+
+        if ($(this).is(':checked')) {
+            selectedFiles.push(checked);
+            $('#input_' + this.id).prop('disabled', false);
+            console.log(selectedFiles);
+
+        } else if ($(this).not(':checked')) {
+            var index = $.inArray($(this).val(), selectedFiles);
+            selectedFiles.splice(index, 1);
+
+            $('#input_' + this.id).prop('disabled', true);
+
+            //$('#input_' + $(this).val()).remove();
+
+
+            console.log(selectedFiles);
+        }
+        if (selectedFiles.length > 0) {
+            $('#selectedFilesButton').prop('disabled', false);
+            console.log("Enable Button");
+        }
+        //Disable if file array is empty
+        else if (selectedFiles.length == 0) {
+            $('#selectedFilesButton').prop('disabled', true);
+            console.log("Disable Button");
+        }
+    });
+
+    //Select all
+    $('#selectAllFiles').change(function() {
+        if ($(this).is(':checked')) {
+            $('.selectedFiles').each(function() {
+                //Checks to see if checkbox value is already in array. If it isn't - It will be pushed into it.
+                if ($.inArray(this.value, selectedFiles) === -1) {
+                    this.checked = true;
+                    $('#selectedFilesButton').prop('disabled', false);
+                    selectedFiles.push(this.value);
+                    console.log(selectedFiles);
+                }
+
+            });
+        } else if ($('.selectedFiles').not(':checked')) {
+            $('.selectedFiles').each(function() {
+                this.checked = false;
+                selectedFiles = [];
+
+                $('#selectAllFiles').prop('checked', false);
+                $('#selectedFilesButton').prop('disabled', true);
+                console.log(selectedFiles);
+            });
+        }
+    })
+
+    //console.log(containerName);
+    var projectID = $('#projectID').val();
+
+    var link = '@Url.Action("GetSelectedFiles", "Files")';
+    link = link.replace("-1", projectID);
+
+    console.log("Project ID: " + projectID);
+
+});
+
+</script>
+@if (Model.Any(f => f.Projects.ProjectUsers.Any(u => u.ApplicationUserID == User.Identity.GetUserId())))
+{
+    using (Html.BeginForm("GetSelectedFiles", "Files", FormMethod.Post, new { enctype = "multipart/form-data", id = "selectedFilesForm" }))
+    {
+        foreach (var item in Model)
+        {
+            <input type="hidden" id="input_@item.FileID" name="submittedFiles[]" value="@item.FileName" disabled />
+        }
+
+        <input type="hidden" id="projectID" name="projectID" />
+
+        <input type="submit" id="selectedFilesButton" value="Download Selected Files" class="btn btn-primary" />
+    }
+
+    @*<input type="button" id="selectedFilesButton" class="btn btn-primary">Download Selected Files</input>*@
+}
+
+<table id="filesTable" class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">File Name</th>
+            <th scope="col">File Type</th>
+            <th scope="col">Date Uploaded</th>
+            <th scope="col">Uploaded by</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @if (item.Projects.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+                {
+                    <input type="checkbox" id="@item.FileID" class="selectedFiles" name="fileName" value="@item.FileName" />
+                    <input type="hidden" id="projectIDHidden" value="@item.PublicID" />
+                }
+            </td>
+            <td>
+                @if (item.FileType.Contains("image"))
+                {
+                    <a href="@Url.Action("Details", "Files", new { id = item.FileID })" tabindex="0" class="pop-over" data-trigger="hover focus" title="@item.FileName" data-html="true" data-content="'<img src='@item.FilePath' alt='@item.FileName' width='200' class='img-thumbnail' />'" data-placement="top">@Html.DisplayFor(modelItem => item.FileName)</a>
+                }
+                @if (item.FileType.Contains("audio"))
+                {
+                    <a href="@Url.Action("Details", "Files", new { id = item.FileID })" tabindex="0" class="pop-over" data-trigger="hover focus" title="@item.FileName" data-html="true" data-content="<span class='fas fa-file-audio fa-10x'></span>" data-placement="top">@Html.DisplayFor(modelItem => item.FileName)</a>
+
+                }
+                @if (item.FileType.Contains("video"))
+                {
+                    <a href="@Url.Action("Details", "Files", new { id = item.FileID })" tabindex="0" class="pop-over" data-trigger="hover focus" title="@item.FileName" data-html="true" data-content="<span class='fas fa-file-video fa-10x'></span>" data-placement="top">@Html.DisplayFor(modelItem => item.FileName)</a>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FileType)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.FileSize)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.DateUploaded)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
+            </td>
+            <td>
+                <a class="btn btn-primary" href="@Url.Action("Details", "Files", new { id = item.FileID })"><span class="fas fa-eye"></span></a>
+                @if (item.Projects.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+                {
+                    <a href="@Url.Action("DownloadFile", "Files", new { id = item.FileID })" class="btn btn-primary"><span class="fas fa-download"></span></a>
+                    <a class="btn btn-danger" href="@Url.Action("Delete", "Files", new { id = item.FileID })"><span class="fas fa-trash"></span></a>
+                }
+            </td>
+        </tr>
+    }
+
+
+</table>
+<script>
+    //Filter table contents
+    $('#filesTable').ddTableFilter();
+</script>
+@if (Model == null)
+{
+    <h1>No Files</h1>
+}
