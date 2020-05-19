@@ -329,6 +329,7 @@ namespace Project.Controllers
 
             var user = db.Users.AsEnumerable().Where(u => u.Id != userId && !userList.Select(pu => pu.ApplicationUserID).Contains(u.Id));
 
+            ViewBag.Message = Convert.ToString(TempData["Message"]);
             return View(user.ToList());
         }
         
@@ -356,6 +357,8 @@ namespace Project.Controllers
                 db.ProjectUsers.Add(newProjectUser);
                 db.SaveChanges();
 
+                string message = "User Added Successfully!";
+                TempData["Message"] = message;
                 return RedirectToAction("ProjectUsers", "Projects", new { id = publicID });
             }
             catch
