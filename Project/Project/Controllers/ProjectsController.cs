@@ -45,6 +45,8 @@ namespace Project.Controllers
             }
 
             var projects = db.Projects.Include(p => p.ApplicationUser);
+
+            ViewBag.Message = Convert.ToString(TempData["Message"]);
             return View(await projects.Where(p => p.ApplicationUserID.Equals(currentUserID)).ToListAsync());
         }
 
@@ -110,6 +112,8 @@ namespace Project.Controllers
                 db.ProjectUsers.Add(projectUser);
                 await db.SaveChangesAsync();
 
+                string message = "Project Created Successfully!";
+                TempData["Message"] = message;
                 return RedirectToAction("Index");
             }
 
@@ -165,6 +169,9 @@ namespace Project.Controllers
             {
                 db.Entry(projects).State = EntityState.Modified;
                 await db.SaveChangesAsync();
+
+                string message = "Project Details Have Been Updated Successfully!";
+                TempData["Message"] = message;
                 return RedirectToAction("Index");
             }
             ViewBag.ApplicationUserID = new SelectList(db.Users, "Id", "Email", projects.ApplicationUserID);
