@@ -174,6 +174,9 @@ namespace Project.Controllers
                 //Save changes
                 db.Entry(editComment).State = EntityState.Modified;
                 db.SaveChanges();
+
+                string message = "Comment Modified Successfully!";
+                TempData["Message"] = message;
                 return Redirect(Request.UrlReferrer.ToString());
             }
             return Redirect(Request.UrlReferrer.ToString());
