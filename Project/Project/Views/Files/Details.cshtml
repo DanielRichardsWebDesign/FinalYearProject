@@ -150,6 +150,7 @@
         <input type="submit" value="Post" class="btn btn-primary" />
     }
 }
+<p class="text-success">@ViewBag.Message</p>
 
 @if (Model.Projects.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
 {

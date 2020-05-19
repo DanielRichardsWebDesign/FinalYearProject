@@ -150,6 +150,8 @@ namespace Project.Controllers
                 db.Comments.Add(newComment);
                 await db.SaveChangesAsync();
 
+                string message = "Comment Posted Successfully!";
+                TempData["Message"] = message;
                 return Redirect(Request.UrlReferrer.ToString());
             }
             catch
