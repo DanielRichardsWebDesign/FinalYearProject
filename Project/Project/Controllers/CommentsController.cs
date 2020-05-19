@@ -124,6 +124,9 @@ namespace Project.Controllers
 
             db.Comments.Remove(comments);
             await db.SaveChangesAsync();
+
+            string message = "Comment Deleted Successfully";
+            TempData["Message"] = message;
             return RedirectToAction("Details", "Files", new { id = fileID });
         }
 
