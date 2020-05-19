@@ -103,6 +103,9 @@ namespace Project.Controllers
                 db.Files.Remove(files);
                 await db.SaveChangesAsync();
 
+                //Display Success Message
+                string message = "File Deleted Successfully!";
+                TempData["Message"] = message;
                 return RedirectToAction("WorkStation", "Projects", new { id = files.PublicID });
             }
             catch

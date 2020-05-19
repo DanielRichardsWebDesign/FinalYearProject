@@ -45,7 +45,7 @@
     } 
  
 }
-<p class="text-success">@ViewBag.UploadMessage</p>
+<p class="text-success">@ViewBag.Message</p>
 @if (Model.ProjectUserRequests.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
 {
     <h2>Your request has been sent and is currently being verified.</h2>
