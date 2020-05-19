@@ -124,6 +124,9 @@ namespace Project.Controllers
 
             db.Comments.Remove(comments);
             await db.SaveChangesAsync();
+
+            string message = "Comment Deleted Successfully";
+            TempData["Message"] = message;
             return RedirectToAction("Details", "Files", new { id = fileID });
         }
 
@@ -150,6 +153,8 @@ namespace Project.Controllers
                 db.Comments.Add(newComment);
                 await db.SaveChangesAsync();
 
+                string message = "Comment Posted Successfully!";
+                TempData["Message"] = message;
                 return Redirect(Request.UrlReferrer.ToString());
             }
             catch
@@ -172,6 +177,9 @@ namespace Project.Controllers
                 //Save changes
                 db.Entry(editComment).State = EntityState.Modified;
                 db.SaveChanges();
+
+                string message = "Comment Modified Successfully!";
+                TempData["Message"] = message;
                 return Redirect(Request.UrlReferrer.ToString());
             }
             return Redirect(Request.UrlReferrer.ToString());

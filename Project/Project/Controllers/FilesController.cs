@@ -12,6 +12,7 @@ using System.Linq;
 using System.Collections.Generic;
 using NReco.VideoConverter;
 using Microsoft.AspNet.Identity;
+using System;
 
 namespace Project.Controllers
 {
@@ -52,6 +53,8 @@ namespace Project.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.Message = Convert.ToString(TempData["Message"]);
             return View(files);
         }
 
