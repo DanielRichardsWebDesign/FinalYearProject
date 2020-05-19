@@ -697,6 +697,9 @@ namespace Project.Controllers
             }
             db.Tasks.Remove(tasks);
             await db.SaveChangesAsync();
+
+            string message = "Task Deleted Successfully!";
+            TempData["Message"] = message;
             return RedirectToAction("Tasks", "Projects", new { id = tasks.PublicID });
         }
 
