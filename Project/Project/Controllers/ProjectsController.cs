@@ -397,6 +397,8 @@ namespace Project.Controllers
             db.ProjectUsers.Remove(projectUser);
             await db.SaveChangesAsync();
 
+            string message = "User Removed Successfully!";
+            TempData["Message"] = message;
             return RedirectToAction("ProjectUsers", "Projects", new { id = projectID });
         }
 
