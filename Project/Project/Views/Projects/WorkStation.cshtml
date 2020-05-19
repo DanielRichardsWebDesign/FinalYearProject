@@ -42,8 +42,10 @@
         <input type="hidden" value="@User.Identity.GetUserId()" name="userID" />
         <input type="submit" class="btn btn-success" value="Submit Request" />
         <br />
-    }
+    } 
+ 
 }
+<p class="text-success">@ViewBag.UploadMessage</p>
 @if (Model.ProjectUserRequests.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
 {
     <h2>Your request has been sent and is currently being verified.</h2>

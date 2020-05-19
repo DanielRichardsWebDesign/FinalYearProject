@@ -12,6 +12,8 @@ using Project.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using System.Web.Services.Description;
+using System.ServiceModel.Channels;
 
 namespace Project.Controllers
 {
@@ -231,7 +233,8 @@ namespace Project.Controllers
         {
             ViewBag.PublicID = id.ToString();           
             ViewBag.UserID = User.Identity.GetUserId();
-            ViewBag.CurrentDate = DateTime.Now.ToString("dd/MM/yyyy HH:mm");            
+            ViewBag.CurrentDate = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
+            ViewBag.UploadMessage = Convert.ToString(TempData["UploadMessage"]);
 
             Projects project = await db.Projects.FindAsync(id);
             return View(project);
@@ -284,7 +287,9 @@ namespace Project.Controllers
                     db.Files.Add(file);
                     await db.SaveChangesAsync();
                 }
-
+                //Message for user feedback.
+                string message = "Files Uploaded Successfully!";
+                TempData["UploadMessage"] = message;
                 return Redirect(Request.UrlReferrer.ToString());
             }
             catch
