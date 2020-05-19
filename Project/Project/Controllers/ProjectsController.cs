@@ -137,7 +137,7 @@ namespace Project.Controllers
             }
             if(User.Identity.GetUserId() != projects.ApplicationUserID)
             {
-                return RedirectToAction("Unauthorised");
+                return View("Unauthorised");
             }
             ViewBag.ApplicationUserID = new SelectList(db.Users, "Id", "Email", projects.ApplicationUserID);
             ViewBag.DateCreated = db.Projects.Find(id).DateCreated.ToString("dd/MM/yyyy");
@@ -158,7 +158,7 @@ namespace Project.Controllers
 
             if (User.Identity.GetUserId() != projects.ApplicationUserID)
             {
-                return RedirectToAction("Unauthorised");
+                return View("Unauthorised");
             }
 
             if (ModelState.IsValid)
@@ -187,7 +187,7 @@ namespace Project.Controllers
 
             if (User.Identity.GetUserId() != projects.ApplicationUserID)
             {
-                return RedirectToAction("Unauthorised");
+                return View("Unauthorised");
             }
 
             if (projects == null)
@@ -211,7 +211,7 @@ namespace Project.Controllers
 
             if(User.Identity.GetUserId() != projects.ApplicationUserID)
             {
-                return RedirectToAction("Unauthorised");
+                return View("Unauthorised");
             }
 
             db.Projects.Remove(projects);
@@ -252,7 +252,7 @@ namespace Project.Controllers
             var projectUsers = await db.ProjectUsers.Where(p => p.PublicID.ToString() == publicID).ToListAsync();
             if(!projectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
             {
-                return RedirectToAction("Unauthorised");
+                return View("Unauthorised");
             }
 
             try
@@ -304,6 +304,7 @@ namespace Project.Controllers
             Projects project = await db.Projects.FindAsync(id);
 
             ViewBag.PublicID = id;
+            ViewBag.Message = Convert.ToString(TempData["Message"]);
 
             return View(project);
         }
@@ -321,7 +322,7 @@ namespace Project.Controllers
 
             if(!userList.Any(u => u.ApplicationUserID == User.Identity.GetUserId() && u.IsAdmin == true))
             {
-                return RedirectToAction("Unauthorised");
+                return View("Unauthorised");
             }
 
             var userId = User.Identity.GetUserId();
@@ -336,13 +337,13 @@ namespace Project.Controllers
         {
             if(User.Identity.GetUserId() == null)
             {
-                RedirectToAction("Login", "Account");
+                return RedirectToAction("Login", "Account");
             }
             
             var projectUsers = await db.ProjectUsers.Where(p => p.PublicID == publicID).ToListAsync();
             if(!projectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId() && p.IsAdmin == true))
             {
-                RedirectToAction("Unauthorised");
+                return View("Unauthorised");
             }
 
             try
@@ -379,7 +380,7 @@ namespace Project.Controllers
             var projectUsers = db.ProjectUsers.Where(p => p.PublicID == projectUser.PublicID).ToList();
             if(!projectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId() && p.IsAdmin == true))
             {
-                return RedirectToAction("Unauthorised");
+                return View("Unauthorised");
             }
 
             if(projectUser == null)
@@ -432,8 +433,9 @@ namespace Project.Controllers
             var projectUsers = await db.ProjectUsers.Where(p => p.PublicID == project.PublicID).ToListAsync();
             if(!projectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
             {
-                return RedirectToAction("Unauthorised");
+                return View("Unauthorised");
             }
+            ViewBag.Message = Convert.ToString(TempData["Message"]);
             return View(project);
         }
 
@@ -456,7 +458,7 @@ namespace Project.Controllers
             var projectUsers = await db.ProjectUsers.Where(p => p.PublicID == projectUserRequests.PublicID).ToListAsync();
             if(!projectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId() && p.IsAdmin == true))
             {
-                return RedirectToAction("Unauthorised");
+                return View("Unauthorised");
             }
             return View(projectUserRequests);
         }
@@ -526,6 +528,8 @@ namespace Project.Controllers
 
                 var projectID = projectUser.PublicID;
 
+                string message = "User Privileges Updated Successfully!";
+                TempData["Message"] = message;
                 return RedirectToAction("ProjectUsers", "Projects", new { id = projectID });
             }
             return View(projectUser);
