@@ -212,8 +212,10 @@ namespace Project.Controllers
                     }
                     db.SaveChanges();
                 }
-            }            
+            }
 
+            string message = "Users Assigned To Task Have Been Modified Successfully!";
+            TempData["Message"] = message;
             return RedirectToAction("Tasks", "Projects", new { id = task.PublicID });
         }      
 
