@@ -552,6 +552,7 @@ namespace Project.Controllers
 
             ViewBag.PublicID = project.PublicID;
             ViewBag.ApplicationUserID = User.Identity.GetUserId();
+            ViewBag.Message = Convert.ToString(TempData["Message"]);
 
             return View(project);
         }
@@ -590,6 +591,8 @@ namespace Project.Controllers
                 db.Tasks.Add(task);
                 await db.SaveChangesAsync();
 
+                string message = "Task Created Successfully!";
+                TempData["Message"] = message;
                 return RedirectToAction("Tasks", "Projects", new { id = task.PublicID });
             }
 
