@@ -648,6 +648,8 @@ namespace Project.Controllers
                 db.Entry(task).State = EntityState.Modified;
                 await db.SaveChangesAsync();
 
+                string message = "Task Modified Successfully!";
+                TempData["Message"] = message;
                 return RedirectToAction("Tasks", "Projects", new { id = task.PublicID });
             }
 
