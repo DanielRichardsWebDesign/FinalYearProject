@@ -25,9 +25,9 @@
                         <div class="card-footer">
                             @if (item.Projects.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
                             {
-                                <a class="btn btn-primary" href="@Url.Action("AssignUsers", "UserTasks", new { id = item.TaskID })"><span class="fas fa-users"></span></a>
-                                <a class="btn btn-primary" href="#"><span class="fas fa-eye"></span></a>
+                                <a class="btn btn-primary" href="@Url.Action("AssignUsers", "UserTasks", new { id = item.TaskID })"><span class="fas fa-users"></span></a>                                
                                 <a class="btn btn-primary" href="@Url.Action("EditTask", "Projects", new { id = item.TaskID })"><span class="fas fa-pen"></span></a>
+                                <a class="btn btn-danger" href="@Url.Action("DeleteTask", "Projects", new { id = item.TaskID })"><span class="fas fa-trash"></span></a>
                             }
                         </div>
                     }
@@ -60,9 +60,9 @@
                         <div class="card-footer">
                            @if(item.Projects.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
                             {
-                                 <a class="btn btn-primary" href="@Url.Action("AssignUsers", "UserTasks", new { id = item.TaskID })"><span class="fas fa-users"></span></a>
-                                 <a class="btn btn-primary" href="#"><span class="fas fa-eye"></span></a>
+                                 <a class="btn btn-primary" href="@Url.Action("AssignUsers", "UserTasks", new { id = item.TaskID })"><span class="fas fa-users"></span></a>                                 
                                  <a class="btn btn-primary" href="@Url.Action("EditTask", "Projects", new { id = item.TaskID })"><span class="fas fa-pen"></span></a>
+                                 <a class="btn btn-danger" href="@Url.Action("DeleteTask", "Projects", new { id = item.TaskID })"><span class="fas fa-trash"></span></a>
                             }    
                         </div>
                     }

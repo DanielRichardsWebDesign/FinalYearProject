@@ -640,6 +640,50 @@ namespace Project.Controllers
             return View(task);
         }
 
+        // GET: Tasks/Delete/5
+        public async Task<ActionResult> DeleteTask(int? id)
+        {
+            if(User.Identity.GetUserId() == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Tasks tasks = await db.Tasks.FindAsync(id);
+            if (tasks == null)
+            {
+                return HttpNotFound();
+            }
+            var projectUsers = await db.ProjectUsers.Where(p => p.PublicID == tasks.PublicID).ToListAsync();
+            if(!projectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+            {
+                return View("Unauthorised");
+            }
+            return View(tasks);
+        }
+
+        // POST: Tasks/Delete/5
+        [HttpPost, ActionName("DeleteTask")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteTaskConfirmed(int id)
+        {
+            if(User.Identity.GetUserId() == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            Tasks tasks = await db.Tasks.FindAsync(id);
+            var projectUsers = await db.ProjectUsers.Where(p => p.PublicID == tasks.PublicID).ToListAsync();
+            if(!projectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+            {
+                return View("Unauthorised");
+            }
+            db.Tasks.Remove(tasks);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Tasks", "Projects", new { id = tasks.PublicID });
+        }
+
         //My Tasks: GET
         public async Task<ActionResult> MyTasks(int? id)
         {
