@@ -14,6 +14,9 @@
 
 <h2>Tasks</h2>
 <p class="text-success">@ViewBag.Message</p>
+<br />
+
+<p>Users can create tasks, and then assign them to users. Tasks can be modified and assigned to the complete card by clicking the edit button on the task of your choice.</p>
 
 @if (!Model.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()) && User.Identity.GetUserId() != null && !Model.ProjectUserRequests.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
 {
