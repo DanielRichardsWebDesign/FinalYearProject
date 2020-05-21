@@ -703,6 +703,7 @@
     <Content Include="Views\Projects\Western.cshtml" />
     <Content Include="Views\Projects\Activity.cshtml" />
     <Content Include="Views\Projects\DeleteTask.cshtml" />
+    <Content Include="Views\Shared\Unauthorised.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
