@@ -272,19 +272,19 @@ namespace Project.Controllers
                 //List<string> newNames                
 
                 //Upload to Azure Blob Container
-                await azureBlobService.UploadAsync(formFiles, containerName);
+                var blobList = await azureBlobService.UploadAsync(formFiles, containerName);
 
                 //Create a new file entity for each form file in formFiles list
-                foreach (var formFile in formFiles)
+                foreach (var blob in blobList)
                 {
-                    string blobUri = await azureBlobService.GetBlobUri(formFile.FileName, containerName);
+                    string blobUri = await azureBlobService.GetBlobUri(blob.Name, containerName);
 
                     //Create new file entity
                     var file = new Files()
                     {
-                        FileName = formFile.FileName,
-                        FileType = formFile.ContentType,
-                        FileSize = formFile.ContentLength.ToString(),
+                        FileName = blob.Name,
+                        FileType = blob.Properties.ContentType,
+                        FileSize = blob.StreamWriteSizeInBytes.ToString(),
                         FilePath = blobUri,
                         DateUploaded = currentDate,
                         DateModified = currentDate,
