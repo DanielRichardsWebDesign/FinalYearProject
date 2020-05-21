@@ -46,6 +46,7 @@
  
 }
 <p class="text-success">@ViewBag.Message</p>
+<p class="text-danger">@ViewBag.Error</p>
 @if (Model.ProjectUserRequests.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
 {
     <h2>Your request has been sent and is currently being verified.</h2>

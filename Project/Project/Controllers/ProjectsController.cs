@@ -242,6 +242,7 @@ namespace Project.Controllers
             ViewBag.UserID = User.Identity.GetUserId();
             ViewBag.CurrentDate = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
             ViewBag.Message = Convert.ToString(TempData["Message"]);
+            ViewBag.Error = Convert.ToString(TempData["Error"]);
 
             Projects project = await db.Projects.FindAsync(id);
             return View(project);
@@ -269,7 +270,14 @@ namespace Project.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }               
                 
-                //List<string> newNames                
+                //If file type is not supported, throw error message.
+                if(formFiles.Any(f => f.ContentType != "video/mp4" || f.ContentType != "video/avi" || f.ContentType != "video/webm" || f.ContentType != "audio/mpeg" || f.ContentType != "audio/ogg" || f.ContentType != "audio/wav" || !f.ContentType.Contains("image")))
+                {
+                    string error = "Files Selected Not Supported At Current Time. Aborting Upload";
+                    TempData["Error"] = error;
+
+                    return Redirect(Request.UrlReferrer.ToString());
+                }
 
                 //Upload to Azure Blob Container
                 var blobList = await azureBlobService.UploadAsync(formFiles, containerName);
