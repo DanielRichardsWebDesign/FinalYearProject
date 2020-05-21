@@ -4,6 +4,8 @@
     ViewBag.Title = "AddUser";
 }
 
+<a href="@Url.Action("ProjectUsers", "Projects", new { id = ViewBag.PublicID })">Back to Project Users</a>
+<br />
 <h2>Add User</h2>
 <p class="text-success">@ViewBag.Message</p>
 

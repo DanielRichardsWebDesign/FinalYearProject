@@ -4,6 +4,8 @@
     ViewBag.Title = "UserRequests";
 }
 
+<a href="@Url.Action("ProjectUsers", "Projects", new { id = Model.PublicID })">Back to Project Users</a>
+<br />
 <h2>User Requests</h2>
 
 @Html.Partial("../ProjectUserRequests/_UserRequests", Model.ProjectUserRequests)
