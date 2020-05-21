@@ -12,6 +12,8 @@
     </div>
 </div>
 
+<a href="@Url.Action("ProjectUsers", "Projects", new { id = Model.PublicID })">Back to Project Users</a>
+
 <div class="card">
     <div class="card-header">
         Files: @Model.User.Files.Where(f => f.PublicID == Model.PublicID).Count()

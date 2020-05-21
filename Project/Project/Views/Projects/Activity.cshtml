@@ -101,6 +101,25 @@
 
 <h2>Activity</h2>
 
+@if (!Model.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()) && User.Identity.GetUserId() != null && !Model.ProjectUserRequests.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+{
+    <h2>Request project membership</h2>
+    using (Html.BeginForm("RequestMembership", "ProjectUserRequests", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input type="hidden" value="@Model.PublicID" name="projectID" />
+        <input type="hidden" value="@User.Identity.GetUserId()" name="userID" />
+        <input type="submit" class="btn btn-success" value="Submit Request" />
+        <br />
+    }
+
+}
+<p class="text-success">@ViewBag.Message</p>
+<p class="text-danger">@ViewBag.Error</p>
+@if (Model.ProjectUserRequests.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+{
+    <h2>Your request has been sent and is currently being verified.</h2>
+}
+
 <div class="card text-center">
     <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs">

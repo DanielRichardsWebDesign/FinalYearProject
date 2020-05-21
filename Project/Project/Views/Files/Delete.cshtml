@@ -74,7 +74,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to Workstation", "Projects", new { id = Model.Projects.PublicID })
+            <a href="@Url.Action("WorkStation", "Projects", new { id = Model.PublicID })">Back to Workstation</a>
         </div>
     }
 </div>

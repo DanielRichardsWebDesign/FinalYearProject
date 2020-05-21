@@ -242,6 +242,7 @@ namespace Project.Controllers
             ViewBag.UserID = User.Identity.GetUserId();
             ViewBag.CurrentDate = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
             ViewBag.Message = Convert.ToString(TempData["Message"]);
+            ViewBag.Error = Convert.ToString(TempData["Error"]);
 
             Projects project = await db.Projects.FindAsync(id);
             return View(project);
@@ -269,22 +270,29 @@ namespace Project.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }               
                 
-                //List<string> newNames                
+                //If file type is not supported, throw error message.
+                if(formFiles.Any(f => f.ContentType != "video/mp4" && f.ContentType != "video/avi" && f.ContentType != "video/webm" && f.ContentType != "audio/mpeg" && f.ContentType != "audio/ogg" && f.ContentType != "audio/wav" && !f.ContentType.Contains("image")))
+                {
+                    string error = "Files Selected Not Supported At Current Time. Aborting Upload";
+                    TempData["Error"] = error;
+
+                    return Redirect(Request.UrlReferrer.ToString());
+                }
 
                 //Upload to Azure Blob Container
-                await azureBlobService.UploadAsync(formFiles, containerName);
+                var blobList = await azureBlobService.UploadAsync(formFiles, containerName);
 
                 //Create a new file entity for each form file in formFiles list
-                foreach (var formFile in formFiles)
+                foreach (var blob in blobList)
                 {
-                    string blobUri = await azureBlobService.GetBlobUri(formFile.FileName, containerName);
+                    string blobUri = await azureBlobService.GetBlobUri(blob.Name, containerName);
 
                     //Create new file entity
                     var file = new Files()
                     {
-                        FileName = formFile.FileName,
-                        FileType = formFile.ContentType,
-                        FileSize = formFile.ContentLength.ToString(),
+                        FileName = blob.Name,
+                        FileType = blob.Properties.ContentType,
+                        FileSize = blob.StreamWriteSizeInBytes.ToString(),
                         FilePath = blobUri,
                         DateUploaded = currentDate,
                         DateModified = currentDate,
@@ -847,9 +855,7 @@ namespace Project.Controllers
             var projects = db.Projects.Include(p => p.ApplicationUser).Where(p => p.ProjectType == "Western");
 
             return View(await projects.ToListAsync());
-        }
-
-        
+        }       
 
 
     }

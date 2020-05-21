@@ -15,7 +15,7 @@ namespace Project.Services
     public interface IAzureBlobService
     {
         Task<CloudBlobContainer> CreateBlobContainer(string containerName);
-        Task UploadAsync(ICollection<HttpPostedFileBase> files, string containerName);
+        Task <List<CloudBlockBlob>> UploadAsync(ICollection<HttpPostedFileBase> files, string containerName);
         Task<string> GetBlobUri(string fileName, string containerName);
         Task DeleteAsync(string containerName, string fileUri);
         Task<Stream> DownloadAsync(string fileName, string containerName);
@@ -89,7 +89,7 @@ namespace Project.Services
             return blobUri;
         }
 
-        public async Task UploadAsync(ICollection<HttpPostedFileBase> files, string containerName)
+        public async Task<List<CloudBlockBlob>> UploadAsync(ICollection<HttpPostedFileBase> files, string containerName)
         {
             //Create connection to client
             var connectionStringConfiguration = ConfigurationManager.ConnectionStrings["StorageClient"].ConnectionString;
@@ -98,6 +98,9 @@ namespace Project.Services
 
             //Get container
             var blobContainer = blobClient.GetContainerReference(containerName);
+
+            //Return List to Upload Method
+            List<CloudBlockBlob> blobList = new List<CloudBlockBlob>();
 
             //Iterate and add files to container
             foreach (var file in files)
@@ -116,15 +119,20 @@ namespace Project.Services
                     var newBlobVersion = blobContainer.GetBlockBlobReference(fileName);
                     newBlobVersion.Properties.ContentType = file.ContentType;
                     newBlobVersion.UploadFromStream(file.InputStream);
-                    file.InputStream.Close();                                             
+                    file.InputStream.Close();
+
+                    blobList.Add(newBlobVersion);                    
                 }
                 else
                 {
                     blob.Properties.ContentType = file.ContentType;
                     blob.UploadFromStream(file.InputStream);
                     file.InputStream.Close();
-                }                                    
-            }                         
+
+                    blobList.Add(blob);                    
+                }                
+            }
+            return blobList;
         }
 
         public async Task<Stream> DownloadAsync(string fileName, string containerName)

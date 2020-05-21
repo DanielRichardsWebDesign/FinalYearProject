@@ -9,6 +9,24 @@
 
 <div>
     <h4>Projects</h4>
+
+    @if (!Model.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()) && User.Identity.GetUserId() != null && !Model.ProjectUserRequests.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+    {
+        <h2>Request project membership</h2>
+        using (Html.BeginForm("RequestMembership", "ProjectUserRequests", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <input type="hidden" value="@Model.PublicID" name="projectID" />
+            <input type="hidden" value="@User.Identity.GetUserId()" name="userID" />
+            <input type="submit" class="btn btn-success" value="Submit Request" />
+            <br />
+        }
+
+    }
+
+    @if (Model.ProjectUserRequests.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+    {
+        <h2>Your request has been sent and is currently being verified.</h2>
+    }
     <hr />
     <dl class="dl-horizontal">
         <dt>
