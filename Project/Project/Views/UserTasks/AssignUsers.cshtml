@@ -24,7 +24,7 @@
             <li><input type="checkbox" name="projectUserIDs" value="@projectUser.ProjectUserID" />@projectUser.User.UserName</li>
         }
     </ul>
-    
+
     <br />
 
     <h3>Check to remove user from task.</h3>
@@ -35,5 +35,10 @@
         }
     </ul>
 
-    <input type="submit" class="btn btn-default" value="Save Changes" />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Save Changes" /> | 
+            <a href="@Url.Action("Tasks", "Projects", new { id = ViewBag.PublicID })">Back to Tasks</a>
+        </div>
+    </div>    
 }
