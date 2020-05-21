@@ -4,6 +4,13 @@
     ViewBag.Title = "UserRequests";
 }
 
+<div class="jumbotron bg-primary text-white">
+    <div class="container">
+        <h1 class="display-4">User Requests</h1>
+        <p class="lead">Approve or remove user requests...</p>
+    </div>
+</div>
+
 <a href="@Url.Action("ProjectUsers", "Projects", new { id = Model.PublicID })">Back to Project Users</a>
 <br />
 <h2>User Requests</h2>
