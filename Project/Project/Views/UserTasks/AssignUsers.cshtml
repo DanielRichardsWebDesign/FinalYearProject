@@ -18,7 +18,7 @@
     <input type="hidden" name="TaskID" value="@ViewBag.TaskID" />
 
     <h3>Check to add user to task.</h3>
-    <ul>
+    <ul style="list-style-type: none;">
         @foreach (var projectUser in @ViewBag.ProjectUsers)
         {
             <li><input type="checkbox" name="projectUserIDs" value="@projectUser.ProjectUserID" />@projectUser.User.UserName</li>
@@ -28,7 +28,7 @@
     <br />
 
     <h3>Check to remove user from task.</h3>
-    <ul>
+    <ul style="list-style-type: none;">
         @foreach (var assigendUser in @ViewBag.AssignedUsers)
         {
             <li><input type="checkbox" name="assignedUserIDs" value="@assigendUser.ProjectUserID" />@assigendUser.ProjectUsers.User.UserName</li>
