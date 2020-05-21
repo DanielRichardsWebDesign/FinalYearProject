@@ -14,6 +14,9 @@
 
 <h2>Project Users</h2>
 <p class="text-success">@ViewBag.Message</p>
+<br />
+
+<p>Project admins are able to manage project members by adding and removing members, approving member requests, and modifying other user's admin privileges.</p>
 
 @if (!Model.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()) && User.Identity.GetUserId() != null && !Model.ProjectUserRequests.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
 {

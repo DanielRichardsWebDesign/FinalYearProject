@@ -4,6 +4,13 @@
     ViewBag.Title = "AddUser";
 }
 
+<div class="jumbotron bg-primary text-white">
+    <div class="container">
+        <h1 class="display-4">Add User</h1>
+        <p class="lead">Add a user to this project...</p>
+    </div>
+</div>
+
 <a href="@Url.Action("ProjectUsers", "Projects", new { id = ViewBag.PublicID })">Back to Project Users</a>
 <br />
 <h2>Add User</h2>
@@ -26,10 +33,6 @@
         }
 
     </div>    
-</div>
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
 
 @section Scripts {
