@@ -271,7 +271,7 @@ namespace Project.Controllers
                 }               
                 
                 //If file type is not supported, throw error message.
-                if(formFiles.Any(f => f.ContentType != "video/mp4" || f.ContentType != "video/avi" || f.ContentType != "video/webm" || f.ContentType != "audio/mpeg" || f.ContentType != "audio/ogg" || f.ContentType != "audio/wav" || !f.ContentType.Contains("image")))
+                if(formFiles.Any(f => f.ContentType != "video/mp4" && f.ContentType != "video/avi" && f.ContentType != "video/webm" && f.ContentType != "audio/mpeg" && f.ContentType != "audio/ogg" && f.ContentType != "audio/wav" && !f.ContentType.Contains("image")))
                 {
                     string error = "Files Selected Not Supported At Current Time. Aborting Upload";
                     TempData["Error"] = error;
@@ -855,9 +855,7 @@ namespace Project.Controllers
             var projects = db.Projects.Include(p => p.ApplicationUser).Where(p => p.ProjectType == "Western");
 
             return View(await projects.ToListAsync());
-        }
-
-        
+        }       
 
 
     }
