@@ -20,7 +20,7 @@
     </div>
     <div class="card-body">
         <!--Retrieve the files the user has uploaded and display as partial-->
-        @Html.Partial("../Files/_UserFiles", Model.User.Files.Where(f => f.PublicID == Model.PublicID))
+        @Html.Partial("../Files/_UserFiles", Model.User.Files.OrderByDescending(f => f.DateUploaded).Where(f => f.PublicID == Model.PublicID))
     </div>
 </div>
 <br />
