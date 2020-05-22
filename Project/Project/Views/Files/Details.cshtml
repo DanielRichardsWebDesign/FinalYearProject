@@ -155,6 +155,6 @@
 @if (Model.Projects.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
 {
     <!--Display a Files comments in partial view-->
-    @Html.Partial("../Comments/_Comments", Model.Comments)
+    @Html.Partial("../Comments/_Comments", Model.Comments.OrderByDescending(c => c.DateCommented))
 }
 
