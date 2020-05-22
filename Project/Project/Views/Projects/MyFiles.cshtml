@@ -42,7 +42,7 @@
     </div>
     <div class="card-body">
         <!--Retrieve Files Partial view to display.-->
-        @Html.Partial("../Files/_MyFiles", Model.Files.Where(f => f.PublicID == Model.PublicID && f.ApplicationUserID == User.Identity.GetUserId()))
+        @Html.Partial("../Files/_MyFiles", Model.Files.OrderByDescending(f => f.DateUploaded).Where(f => f.PublicID == Model.PublicID && f.ApplicationUserID == User.Identity.GetUserId()))
     </div>
 </div>
 
