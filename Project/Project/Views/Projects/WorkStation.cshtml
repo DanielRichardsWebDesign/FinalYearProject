@@ -96,7 +96,7 @@
     </div>
     <div class="card-body">
         <!--Retrieve Files Partial view to display.-->
-        @Html.Partial("../Files/_ProjectFiles", Model.Files)
+        @Html.Partial("../Files/_ProjectFiles", Model.Files.OrderByDescending(f => f.DateUploaded))
     </div>
 </div>
 
