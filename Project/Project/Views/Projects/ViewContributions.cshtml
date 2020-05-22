@@ -33,7 +33,7 @@
         </div>
         <div class="card-body">
             <!--Retrieve the comments the user has made and display as partial-->
-            @Html.Partial("../Comments/_UserComments", Model.User.Comments.Where(c => c.Files.PublicID == Model.PublicID))
+            @Html.Partial("../Comments/_UserComments", Model.User.Comments.OrderByDescending(c => c.DateCommented).Where(c => c.Files.PublicID == Model.PublicID))
         </div>
     </div>
 }
