@@ -48,11 +48,7 @@
                     <a href="@Url.Action("Details", "Projects", new { id = item.PublicID })" class="btn btn-primary">
                         View Details
                         <span class="fa fa-eye"></span>
-                    </a>
-                    <a href="@Url.Action("Delete", "Projects", new { id = item.PublicID })" class="btn btn-danger">
-                        Delete
-                        <span class="fa fa-trash"></span>
-                    </a>
+                    </a>                    
                 </div>
                 <div class="card-footer">
                     @Html.DisplayFor(modelItem => item.DateCreated)
