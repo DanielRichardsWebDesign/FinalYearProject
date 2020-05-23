@@ -20,7 +20,7 @@
     </div>
     <div class="card-body">
         <!--Retrieve the files the user has uploaded and display as partial-->
-        @Html.Partial("../Files/_UserFiles", Model.User.Files.Where(f => f.PublicID == Model.PublicID))
+        @Html.Partial("../Files/_UserFiles", Model.User.Files.OrderByDescending(f => f.DateUploaded).Where(f => f.PublicID == Model.PublicID))
     </div>
 </div>
 <br />
@@ -33,7 +33,7 @@
         </div>
         <div class="card-body">
             <!--Retrieve the comments the user has made and display as partial-->
-            @Html.Partial("../Comments/_UserComments", Model.User.Comments.Where(c => c.Files.PublicID == Model.PublicID))
+            @Html.Partial("../Comments/_UserComments", Model.User.Comments.OrderByDescending(c => c.DateCommented).Where(c => c.Files.PublicID == Model.PublicID))
         </div>
     </div>
 }
