@@ -68,4 +68,37 @@
     <div class="card-body">
         @Html.Partial("../Tasks/_ProjectTasks", Model.Tasks)
     </div>
+    @if(Model.ProjectUsers.Any(p => p.ApplicationUserID == User.Identity.GetUserId()))
+    {
+        <div class="card-body">
+            <button class="btn btn-success" data-toggle="modal" data-target="#createTaskModal">
+                <i class="fas fa-plus"></i>
+                Create Task
+            </button>
+        </div>
+    }
+    <!--Create task modal-->
+    <div class="modal fade bd-example-modal-lg" id="createTaskModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create Task</h5>
+                </div>
+                <div class="modal-body">
+                    @using (Html.BeginForm("CreateTask", "Projects", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <input type="hidden" name="projectID" value="@ViewBag.PublicID" />
+                        <input type="hidden" name="userID" value="@ViewBag.ApplicationUserID" />
+
+                        <div class="form-group">
+                            <label for="exampleTask">Task Description</label>
+                            <textarea class="form-control" name="taskDesc" rows="3" required></textarea>
+                        </div>
+
+                        <input type="submit" class="btn btn-default" />
+                        }
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
